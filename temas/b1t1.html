@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B1·T1 Constitución Española</title>
+<style>
+/* Layout: cabecera + leyenda + mapa a ancho completo; cuerpo en 2 columnas; A4 con 9mm de margen */
+:root{
+  --bg:#fff; --fg:#1b1f24; --mut:#5b6570; --line:#c9d1d9; --card:#f4f6f8; --hd:#0f2b46;
+  --d-f:#0b5cad; --d-b:#e1effd;
+  --c-f:#8f4300; --c-b:#ffeed4;
+  --o-f:#176a30; --o-b:#dff3e4;
+  --n-f:#6a2fa6; --n-b:#eee3fa;
+  --t-f:#b3261e; --t-b:#fde6e4;
+  --e-f:#00686a; --e-b:#dcf2f2;
+  --fs:12.2px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#12161b; --fg:#e4e8ec; --mut:#97a1ab; --line:#333c46; --card:#1a2028; --hd:#cfe3f7;
+    --d-f:#8cc4ff; --d-b:#16304d; --c-f:#ffc07a; --c-b:#432a0b; --o-f:#8fdaa0; --o-b:#17381f;
+    --n-f:#d0a9f6; --n-b:#31214a; --t-f:#ff9d95; --t-b:#4a1d1a; --e-f:#80dadb; --e-b:#0f3a3b;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#12161b; --fg:#e4e8ec; --mut:#97a1ab; --line:#333c46; --card:#1a2028; --hd:#cfe3f7;
+  --d-f:#8cc4ff; --d-b:#16304d; --c-f:#ffc07a; --c-b:#432a0b; --o-f:#8fdaa0; --o-b:#17381f;
+  --n-f:#d0a9f6; --n-b:#31214a; --t-f:#ff9d95; --t-b:#4a1d1a; --e-f:#80dadb; --e-b:#0f3a3b;
+}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;background:var(--bg);color:var(--fg);font:var(--fs)/1.28 "Segoe UI","Helvetica Neue",Arial,sans-serif;}
+.page{max-width:1100px;margin:0 auto;padding:14px 16px 24px}
+h1{font-size:1.45em;line-height:1.15;margin:0 0 2px;color:var(--hd);text-wrap:balance}
+.sub{color:var(--mut);font-size:.9em;margin:0 0 6px}
+h2{font-size:1.02em;margin:7px 0 3px;padding:1px 5px;background:var(--hd);color:var(--bg);border-radius:2px;break-after:avoid;letter-spacing:.2px}
+h3{font-size:.98em;margin:5px 0 2px;color:var(--hd);border-bottom:1px solid var(--line);break-after:avoid}
+p{margin:2px 0}
+ul{margin:2px 0;padding-left:12px}
+li{margin:0}
+b{font-weight:700}
+/* chips de color por tipo de información */
+d,c,o,n,t,e,.k{padding:0 2px;border-radius:2px;font-style:normal}
+d,.kd{color:var(--d-f);background:var(--d-b)}
+c,.kc{color:var(--c-f);background:var(--c-b)}
+o,.ko{color:var(--o-f);background:var(--o-b)}
+n,.kn{color:var(--n-f);background:var(--n-b)}
+t,.kt{color:var(--t-f);background:var(--t-b)}
+e,.ke{color:var(--e-f);background:var(--e-b)}
+.legend{display:flex;flex-wrap:wrap;gap:4px;margin:3px 0 6px;align-items:center;font-size:.92em}
+.legend .k{padding:1px 6px;font-weight:600}
+/* mapa */
+.map{display:grid;gap:3px;margin:0 0 4px;font-size:.9em}
+.row{display:flex;gap:3px;flex-wrap:wrap}
+.box{border:1px solid var(--line);background:var(--card);border-radius:3px;padding:1px 5px;flex:1 1 auto}
+.box.h{font-weight:700;background:var(--hd);color:var(--bg);border-color:var(--hd)}
+.lbl{font-weight:700;color:var(--mut);min-width:48px;padding-top:2px}
+/* cuerpo a 2 columnas */
+.cols{column-count:2;column-gap:14px;column-rule:1px solid var(--line)}
+@media (max-width:760px){.cols{column-count:1;column-rule:none}.page{padding:10px}}
+table{width:100%;border-collapse:collapse;margin:2px 0 3px;font-size:.96em;break-inside:avoid}
+th,td{border:1px solid var(--line);padding:0 3px;vertical-align:top;text-align:left}
+th{background:var(--card);font-weight:700}
+table.ar td:first-child{white-space:nowrap;font-weight:700;color:var(--n-f);background:var(--n-b);width:1%}
+.long{break-inside:auto}
+.box-inc{border:1.5px solid var(--t-f);background:var(--t-b);border-radius:3px;padding:3px 7px;margin-top:4px;break-inside:avoid}
+.box-inc h3{border-color:var(--t-f);color:var(--t-f);margin-top:0}
+.foot{color:var(--mut);font-size:.85em;margin-top:3px}
+@media print{
+  :root,:root[data-theme="dark"]{
+    color-scheme:light;
+    --bg:#fff; --fg:#111; --mut:#555; --line:#b9c1c9; --card:#f2f4f6; --hd:#0f2b46;
+    --d-f:#0b5cad; --d-b:#e1effd; --c-f:#8f4300; --c-b:#ffeed4; --o-f:#176a30; --o-b:#dff3e4;
+    --n-f:#6a2fa6; --n-b:#eee3fa; --t-f:#b3261e; --t-b:#fde6e4; --e-f:#00686a; --e-b:#dcf2f2;
+    --fs:8.4pt;
+  }
+  @page{size:A4;margin:9mm}
+  .page{max-width:none;padding:0}
+  body{font-size:8.4pt;line-height:1.15}
+  h1{font-size:13pt}
+  .cols{column-gap:5mm}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>B1·T1 · La Constitución Española de 1978. Derechos y deberes constitucionales. Su garantía y suspensión. La Corona: funciones constitucionales del Rey</h1>
+<p class="sub">TAI · The Globe · resumen fusionado del tema (B1T1) y el repaso (OPO-TAI-B1-T01 v1.0). Manda el tema.</p>
+
+<div class="legend">
+  <span class="k kd">Definición / concepto</span>
+  <span class="k kc">Plazo · cifra · fecha</span>
+  <span class="k ko">Órgano · sujeto</span>
+  <span class="k kn">Norma · artículo</span>
+  <span class="k kt">⚠ Trampa · excepción</span>
+  <span class="k ke">Ejemplo</span>
+  <span class="k" style="border:1px solid var(--line)"><b>Negrita</b> = pregunta de examen</span>
+</div>
+
+<div class="map">
+  <div class="row"><div class="box h">CE 1978 · 169 arts · 11 Títulos</div>
+    <div class="box"><b>Preámbulo</b> (declarativo)</div>
+    <div class="box"><b>DOGMÁTICA</b>: T. Prelim 1–9 + T. I 10–55</div>
+    <div class="box"><b>ORGÁNICA</b>: T. II–X (56–169)</div></div>
+  <div class="row"><div class="lbl">T. I</div>
+    <div class="box">Cap I 11–13 españoles y extranjeros</div>
+    <div class="box">Cap II 14–38: 14 · Secc 1ª 15–29 (fundamentales) · Secc 2ª 30–38 (deberes)</div>
+    <div class="box">Cap III 39–52 principios rectores</div>
+    <div class="box">Cap IV 53–54 garantías</div>
+    <div class="box">Cap V 55 suspensión</div></div>
+  <div class="row"><div class="lbl">T. II</div>
+    <div class="box">56 Rey</div><div class="box">57–58 sucesión · consorte</div><div class="box">59 Regencia</div><div class="box">60 Tutela</div><div class="box">61 proclamación</div><div class="box">62–65 funciones · refrendo · Casa</div></div>
+</div>
+
+<div class="cols">
+
+<h2>1. Introducción</h2>
+<table>
+<tr><td><c>15/06/1977</c></td><td>elecciones generales</td></tr>
+<tr><td><c>22/07/1977</c></td><td>constitución de las Cortes Generales</td></tr>
+<tr><td><c>31/10/1978</c></td><td><b>aprobación</b> del texto: <o>Congreso y Senado</o>, simultánea y separada</td></tr>
+<tr><td><c>06/12/1978</c></td><td><b>ratificada</b> por <o>el pueblo</o> en referéndum</td></tr>
+<tr><td><c>27/12/1978</c></td><td><b>sancionada</b> por <o>el Rey</o></td></tr>
+<tr><td><c>29/12/1978</c></td><td><b>publicada</b> en BOE; <b>entrada en vigor ese mismo día</b></td></tr>
+</table>
+<p><t>⚠</t> aprueban Cortes · ratifica pueblo · sanciona Rey · publica BOE (≠ fechas).</p>
+
+<h2>2. Características</h2>
+<ul>
+<li><d>Escrita</d>: modelo EEUU y Francia (vs consuetudinaria inglesa). Forma «ley codificada y cerrada» vs leyes diversas y Constitución abierta de las <n>Leyes Fundamentales del Reino</n> (derogadas).</li>
+<li><d>Extensa</d>: <c>169 arts</c>; la más larga tras la de <n>Cádiz</n> (<c>384</c>).</li>
+<li><d>Rígida</d>: flexible = reforma por órganos y procedimiento legislativo ordinario; rígida = procedimiento especial de revisión. <b>4 reformas</b> (<n>art. 167</n>, sin referéndum las 4):</li>
+</ul>
+<table class="ar">
+<tr><td>13.2</td><td><c>27/08/1992</c> · Maastricht: ciudadano UE elector y elegible en municipales donde resida</td></tr>
+<tr><td>135</td><td><c>27/09/2011</c> · estabilidad presupuestaria de todas las AAPP; compromiso UE; sostenibilidad económica y social</td></tr>
+<tr><td>49</td><td><c>17/02/2024</c> · «disminuido» → «persona con discapacidad»</td></tr>
+<tr><td>69</td><td><c>20/05/2026</c> · Ibiza y Formentera: 1 Senador cada una</td></tr>
+</table>
+<ul>
+<li><d>Democrática y monárquica</d>: <n>1.1</n> «Estado social y democrático de Derecho»; <n>1.3</n> «Monarquía parlamentaria».</li>
+<li><d>Integradora / consensuada</d>: «Constitución del consenso» (compromiso entre fuerzas políticas).</li>
+<li><d>Constitucionalización de derechos fundamentales</d>: no mera declaración; asegura su ejercicio con sistema de garantías.</li>
+<li><d>Inacabada</d>: remisiones continuas a ley / ley orgánica.</li>
+<li><d>Derivada</d> (la original aporta principio funcional nuevo): <n>Ley de Bonn 1949</n> → Estado social y democrático de Derecho · <n>Italia 1947</n> → Estado autonómico + organización jurisdiccional · <n>Portugal 1976</n> → derechos sociales · <n>Suecia</n> → Corona y Defensor del Pueblo.</li>
+<li><b>Norma jurídica</b> = característica fundamental. García de Enterría: valor normativo inmediato y directo (<n>art. 9.1 CE</n>). <n>Art. 5 LOPJ</n>: norma suprema; vincula a Jueces y Tribunales; interpretan según resoluciones del <o>TC</o>.</li>
+</ul>
+
+<h2>3. Estructura</h2>
+<ul>
+<li><b>Preámbulo</b>: nación española en uso de su soberanía; <o>Cortes</o> aprueban, <o>pueblo</o> ratifica. Declarativo.</li>
+<li><b>Dogmática</b>: principios + derechos fundamentales y su garantía = <b>T. Preliminar + T. I</b>.</li>
+<li><b>Orgánica</b>: poderes (ejecutivo, legislativo, judicial) + organización territorial = <b>Títulos II a X</b>.</li>
+<li>Interna: <c>169</c> arts · <c>4</c> D. adicionales · <c>9</c> transitorias · <c>1</c> derogatoria · <c>1</c> final. T. Preliminar + <c>10</c> Títulos = <c>11</c>. Solo el <b>Cap II del T. I</b> se subdivide (Secciones). T. I = <c>5</c> Capítulos.</li>
+</ul>
+<table class="ar">
+<tr><td>Prelim</td><td>1–9</td></tr>
+<tr><td>I</td><td>10–55 derechos y deberes fundamentales</td></tr>
+<tr><td>II</td><td>56–65 Corona</td></tr>
+<tr><td>III</td><td>66–96 Cortes Generales: Cap I Cámaras 66–80 · Cap II elaboración de leyes 81–92 · Cap III Tratados internacionales 93–96</td></tr>
+<tr><td>IV</td><td>97–107 Gobierno y Administración</td></tr>
+<tr><td>V</td><td>108–116 relaciones Gobierno–Cortes</td></tr>
+<tr><td>VI</td><td>117–127 Poder Judicial</td></tr>
+<tr><td>VII</td><td>128–136 Economía y Hacienda</td></tr>
+<tr><td>VIII</td><td>137–158 organización territorial: Cap I principios 137–139 · Cap II Admón Local 140–142 · Cap III CCAA 143–158</td></tr>
+<tr><td>IX</td><td>159–165 Tribunal Constitucional</td></tr>
+<tr><td>X</td><td>166–169 reforma constitucional</td></tr>
+</table>
+
+<h2>4. Título Preliminar (arts. 1–9)</h2>
+<p>Principios de configuración política y territorial, básicos y valores superiores. Base: unidad de España + autonomía de nacionalidades + solidaridad.</p>
+<table class="ar">
+<tr><td>1</td><td><b>1.1</b> Estado <d>social y democrático de Derecho</d>; valores superiores: <b>libertad, justicia, igualdad, pluralismo político</b>. <b>1.2</b> soberanía nacional en el <o>pueblo español</o>, del que emanan los poderes del Estado. <b>1.3</b> forma política: <b>Monarquía parlamentaria</b>.</td></tr>
+<tr><td>2</td><td>indisoluble unidad de la Nación, patria común e indivisible; reconoce y garantiza autonomía de nacionalidades y regiones + solidaridad.</td></tr>
+<tr><td>3</td><td>Castellano = lengua oficial del Estado (deber de conocerla, derecho a usarla). Demás lenguas, oficiales en sus CCAA según Estatutos. Modalidades lingüísticas = patrimonio cultural.</td></tr>
+<tr><td>4</td><td>Bandera: 3 franjas horizontales <b>roja, amarilla, roja</b>; amarilla <c>doble anchura</c>. Estatutos pueden reconocer banderas propias de CCAA, junto a la de España en edificios públicos y actos oficiales.</td></tr>
+<tr><td>5</td><td>Capital: <b>villa de Madrid</b>.</td></tr>
+<tr><td>6</td><td><o>Partidos</o>: expresan pluralismo político; concurren a formación y manifestación de la voluntad popular; instrumento fundamental de participación política; creación y actividad libres (respeto a CE y ley); estructura y funcionamiento <b>democráticos</b>.</td></tr>
+<tr><td>7</td><td><o>Sindicatos y asociaciones empresariales</o>: defensa y promoción de intereses económicos y sociales propios; libres; estructura democrática.</td></tr>
+<tr><td>8</td><td><o>FFAA</o>: Ejército de Tierra, Armada, Ejército del Aire. Misión: garantizar soberanía e independencia, defender integridad territorial y ordenamiento constitucional. <b>Ley orgánica</b> regula bases de la organización militar.</td></tr>
+<tr><td>9</td><td><b>9.1</b> ciudadanos y poderes públicos sujetos a CE y ordenamiento. <b>9.2</b> poderes públicos: libertad e igualdad reales y efectivas; remover obstáculos; facilitar participación política, económica, cultural y social. <b>9.3</b> garantiza: <b>legalidad, jerarquía normativa, publicidad de normas, irretroactividad de disposiciones sancionadoras no favorables o restrictivas de derechos individuales, seguridad jurídica, responsabilidad, interdicción de la arbitrariedad</b>.</td></tr>
+</table>
+
+<h2>5. Título I · Derechos y deberes fundamentales (10–55)</h2>
+<table class="ar">
+<tr><td>10</td><td><b>10.1</b> fundamento del orden político y paz social: dignidad de la persona, derechos inviolables, libre desarrollo de la personalidad, respeto a ley y derechos de los demás. <b>10.2</b> interpretación conforme a <n>DUDH</n> y tratados y acuerdos internacionales ratificados por España.</td></tr>
+</table>
+
+<h3>Cap I · Españoles y extranjeros (11–13)</h3>
+<table class="ar">
+<tr><td>11</td><td>Nacionalidad: se adquiere, conserva y pierde según ley. <t>⚠</t> ningún español <b>de origen</b> puede ser privado de ella. Tratados de doble nacionalidad con países iberoamericanos o con particular vinculación; allí los españoles se naturalizan sin perder la de origen, aun sin reciprocidad.</td></tr>
+<tr><td>12</td><td>Mayoría de edad: <c>18 años</c>.</td></tr>
+<tr><td>13</td><td><b>13.1</b> extranjeros: libertades públicas del Título según tratados y ley. <b>13.2</b> solo españoles titulares de <n>art. 23</n>; salvo reciprocidad (tratado o ley) para sufragio <b>activo y pasivo en municipales</b>. <b>13.3</b> extradición solo por tratado o ley, con reciprocidad; excluidos delitos políticos (<t>⚠</t> no se consideran tales los actos de terrorismo). <b>13.4</b> asilo: lo regula la ley.</td></tr>
+</table>
+
+<h3>Cap II · Derechos y libertades (14–38)</h3>
+<table class="ar">
+<tr><td>14</td><td><b>Igualdad ante la ley</b> (españoles): sin discriminación por nacimiento, raza, sexo, religión, opinión o cualquier otra condición o circunstancia personal o social.</td></tr>
+</table>
+<p><b>Sección 1ª · derechos fundamentales y libertades públicas (15–29)</b></p>
+<table class="ar long">
+<tr><td>15</td><td>Vida e integridad física y moral; sin tortura ni penas/tratos inhumanos o degradantes. Pena de muerte <b>abolida</b>, salvo leyes penales militares en tiempo de guerra.</td></tr>
+<tr><td>16</td><td>Libertad ideológica, religiosa y de culto; límite: orden público protegido por ley. Nadie obligado a declarar sobre ideología, religión o creencias. <b>Ninguna confesión tendrá carácter estatal</b>; cooperación con Iglesia Católica y demás confesiones.</td></tr>
+<tr><td>17</td><td>Libertad y seguridad personal. <b>17.2</b> detención preventiva: tiempo estrictamente necesario; máximo <c>72 h</c> → libertad o disposición judicial. <b>17.3</b> informado de forma inmediata y comprensible de derechos y razones; no obligado a declarar; abogado en diligencias policiales y judiciales. <b>17.4</b> <b>habeas corpus</b> (ley); plazo máximo de prisión provisional fijado por ley.</td></tr>
+<tr><td>18</td><td><b>18.1</b> honor, intimidad personal y familiar, propia imagen. <b>18.2</b> domicilio inviolable: entrada/registro solo con consentimiento del titular, resolución judicial o flagrante delito. <b>18.3</b> secreto de comunicaciones (postales, telegráficas, telefónicas) salvo resolución judicial. <b>18.4</b> ley limitará la informática.</td></tr>
+<tr><td>19</td><td>Elegir residencia y circular por territorio nacional (españoles); entrar y salir de España según ley; no limitable por motivos políticos o ideológicos.</td></tr>
+<tr><td>20</td><td><b>20.1</b> a) expresar y difundir pensamientos, ideas y opiniones; b) creación literaria, artística, científica y técnica; c) libertad de cátedra; d) comunicar/recibir <b>información veraz</b> (ley: cláusula de conciencia y secreto profesional). <b>20.2</b> sin censura previa. <b>20.3</b> ley regula control parlamentario de medios públicos y acceso de grupos sociales y políticos significativos. <b>20.4</b> límites: derechos del Título, leyes de desarrollo, honor, intimidad, propia imagen, protección de juventud e infancia. <b>20.5</b> secuestro de publicaciones solo por resolución judicial.</td></tr>
+<tr><td>21</td><td>Reunión <b>pacífica y sin armas</b>; <b>sin autorización previa</b>. Lugares de tránsito público y manifestaciones: <b>comunicación previa</b>; solo prohibibles por razones fundadas de alteración del orden público con peligro para personas o bienes. <t>⚠ comunicación ≠ autorización</t></td></tr>
+<tr><td>22</td><td>Asociación. Ilegales las de fines o medios delictivos. Registro <b>solo a efectos de publicidad</b>. Disolución/suspensión solo por <b>resolución judicial motivada</b>. Prohibidas <b>secretas y paramilitares</b>.</td></tr>
+<tr><td>23</td><td>Participar en asuntos públicos, directamente o por representantes en elecciones periódicas por sufragio universal; acceso en igualdad a funciones y cargos públicos.</td></tr>
+<tr><td>24</td><td>Tutela judicial efectiva sin indefensión. Juez ordinario predeterminado por ley; defensa y letrado; ser informado de la acusación; proceso público sin dilaciones indebidas y con todas las garantías; medios de prueba; no declarar contra sí mismo ni confesarse culpable; <b>presunción de inocencia</b>. Ley: dispensa de declarar por parentesco o secreto profesional.</td></tr>
+<tr><td>25</td><td><b>Legalidad penal</b>: nadie condenado por lo que al producirse no era delito, falta o infracción administrativa. Penas privativas de libertad: reeducación y reinserción; <b>no trabajos forzados</b>. Condenado conserva derechos salvo los limitados por fallo, sentido de la pena y ley penitenciaria; derecho a trabajo remunerado, Seguridad Social, cultura. <b>Administración civil no puede imponer sanciones privativas de libertad.</b></td></tr>
+<tr><td>26</td><td>Prohibidos los <b>Tribunales de Honor</b> en Administración civil y organizaciones profesionales.</td></tr>
+<tr><td>27</td><td>Educación y libertad de enseñanza; pleno desarrollo de la personalidad; formación religiosa y moral según convicciones de los padres; <b>enseñanza básica obligatoria y gratuita (27.4)</b>; programación general; libertad de creación de centros; profesores, padres y alumnos controlan y gestionan centros con fondos públicos; poderes públicos inspeccionan y homologan; ayudas a centros; <b>autonomía de las Universidades</b> (27.10).</td></tr>
+<tr><td>28</td><td><b>28.1</b> sindicación libre; ley puede limitar/exceptuar a Fuerzas o Institutos armados y Cuerpos con disciplina militar, y regula peculiaridades de funcionarios; derecho a fundar sindicatos, afiliarse, formar confederaciones y organizaciones internacionales; nadie obligado a afiliarse. <b>28.2</b> <b>huelga</b>; ley garantiza servicios esenciales.</td></tr>
+<tr><td>29</td><td><b>Petición</b> individual y colectiva, por escrito (españoles). FFAA y cuerpos con disciplina militar: <b>solo individualmente</b>.</td></tr>
+</table>
+
+<p><b>Sección 2ª · derechos y deberes de los ciudadanos (30–38)</b></p>
+<table class="ar long">
+<tr><td>30</td><td><b>30.1</b> derecho y deber de defender a España. <b>30.2</b> ley fija obligaciones militares; regula <b>objeción de conciencia</b> y demás causas de exención del servicio militar obligatorio; posible prestación social sustitutoria. <b>30.3</b> servicio civil (fines de interés general). <b>30.4</b> deberes en grave riesgo, catástrofe o calamidad pública (ley).</td></tr>
+<tr><td>31</td><td>Contribuir según capacidad económica; sistema tributario justo: <b>igualdad y progresividad</b>, nunca confiscatorio. Gasto público: asignación equitativa; eficiencia y economía. Prestaciones personales o patrimoniales públicas solo por ley.</td></tr>
+<tr><td>32</td><td>Matrimonio: hombre y mujer, plena igualdad jurídica; ley regula formas, edad y capacidad, derechos y deberes, separación y disolución.</td></tr>
+<tr><td>33</td><td>Propiedad privada y herencia; <b>función social</b> delimita su contenido. Privación solo por causa justificada de <b>utilidad pública o interés social</b> + indemnización + ley.</td></tr>
+<tr><td>34</td><td>Fundación para fines de interés general; rigen <b>22.2 y 22.4</b>.</td></tr>
+<tr><td>35</td><td><b>Deber de trabajar y derecho al trabajo</b>; libre elección de profesión; promoción; remuneración suficiente; sin discriminación por sexo. Ley: <b>estatuto de los trabajadores</b>.</td></tr>
+<tr><td>36</td><td><b>Colegios Profesionales</b> y profesiones tituladas (ley); estructura democrática.</td></tr>
+<tr><td>37</td><td><b>37.1</b> negociación colectiva laboral y fuerza vinculante de los convenios (ley). <b>37.2</b> conflicto colectivo (trabajadores y empresarios); ley garantiza servicios esenciales.</td></tr>
+<tr><td>38</td><td><b>Libertad de empresa</b> en economía de mercado; poderes públicos garantizan su ejercicio y la productividad (y, en su caso, planificación).</td></tr>
+</table>
+
+<h3>Cap III · Principios rectores de la política social y económica (39–52)</h3>
+<table class="ar long">
+<tr><td>39</td><td>Familia e infancia: protección social, económica y jurídica; hijos iguales ante la ley sea cual sea su filiación; madres cualquiera que sea su estado civil; ley posibilita investigación de la paternidad; padres asisten a hijos dentro o fuera del matrimonio; niños con protección de acuerdos internacionales.</td></tr>
+<tr><td>40</td><td>Progreso social y económico; distribución de renta más equitativa; <b>pleno empleo</b>; formación y readaptación profesionales; seguridad e higiene; descanso (jornada limitada, vacaciones retribuidas).</td></tr>
+<tr><td>41</td><td><b>Seguridad Social</b>: régimen público para todos, prestaciones suficientes (especialmente desempleo); complementarias libres.</td></tr>
+<tr><td>42</td><td>Emigrantes: derechos económicos y sociales; orientar política hacia su retorno.</td></tr>
+<tr><td>43</td><td><b>Protección de la salud</b>; salud pública; educación sanitaria, física, deporte y ocio.</td></tr>
+<tr><td>44</td><td>Acceso a la <b>cultura</b>; ciencia e investigación.</td></tr>
+<tr><td>45</td><td><b>Medio ambiente</b>: derecho a disfrutarlo y <b>deber de conservarlo</b>; uso racional de recursos; sanciones penales o administrativas + reparar el daño.</td></tr>
+<tr><td>46</td><td><b>Patrimonio</b> histórico, cultural y artístico; ley penal sanciona atentados.</td></tr>
+<tr><td>47</td><td><b>Vivienda</b> digna y adecuada; regular suelo para impedir especulación; comunidad participa en plusvalías urbanísticas.</td></tr>
+<tr><td>48</td><td><b>Juventud</b>: participación libre y eficaz.</td></tr>
+<tr><td>49</td><td><b>Discapacidad</b> (texto 2024): ejercen derechos del Título en libertad e igualdad reales y efectivas; protección especial por ley; políticas de plena autonomía personal e inclusión social en entornos universalmente accesibles; participación de sus organizaciones; atención a mujeres y menores con discapacidad.</td></tr>
+<tr><td>50</td><td><b>Tercera edad</b>: pensiones adecuadas y periódicamente actualizadas; servicios sociales (salud, vivienda, cultura, ocio).</td></tr>
+<tr><td>51</td><td><b>Consumidores y usuarios</b>: seguridad, salud, intereses económicos; información y educación; fomento de sus organizaciones; ley regula comercio interior y autorización de productos.</td></tr>
+<tr><td>52</td><td><b>Organizaciones profesionales</b> (intereses económicos); estructura democrática.</td></tr>
+</table>
+<p><t>⚠</t> Vivienda (<n>47</n>) es <b>principio rector, NO derecho fundamental</b> <e>(test del tema: «NO es derecho fundamental»: vivienda)</e>. Libertad sindical, ideológica y educación sí lo son.</p>
+
+<h2>6. Garantía y suspensión (53–55)</h2>
+<h3>Garantía · Cap IV (53–54)</h3>
+<p><n>53.1</n> derechos y libertades del Cap II <b>vinculan a todos los poderes públicos</b>; solo por <b>ley</b> (respetando su <d>contenido esencial</d>) se regula su ejercicio; tutela según <n>161.1.a)</n>.</p>
+<table>
+<tr><th>Vía</th><th>Ámbito</th><th>Legitimado</th></tr>
+<tr><td><o>Tribunales ordinarios</o>: <b>preferencia y sumariedad</b> (<n>53.2</n>)</td><td>art. 14 + Secc 1ª (14–29)</td><td>cualquier ciudadano</td></tr>
+<tr><td><o>TC</o> · <b>recurso de amparo</b></td><td>14–29 <b>+ 30.2</b> (objeción de conciencia)</td><td>persona natural o jurídica con <b>interés legítimo</b></td></tr>
+<tr><td><o>TC</o> · <b>recurso de inconstitucionalidad</b></td><td>contra leyes y disposiciones normativas con fuerza de ley (derechos 14–38)</td><td>sujetos de <n>162.1.a)</n></td></tr>
+</table>
+<p><n>53.3</n> principios del Cap III informan legislación, práctica judicial y actuación pública; <t>⚠ solo alegables ante la jurisdicción ordinaria según las leyes que los desarrollen → no caben en amparo</t>. <t>⚠</t> amparo ≠ inconstitucionalidad. <e>Test del tema: amparo sí para derecho de <b>asociación</b> (22); no para propiedad, fundación ni negociación colectiva.</e></p>
+<p><n>54</n> <o>Defensor del Pueblo</o>: <b>ley orgánica</b>; <b>alto comisionado de las Cortes Generales</b>, designado por ellas; defiende derechos del Título I; supervisa la Administración y da cuenta a las Cortes.</p>
+
+<h3>Suspensión · Cap V (55)</h3>
+<table>
+<tr><th>Supuesto</th><th>Derechos suspendibles</th></tr>
+<tr><td><b>Estado de sitio</b> (<n>55.1</n>)</td><td><n>17</n> libertad personal · <n>18.2</n> domicilio · <n>18.3</n> comunicaciones · <n>19</n> residencia y circulación · <n>20.1.a)</n> expresión · <n>20.1.d)</n> información · <n>20.5</n> secuestro de publicaciones · <n>21</n> reunión · <n>28.2</n> huelga · <n>37.2</n> conflicto colectivo</td></tr>
+<tr><td><b>Estado de excepción</b> (<n>55.1</n>)</td><td>los mismos que sitio <t>⚠ salvo 17.3</t> (detención e información)</td></tr>
+<tr><td><b>Terrorismo / bandas armadas</b> (<n>55.2</n>)</td><td>suspensión <b>individual</b> (personas determinadas): <n>17.2</n> detención preventiva · <n>18.2</n> · <n>18.3</n>. Por <b>ley orgánica</b>, con <b>intervención judicial</b> y <b>control parlamentario</b>.</td></tr>
+</table>
+<p>Uso injustificado o abusivo de esas facultades → <b>responsabilidad penal</b>.</p>
+
+<h2>7. La Jefatura del Estado (T. II, 56–65)</h2>
+<p><n>56.1</n> <o>Rey</o> = <d>Jefe del Estado</d>, símbolo de su unidad y permanencia; <b>arbitra y modera</b> el funcionamiento regular de las instituciones; más alta representación del Estado en relaciones internacionales (especialmente con su comunidad histórica); ejerce las funciones que le atribuyen expresamente CE y leyes. <n>56.2</n> título: <b>Rey de España</b> (+ los demás de la Corona). <n>56.3</n> <b>persona inviolable y no sujeta a responsabilidad</b>; actos siempre refrendados (<n>64</n>), sin refrendo carecen de validez, <t>⚠ salvo 65.2</t>.</p>
+
+<h2>8. La Corona</h2>
+<table class="ar">
+<tr><td>57</td><td><b>57.1</b> hereditaria en sucesores de <o>Juan Carlos I de Borbón</o>. Orden: primogenitura y representación → línea anterior a posteriores; grado más próximo al más remoto; <b>varón a mujer</b>; persona de más edad a menos. <b>57.2</b> Príncipe heredero: <b>Príncipe de Asturias</b> + títulos tradicionales (desde nacimiento o hecho que origine el llamamiento). <b>57.3</b> extinguidas las líneas: <o>Cortes Generales</o> proveen. <b>57.4</b> matrimonio contra expresa prohibición del Rey y las Cortes → excluido él y sus descendientes. <b>57.5</b> abdicaciones, renuncias y dudas de hecho o de derecho: <b>ley orgánica</b>.</td></tr>
+<tr><td>58</td><td>Reina consorte / consorte de la Reina: sin funciones constitucionales, <t>⚠ salvo Regencia</t>.</td></tr>
+<tr><td>61</td><td>Proclamación ante las <o>Cortes Generales</o>: jura desempeñar fielmente sus funciones, guardar y hacer guardar CE y leyes, respetar derechos de ciudadanos y CCAA. <o>Príncipe heredero</o> (al alcanzar mayoría de edad) y <o>Regente(s)</o> (al hacerse cargo): mismo juramento <b>+ fidelidad al Rey</b>.</td></tr>
+</table>
+<table>
+<tr><th></th><th>Regencia (<n>59</n>)</th><th>Tutela (<n>60</n>)</th></tr>
+<tr><th>Materia</th><td>ejercer funciones del Rey, <b>en su nombre</b></td><td>guarda de la persona del Rey menor</td></tr>
+<tr><th>Cuándo</th><td>Rey <b>menor</b> (59.1) o <b>inhabilitado</b>, reconocido por las Cortes (59.2)</td><td>Rey <b>menor</b></td></tr>
+<tr><th>Quién</th><td>Menor: <o>padre o madre</o>; si no, <o>pariente mayor de edad más próximo a suceder</o>. Inhabilitado: <o>Príncipe heredero</o> si es mayor de edad; si no, régimen anterior hasta su mayoría. Si no hay nadie: <o>Cortes Generales</o> nombran <c>1, 3 o 5</c> personas.</td><td>1º persona nombrada en <b>testamento</b> por el Rey difunto; 2º <o>padre o madre</o> mientras permanezcan <b>viudos</b>; 3º <o>Cortes Generales</o>.</td></tr>
+<tr><th>Requisitos</th><td><b>español y mayor de edad</b> (59.4)</td><td><b>mayor de edad y español de nacimiento</b> (60.1)</td></tr>
+<tr><th>Otros</th><td>mandato constitucional y siempre en nombre del Rey (59.5)</td><td>incompatible con todo cargo o representación política (60.2)</td></tr>
+</table>
+<p><t>⚠</t> No se acumulan Regente y tutor, salvo <o>padre, madre o ascendientes directos</o> del Rey (60.1). <t>⚠</t> Regencia: «español»; tutela: «español <b>de nacimiento</b>».</p>
+
+<h2>9. Funciones constitucionales del Rey (62–65)</h2>
+<table class="ar">
+<tr><td>62</td><td>Corresponde al Rey: <b>a)</b> <b>sancionar y promulgar</b> las leyes · <b>b)</b> convocar y disolver Cortes y convocar elecciones · <b>c)</b> convocar referéndum · <b>d)</b> proponer candidato a Presidente del Gobierno y, en su caso, nombrarlo y ponerle fin · <b>e)</b> nombrar y separar miembros del Gobierno, a propuesta del Presidente · <b>f)</b> expedir decretos acordados en Consejo de Ministros, conferir empleos civiles y militares, conceder honores y distinciones · <b>g)</b> ser informado de asuntos de Estado y presidir el Consejo de Ministros cuando lo estime oportuno, <b>a petición del Presidente del Gobierno</b> · <b>h)</b> <b>mando supremo de las FFAA</b> · <b>i)</b> derecho de gracia con arreglo a ley, <b>sin indultos generales</b> · <b>j)</b> Alto Patronazgo de las Reales Academias.</td></tr>
+<tr><td>63</td><td><b>63.1</b> acredita embajadores y representantes diplomáticos; los extranjeros se acreditan ante él. <b>63.2</b> manifiesta el consentimiento del Estado para obligarse por <b>tratados</b>. <b>63.3</b> <b>declarar la guerra y hacer la paz, previa autorización de las Cortes Generales</b>.</td></tr>
+<tr><td>64</td><td><b>Refrendo</b>. <b>64.1</b> actos refrendados por <o>Presidente del Gobierno</o> y, en su caso, <o>Ministros competentes</o>. <t>⚠ Propuesta y nombramiento del Presidente del Gobierno y disolución del art. 99: refrendo del <o>Presidente del Congreso</o></t>. <b>64.2</b> <b>responden quienes refrendan</b>, no el Rey.</td></tr>
+<tr><td>65</td><td><b>Casa del Rey</b>. <b>65.1</b> cantidad global de los Presupuestos del Estado para su Familia y Casa; la distribuye libremente. <b>65.2</b> nombra y releva libremente a miembros civiles y militares de su Casa.</td></tr>
+</table>
+<p><t>⚠</t> Cortes <b>aprueban</b> las leyes; el Rey las <b>sanciona y promulga</b>.</p>
+
+</div><!-- /cols -->
+
+<div class="box-inc">
+<h3>Incoherencias del material</h3>
+<ul>
+<li><b>Nº de reformas.</b> Repaso: 3 (art. 13.2, 135, 49) y el 49 como «la más reciente». Tema: 4, añade el <b>art. 69</b> (20/05/2026). Verificado en BOE (reforma del art. 69.3, sancionada 19/05/2026, publicada 20/05/2026, Ibiza y Formentera con 1 senador cada una): el repaso está desactualizado. Se usa el tema.</li>
+<li><b>Procedimiento de la 4ª reforma.</b> El tema dice que las 4 fueron por art. 167 y sin referéndum. El BOE de 2026 no indica el procedimiento: no verificado para la de 2026.</li>
+<li><b>Tutela «cargo unipersonal».</b> Lo dice el repaso; no consta en el art. 60 ni en el tema. No incluido.</li>
+<li><b>Regencia por inhabilitación.</b> El repaso omite el Príncipe heredero (art. 59.2), que sí recoge el tema. Incluido.</li>
+</ul>
+</div>
+<p class="foot">Fuentes: tema B1T1 (Pablo Arellano) y repaso OPO-TAI-B1-T01 v1.0 de The Globe. Explicación propia: solo los avisos ⚠ marcados en el recuadro anterior.</p>
+
+</div>
+
+<!-- TAI Estudio: barra inyectada por build.py -->
+<script type="application/json" id="tai-barra-datos">{"codigo": "B1T1", "nombre": "Constitución Española", "indice": "../index.html#tema-B1T1", "anterior": null, "siguiente": {"codigo": "B1T2", "nombre": "Cortes Generales", "href": "b1t2.html"}, "temaManual": true, "ficha": [[["B1T1", 1], ["B1T2", 1], ["B1T3", 0], ["B1T4", 0], ["B1T5", 0], ["B1T6", 0], ["B1T7", 0], ["B1T8", 0], ["B1T9", 0], ["B1T10", 0], ["B1T11", 0]], [["B2T1", 0], ["B2T2", 0], ["B2T3", 0], ["B2T4", 0], ["B2T5", 0]], [["B3T1", 1], ["B3T2", 1], ["B3T3", 0], ["B3T4", 1], ["B3T5", 0], ["B3T6", 0], ["B3T7", 0], ["B3T8", 0], ["B3T9", 0], ["B3T10", 0]], [["B4T1", 0], ["B4T2", 0], ["B4T3", 0], ["B4T4", 0], ["B4T5", 0], ["B4T6", 0], ["B4T7", 0], ["B4T8", 0], ["B4T9", 0], ["B4T10", 0]]], "base": "../assets/"}</script>
+<tai-barra></tai-barra>
+<script src="../assets/barra.js"></script>
+</body>
+</html>

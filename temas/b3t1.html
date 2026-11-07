@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TAI - B3T1 Modelo ER</title>
+<style>
+:root{
+  color-scheme: light dark;
+  --bg:#fff; --fg:#1b1f24; --mut:#5b6570; --line:#cfd6dd; --card:#f6f8fa;
+  --def:#dbeafe; --defc:#1e40af;
+  --cif:#fef3c7; --cifc:#92400e;
+  --suj:#d1fae5; --sujc:#065f46;
+  --nor:#ede9fe; --norc:#5b21b6;
+  --tra:#fee2e2; --trac:#991b1b;
+  --eje:#e5e7eb; --ejec:#374151;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0f1317; --fg:#e6eaee; --mut:#98a3ae; --line:#2b333b; --card:#161b21;
+    --def:#1e3a8a55; --defc:#93c5fd;
+    --cif:#78350f66; --cifc:#fcd34d;
+    --suj:#064e3b66; --sujc:#6ee7b7;
+    --nor:#4c1d9566; --norc:#c4b5fd;
+    --tra:#7f1d1d66; --trac:#fca5a5;
+    --eje:#37415166; --ejec:#cbd5e1;
+  }
+}
+*{box-sizing:border-box}
+html{font-size:13px}
+body{margin:0;background:var(--bg);color:var(--fg);font:1rem/1.32 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.page{max-width:1080px;margin:0 auto;padding:14px 16px 28px}
+h1{font-size:1.5rem;margin:0 0 2px}
+.sub{color:var(--mut);margin:0 0 8px;font-size:.85rem}
+h2{font-size:1.02rem;margin:10px 0 4px;padding:2px 6px;background:var(--card);border-left:4px solid var(--defc);break-after:avoid}
+h3{font-size:.95rem;margin:7px 0 2px;color:var(--defc);break-after:avoid}
+.cols{column-count:2;column-gap:18px}
+.cols>section{break-inside:auto}
+table{border-collapse:collapse;width:100%;margin:3px 0 5px;font-size:.94rem;break-inside:avoid}
+th,td{border:1px solid var(--line);padding:1.5px 5px;vertical-align:top;text-align:left}
+th{background:var(--card);font-weight:600}
+ul{margin:2px 0 4px;padding-left:15px}
+li{margin:0}
+p{margin:2px 0 4px}
+b{font-weight:700}
+.t{display:inline-block;padding:0 4px;border-radius:3px;font-size:.92em;line-height:1.3}
+.def{background:var(--def);color:var(--defc)}
+.cif{background:var(--cif);color:var(--cifc)}
+.suj{background:var(--suj);color:var(--sujc)}
+.nor{background:var(--nor);color:var(--norc)}
+.tra{background:var(--tra);color:var(--trac)}
+.eje{background:var(--eje);color:var(--ejec)}
+.legend{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 8px;font-size:.85rem}
+.legend .t{padding:1px 7px}
+.map{border:1px solid var(--line);border-radius:6px;padding:4px;margin:4px 0 8px;background:var(--card)}
+.map svg{width:100%;height:auto;display:block}
+.map text{fill:var(--fg);font:11px system-ui,sans-serif}
+.map .n{fill:var(--bg);stroke:var(--defc);stroke-width:1.2}
+.map .m{fill:var(--def);stroke:var(--defc);stroke-width:1.2}
+.map line,.map path{stroke:var(--mut);stroke-width:1;fill:none}
+.box{border:1.5px solid var(--trac);background:var(--tra);border-radius:5px;padding:4px 8px;margin-top:8px;break-inside:avoid}
+.box h2{background:none;border:0;padding:0;margin:0 0 2px;color:var(--trac)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.95em}
+@media (max-width:760px){.cols{column-count:1}}
+@page{size:A4;margin:9mm}
+@media print{
+  html{font-size:8.4pt}
+  body{background:#fff;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{max-width:none;padding:0}
+  .cols{column-count:2}
+  :root{--bg:#fff;--fg:#000;--mut:#444;--line:#999;--card:#f0f0f0;
+    --def:#dbeafe;--defc:#1e40af;--cif:#fef3c7;--cifc:#92400e;--suj:#d1fae5;--sujc:#065f46;
+    --nor:#ede9fe;--norc:#5b21b6;--tra:#fee2e2;--trac:#991b1b;--eje:#e5e7eb;--ejec:#374151}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<h1>B3T1 · Modelado de datos: modelo Entidad/Relación</h1>
+<p class="sub">Modelado de datos, metodologías y reglas. Entidades, atributos y relaciones · TAI · The Globe (P. Arellano)</p>
+
+<div class="legend">
+  <span class="t def">Definición</span>
+  <span class="t cif">Cifra / plazo / grado / cardinalidad</span>
+  <span class="t suj">Órgano / sujeto / tipo de elemento</span>
+  <span class="t nor">Norma / metodología / autor</span>
+  <span class="t tra">⚠ Trampa / excepción</span>
+  <span class="t eje">Ejemplo</span>
+</div>
+
+<div class="map">
+<svg viewBox="0 0 900 150" role="img" aria-label="Mapa conceptual del modelo ER">
+  <rect class="m" x="360" y="4" width="180" height="24" rx="4"/><text x="450" y="20" text-anchor="middle">MODELO E/R EXTENDIDO (Métrica v3)</text>
+  <path d="M450 28V44M95 44H805M95 44V56M270 44V56M450 44V56M630 44V56M805 44V56"/>
+  <rect class="n" x="30" y="56" width="130" height="22" rx="4"/><text x="95" y="71" text-anchor="middle">ENTIDAD (regular/débil)</text>
+  <rect class="n" x="205" y="56" width="130" height="22" rx="4"/><text x="270" y="71" text-anchor="middle">ATRIBUTO</text>
+  <rect class="n" x="385" y="56" width="130" height="22" rx="4"/><text x="450" y="71" text-anchor="middle">RELACIÓN</text>
+  <rect class="n" x="565" y="56" width="130" height="22" rx="4"/><text x="630" y="71" text-anchor="middle">DOMINIO</text>
+  <rect class="n" x="740" y="56" width="130" height="22" rx="4"/><text x="805" y="71" text-anchor="middle">EXTENSIONES</text>
+  <text x="95" y="96" text-anchor="middle">intensión · extensión</text>
+  <text x="95" y="109" text-anchor="middle">ocurrencia</text>
+  <text x="270" y="96" text-anchor="middle">clave (1ª/cand./super)</text>
+  <text x="270" y="109" text-anchor="middle">simple·comp·uni·multi·deriv</text>
+  <text x="450" y="96" text-anchor="middle">nombre · grado · correspondencia</text>
+  <text x="450" y="109" text-anchor="middle">cardinalidad · rol · exclusiva</text>
+  <text x="630" y="96" text-anchor="middle">valores homogéneos</text>
+  <text x="805" y="96" text-anchor="middle">generaliz. · especializ. · categoría</text>
+  <text x="805" y="109" text-anchor="middle">agregación · asociación · jerarquías</text>
+  <text x="450" y="140" text-anchor="middle" style="fill:var(--mut)">Construcción: 1 entidades → 2 id. principales → 3 relaciones/grado → 4 dibujar → 5 atributos → 6 verificar</text>
+</svg>
+</div>
+
+<div class="cols">
+
+<section>
+<h2>1. Introducción</h2>
+<table>
+<tr><th>Objetivo</th><td><span class="t def">Modelo de datos</span> = conocer los datos del SI → estructuras <b>no redundantes, sin inconsistencias, seguras e íntegras</b>. Primera aproximación del mundo real = <b>esquema conceptual</b>.</td></tr>
+</table>
+
+<h2>2. Modelo Entidad/Relación Extendido</h2>
+<table>
+<tr><th>Qué es</th><td>Representación gráfica para obtener estructuras de datos de forma metódica; traduce necesidades del usuario. Sin tener en cuenta tecnología ni restricciones.</td></tr>
+<tr><th>Origen</th><td><span class="t nor">Métrica v3</span> (metodología SI de las AA.PP.) · parte del modelo E-R de <span class="t nor">Peter Chen, <b>1976</b></span></td></tr>
+<tr><th>Equivale a</th><td><b>Esquema conceptual</b> de la arquitectura <span class="t nor">ANSI/X3/SPARC</span> (tema siguiente)</td></tr>
+<tr><th>Elementos</th><td>Principales: <b>entidades</b> y <b>relaciones</b>. Extensiones: <b>atributos</b> y <b>jerarquías</b> (+ capacidad expresiva)</td></tr>
+<tr><th>Ventajas</th><td>Comprender datos y organización · estructuras independientes del entorno físico · detectar errores/deficiencias pronto · mejor mantenimiento</td></tr>
+<tr><th>Estabilidad</th><td>Estructura de datos <b>más estable</b> que la de procesos. Independiente del procesamiento y de la eficiencia.</td></tr>
+<tr><th>Otras técnicas</th><td>Diagramas <b>ORM, IDEF1X, UML, CASE*Method</b></td></tr>
+</table>
+
+<h3>2.1 Entidad</h3>
+<table>
+<tr><th>Entidad</th><td><span class="t def">Objeto real o abstracto</span> del que se desea almacenar información</td></tr>
+<tr><th>Tipo de entidad</th><td>Estructura genérica de entidades con mismas características = esquema = <b>INTENSIÓN</b></td></tr>
+<tr><th>Ocurrencia</th><td>Realización concreta (ej. LIBROS → “UML”)</td></tr>
+<tr><th>Extensión</th><td>Conjunto de ocurrencias de un tipo de entidad</td></tr>
+<tr><th>Clases</th><td><span class="t suj">Regular</span>: existencia propia · <span class="t suj">Débil</span>: existencia depende de otra entidad</td></tr>
+<tr><th>3 reglas</th><td>① existencia propia ② cada ocurrencia distinguible ③ todas las ocurrencias con los mismos atributos</td></tr>
+<tr><th>Notación</th><td>Regular = <b>rectángulo</b> · Débil = <b>2 rectángulos concéntricos</b></td></tr>
+<tr><th>Ejemplos</th><td><span class="t eje">Regulares: libros, facturas, cuentas, clientes, ciudades. Débiles: ejemplar (de libro), línea de factura, movimiento (de cuenta)</span></td></tr>
+</table>
+
+<h3>2.2 Atributo</h3>
+<table>
+<tr><th>Atributo</th><td><span class="t def">Propiedad/característica de un tipo de entidad</span>; unidad básica de información; se define sobre un <b>dominio</b>; común a todas las ocurrencias</td></tr>
+<tr><th>Clave primaria</th><td>= <b>identificador principal</b>: conjunto <b>mínimo</b> de atributos que identifica unívocamente cada ocurrencia. Solo <b>una</b>. No admite <b>nulos</b>.</td></tr>
+<tr><th>Clave candidata</th><td>Resto de conjuntos identificadores no elegidos (alternativas)</td></tr>
+<tr><th>Superclave</th><td>Conjunto de atributos <b>no mínimo</b> que identifica unívocamente. Añadir atributos a una superclave → sigue siendo superclave. <b>Candidatas ⊂ Superclaves</b></td></tr>
+<tr><th>Ej. CONTRIBUYENTE</th><td><span class="t eje">(DNI, nombre, apellidos, dirección, nacionalidad): nombre ✗, apellidos ✗, (nombre,apellidos) ✗ · DNI = candidata → primaria · (DNI,nombre), (DNI,dirección) = superclaves</span></td></tr>
+</table>
+<table>
+<tr><th>Tipo</th><th>Def.</th><th>Ej.</th></tr>
+<tr><td><b>Simple</b></td><td>Indivisible</td><td></td></tr>
+<tr><td><b>Compuesto</b></td><td>Subdivisible en más elementales</td><td>dirección → vía, nombre, ciudad, provincia, CP</td></tr>
+<tr><td><b>Univaluado</b></td><td>1 solo valor por ocurrencia</td><td></td></tr>
+<tr><td><b>Multivaluado</b></td><td>&gt;1 valor en algunas ocurrencias</td><td>teléfono</td></tr>
+<tr><td><b>Obligatorio</b></td><td>≥1 valor en todas las ocurrencias</td><td></td></tr>
+<tr><td><b>Derivado</b></td><td>Valor obtenido de otros atributos (misma o distinta entidad)</td><td>edad ← fecha nac.</td></tr>
+</table>
+<p><b>Notación:</b> <b>elipse</b> (o círculo) con nombre, unida por línea a entidad/relación · identificador: <b>subrayado</b> o círculo en <b>negro</b> · multivaluado: <b>elipse doble línea</b> · derivado: <b>elipse discontinua</b>.</p>
+
+<h3>2.3 Relación</h3>
+<p><span class="t def">Asociación o correspondencia entre una o varias entidades.</span> Ocurrencia de relación = asociación concreta de ocurrencias <span class="t eje">(“Pepe” trabaja en “Dpto. Informática”)</span>. Puede tener <b>atributos propios</b>.</p>
+<table>
+<tr><th>Regular</th><td>Asocia entidades <b>regulares</b></td></tr>
+<tr><th>Débil</th><td>Asocia entidad <b>débil</b> con <b>regular</b>. Dos tipos ↓</td></tr>
+<tr><th>· Dep. en existencia</th><td>Débil no puede existir sin la ocurrencia regular de la que depende</td></tr>
+<tr><th>· Dep. en identificación</th><td>Además, la débil <b>no se identifica solo con sus atributos</b>: necesita el identificador de la regular.<br><b>PK débil = PK fuerte + clave propia</b></td></tr>
+<tr><th>Ej. débil</th><td><span class="t eje">CUENTA(<u>nº_cuenta</u>, saldo) —Compuesta por→ MOVIMIENTO(nº_mvto, valor): relación débil, dep. en identificación. PK MOVIMIENTO = (nº_cuenta, nº_mvto)</span></td></tr>
+<tr><th>Exclusiva</th><td>La existencia de una relación entre dos tipos de entidad <b>implica la no existencia de las otras</b>. Notación: <b>arco</b> sobre las líneas que conectan la entidad con 2+ relaciones. <span class="t eje">FUNCIONARIO–CCAA / FUNCIONARIO–AYUNTAMIENTOS (solo una administración a la vez)</span></td></tr>
+<tr><th>Caracterizada por</th><td><b>nombre · grado · tipo de correspondencia · cardinalidad</b>. Nombre: distingue unívocamente la relación del resto</td></tr>
+</table>
+<table>
+<tr><th>Grado = nº de tipos de entidad</th><th>Tipo</th></tr>
+<tr><td><span class="t cif">1</span></td><td><b>Unaria</b> = reflexiva (entidad consigo misma)</td></tr>
+<tr><td><span class="t cif">2</span></td><td><b>Binaria</b> (dos a dos)</td></tr>
+<tr><td><span class="t cif">3</span></td><td><b>Ternaria</b></td></tr>
+<tr><td><span class="t cif">4</span> ⚠</td><td><b>N-aria</b> (n entidades). El tema la asocia al grado 4 (= grado ≥4)</td></tr>
+</table>
+
+<h3>Correspondencia vs cardinalidad ⚠</h3>
+<table>
+<tr><th></th><th>Tipo de correspondencia (razón de cardinalidad)</th><th>Cardinalidad</th></tr>
+<tr><th>Mide</th><td>Nº <b>máximo</b> de ocurrencias de cada entidad en una ocurrencia de la relación</td><td><b>Participación</b>: nº <b>mínimo y máximo</b> (mín, máx) de ocurrencias relacionadas con una de la otra entidad</td></tr>
+<tr><th>Valores</th><td><span class="t cif">1:1 · 1:N · N:M</span></td><td><span class="t cif">(0,1) (1,1) (0,n) (1,n)</span></td></tr>
+<tr><th>Relación</th><td colspan="2"><b>Máx de la cardinalidad = tipo de correspondencia</b> (máx = 1, n). Si se dibuja la cardinalidad, el tipo es <b>redundante</b>.</td></tr>
+</table>
+<ul>
+<li><b>1:1</b>: cada ocurrencia ↔ una y solo una de la otra.</li>
+<li><b>1:N</b>: cada ocurrencia de A ↔ 0, 1 o varias de B.</li>
+<li><b>N:M</b>: 0, 1 o varias en ambos sentidos.</li>
+<li><b>Obligatoria</b> <span class="t cif">(1,máx)</span>: para toda ocurrencia existe ≥1 asociada. <b>Opcional</b> <span class="t cif">(0,máx)</span>: puede no existir.</li>
+</ul>
+<p class="t eje" style="display:block">PERSONA–EDIFICIO: USA = N:M, (1,n) persona / (0,n) edificio · POSEE = 1:N, persona (1,n) / edificio (1,1)</p>
+<p><b>Notación:</b> <b>rombo</b> unido por 2 líneas a las entidades · tipo de correspondencia como etiqueta 1:1, 1:N, N:M cerca del rombo o de cada entidad · cardinalidad (mín,máx) en el extremo de la entidad.</p>
+<table>
+<tr><th>Rol</th><td>Significado de la participación de las ocurrencias en la relación; se indica en los extremos. <b>Obligatorio en reflexivas</b>, opcional en el resto. <span class="t eje">EMPLEADO: JEFE / SUBORDINADO</span></td></tr>
+</table>
+
+<h3>2.4 Dominio</h3>
+<p><span class="t def">Conjunto nominado de valores homogéneos</span> con <b>existencia propia</b>, independiente de entidad, relación o atributo. Un atributo toma valores de un dominio <span class="t eje">(enteros, reales, caracteres…)</span>.</p>
+
+<h3>2.5 Extensiones del modelo</h3>
+<table>
+<tr><th>Generalización</th><td>Abstrae un <b>supertipo</b> a partir de varios <b>subtipos</b>; atributos y relaciones comunes pasan al supertipo. <span class="t eje">profesor + estudiante → persona</span></td></tr>
+<tr><th>Especialización</th><td><b>Inversa</b> de la generalización: supertipo → subtipos que <b>heredan automáticamente</b> atributos y relaciones + los propios. Relaciones <b>“ES UN”</b>. <span class="t eje">empleado → profesor, PAS</span></td></tr>
+<tr><th>Categoría</th><td>Subtipo resultado de la <b>unión</b> de varios tipos de entidad: <b>varios supertipos, un subtipo</b>. <span class="t eje">persona ∪ compañía → propietario (de vehículo)</span></td></tr>
+<tr><th>Agregación</th><td>Nuevo tipo de entidad = composición de otros + su relación → mayor nivel de abstracción. ⚠ <b>No se permite relacionar tipos de relación</b> entre sí. Inversa: <b>desagregación</b>. <span class="t eje">empresa + entrevista + solicitante → entidad compuesta, relacionada con oferta de empleo</span></td></tr>
+<tr><th>Asociación</th><td>Relaciona dos tipos de entidad normalmente de <b>dominios independientes</b> que <b>coyunturalmente</b> se asocian</td></tr>
+</table>
+<p>Supertipos + subtipos en uno o varios niveles = <b>jerarquía</b> (representa una restricción del mundo real).</p>
+
+<table>
+<tr><th>Marca en el triángulo invertido</th><th>Significado</th></tr>
+<tr><td><b>d</b></td><td>Subtipos <b>disjuntos</b></td></tr>
+<tr><td><b>O</b> (círculo)</td><td>Subtipos <b>solapados</b></td></tr>
+<tr><td><b>U</b></td><td>Unión por <b>categorías</b></td></tr>
+<tr><td><b>Doble línea</b> supertipo–triángulo</td><td>Jerarquía <b>total</b></td></tr>
+<tr><td>Atributo junto al triángulo</td><td><b>Discriminante</b> (la división depende de sus valores)</td></tr>
+</table>
+<p><b>Notación:</b> triángulo invertido, base paralela al supertipo, conectado a supertipo y subtipos.</p>
+<table>
+<tr><th>Total</th><td>Toda ocurrencia del supertipo pertenece a <b>algún</b> subtipo</td></tr>
+<tr><th>Parcial</th><td>Una ocurrencia del supertipo <b>puede no pertenecer</b> a ningún subtipo</td></tr>
+<tr><th>Disjunta</th><td>Pertenece a <b>un solo</b> subtipo</td></tr>
+<tr><th>Solapada</th><td>Puede pertenecer a <b>varios</b> subtipos</td></tr>
+</table>
+<p class="t tra" style="display:block">⚠ Combinables: <b>{total | parcial} × {disjunta | solapada}</b> → 4 posibilidades. Total/parcial = ¿hay subtipo? · Disjunta/solapada = ¿uno o varios?</p>
+
+<h3>2.6 Ejemplo integrado</h3>
+<p class="t eje" style="display:block">Gestión de técnicos y asignación a proyectos. TÉCNICO = subtipo de EMPLEADO (<b>especialización</b>) para poder relacionarse con PROYECTO (<i>Trabaja en</i>, N:M): no todos los empleados (p. ej. administrativos) trabajan en proyectos. TÉCNICO = atributos de EMPLEADO + <b>nivel</b>. EMPLEADO N–<i>Pertenece</i>–1 DEPARTAMENTO. Atributos de <i>Trabaja en</i>: fecha asignación, fecha cese.</p>
+</section>
+
+<section>
+<h2>3. Construcción y validación del modelo ER</h2>
+<table>
+<tr><th>Fase</th><th>Contenido</th></tr>
+<tr><td><b>1 · Identificar entidades</b></td><td>Clasificar la información en: <b>objetos reales</b> (máquinas, edificios, almacenes) · <b>personas</b> (empleados, funcionarios, clientes, proveedores) · <b>actividades</b> del sistema (licencias, facturas, albaranes, expedientes, documentos) · <b>objetos abstractos</b> (categorías de personal, departamentos)</td></tr>
+<tr><td><b>2 · Identificadores principales</b></td><td>Atributos que identifiquen unívocamente cada ocurrencia; si hay varios, <b>solo uno</b>; <b>no pueden ser nulos</b></td></tr>
+<tr><td><b>3 · Relaciones y grado</b></td><td>Estudiar cada relación de una entidad con las demás (¿tiene sentido e importancia para el sistema?); estudiar <b>cardinalidad</b> y posibles <b>relaciones exclusivas</b></td></tr>
+<tr><td><b>4 · Dibujar</b></td><td>Diagrama según la notación</td></tr>
+<tr><td><b>5 · Atributos</b></td><td>Identificar/describir propiedades de interés para el sistema; incorporarlas al diagrama</td></tr>
+<tr><td><b>6 · Verificaciones</b></td><td>Buscar <b>redundancias</b> (estudiar con detenimiento <b>cardinalidades mínimas</b> y <b>semántica</b> de las relaciones).<br>· <b>Atributos redundantes</b> (derivados por cálculo): <b>eliminar o marcar</b> como redundantes.<br>· <b>Relaciones redundantes</b>: <b>eliminar</b>, comprobando que sigue siendo posible el paso entre las dos entidades <b>en ambos sentidos</b>.</td></tr>
+</table>
+<p class="t tra" style="display:block">⚠ Orden: <b>dibujar (4) va antes de atributos (5)</b> · el identificador va antes (2) · verificación al final (6).</p>
+
+<h2>Resumen de notación</h2>
+<table>
+<tr><th>Elemento</th><th>Símbolo</th></tr>
+<tr><td>Entidad regular / débil</td><td>Rectángulo / rectángulo doble</td></tr>
+<tr><td>Atributo</td><td>Elipse (o círculo) · ID subrayado/círculo negro</td></tr>
+<tr><td>Atributo multivaluado / derivado</td><td>Elipse doble línea / elipse discontinua</td></tr>
+<tr><td>Relación</td><td>Rombo + 2 líneas · etiqueta 1:1, 1:N, N:M o (mín,máx)</td></tr>
+<tr><td>Relaciones exclusivas</td><td>Arco sobre las líneas de la entidad</td></tr>
+<tr><td>Rol</td><td>Texto en los extremos de la relación</td></tr>
+<tr><td>Jerarquía</td><td>Triángulo invertido (“Es_un”) · d / O / U · doble línea = total</td></tr>
+</table>
+
+<h2>⚠ Trampas típicas</h2>
+<ul>
+<li><b>Tipo de correspondencia</b> (solo máximo: 1:1, 1:N, N:M) ≠ <b>cardinalidad</b> (mín, máx).</li>
+<li><b>Dep. en existencia</b> ≠ <b>dep. en identificación</b> (esta exige además la clave de la regular; PK débil = PK fuerte + propia).</li>
+<li><b>Clave primaria</b> (mínima, única) · <b>candidata</b> (alternativas) · <b>superclave</b> (no mínima; candidatas ⊂ superclaves).</li>
+<li><b>Intensión</b> = esquema del tipo · <b>Extensión</b> = conjunto de ocurrencias.</li>
+<li><b>Generalización</b> (subtipos → supertipo) ≠ <b>especialización</b> (supertipo → subtipos, “ES UN”) ≠ <b>categoría</b> (varios supertipos → 1 subtipo, <b>U</b>).</li>
+<li><b>Agregación</b>: sustituye relación-entre-relaciones, que no está permitida.</li>
+<li><b>Rol</b>: obligatorio solo en reflexivas.</li>
+<li><b>Total/parcial</b> y <b>disjunta/solapada</b> son ejes independientes.</li>
+<li><b>Clave primaria</b> nunca nula. <b>Derivado</b> = elipse discontinua; <b>multivaluado</b> = doble línea.</li>
+<li><b>Chen 1976</b> · <b>Métrica v3</b> propone el modelo E-R extendido · equivale al esquema conceptual ANSI/X3/SPARC.</li>
+</ul>
+
+<div class="box">
+<h2>Incoherencias del material</h2>
+<ul>
+<li><b>Grado N-aria:</b> tema y resumen la rotulan «GRADO 4». Es una simplificación: n-aria = relación de <b>grado ≥4</b> (ternaria = 3). Para el examen: unaria 1 · binaria 2 · ternaria 3 · n-aria el resto.</li>
+<li><b>Clave candidata:</b> tema y resumen la definen como «el resto» de identificadores distintos de la primaria, pero en el ejemplo dicen «DNI es candidata → primaria». Formalmente toda clave primaria <b>es</b> una candidata elegida; ambas fuentes usan la definición del tema («alternativas»). Para examen, manda la definición del tema.</li>
+<li><b>Relación 1:1:</b> el tema dice «una y solo una» ocurrencia, pero un 1:1 puede ser opcional (0,1); el máximo es lo que fija el tipo de correspondencia.</li>
+<li><b>PERSONA–EDIFICIO:</b> el tema dibuja USA y POSEE con arco (exclusivas) pero describe que una persona puede usar y poseer edificios; el texto solo desarrolla correspondencia y cardinalidad, no la exclusividad.</li>
+<li><b>Tema vs resumen:</b> el resumen omite las notaciones de atributo multivaluado/derivado, el ejemplo CONTRIBUYENTE de claves, los ejemplos de agregación/categoría y la lista de tipos de entidad por clase; aquí se han recuperado del tema. No hay contradicción entre ambos.</li>
+<li><b>No verificado:</b> no he podido contrastar con la documentación oficial de Métrica v3 los detalles de «asociación» ni de grado de relación (la búsqueda no devolvió la fuente). Se sigue el texto del tema. Material fechado 2015-2016.</li>
+</ul>
+</div>
+</section>
+
+</div>
+</div>
+
+<!-- TAI Estudio: barra inyectada por build.py -->
+<script type="application/json" id="tai-barra-datos">{"codigo": "B3T1", "nombre": "Modelo ER", "indice": "../index.html#tema-B3T1", "anterior": {"codigo": "B1T2", "nombre": "Cortes Generales", "href": "b1t2.html"}, "siguiente": {"codigo": "B3T2", "nombre": "Diseño BD", "href": "b3t2.html"}, "temaManual": false, "ficha": [[["B1T1", 1], ["B1T2", 1], ["B1T3", 0], ["B1T4", 0], ["B1T5", 0], ["B1T6", 0], ["B1T7", 0], ["B1T8", 0], ["B1T9", 0], ["B1T10", 0], ["B1T11", 0]], [["B2T1", 0], ["B2T2", 0], ["B2T3", 0], ["B2T4", 0], ["B2T5", 0]], [["B3T1", 1], ["B3T2", 1], ["B3T3", 0], ["B3T4", 1], ["B3T5", 0], ["B3T6", 0], ["B3T7", 0], ["B3T8", 0], ["B3T9", 0], ["B3T10", 0]], [["B4T1", 0], ["B4T2", 0], ["B4T3", 0], ["B4T4", 0], ["B4T5", 0], ["B4T6", 0], ["B4T7", 0], ["B4T8", 0], ["B4T9", 0], ["B4T10", 0]]], "base": "../assets/"}</script>
+<tai-barra></tai-barra>
+<script src="../assets/barra.js"></script>
+</body>
+</html>
