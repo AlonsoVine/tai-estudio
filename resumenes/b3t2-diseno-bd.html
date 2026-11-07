@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TAI - B3T2 Diseño BD</title>
+<style>
+/* Layout: 2 columnas A4 telegráficas; tokens por tipo de información (mismos colores en todos los temas teóricos) */
+:root{
+  --bg:#fbfbfa; --fg:#1c1f24; --mut:#5c6470; --line:#d5d9df; --card:#f1f3f6;
+  --def:#1d5fbf; --def-bg:#dfeafb;
+  --num:#9a5b00; --num-bg:#fdeccb;
+  --org:#17713f; --org-bg:#d9f1e3;
+  --nor:#6c3fc4; --nor-bg:#e9e0fa;
+  --tra:#b3261e; --tra-bg:#fbdedb;
+  --eje:#51606f; --eje-bg:#e6eaee;
+  --fs:13px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#14171b; --fg:#e4e7eb; --mut:#98a1ad; --line:#2e353d; --card:#1d2227;
+  --def:#8db8f5; --def-bg:#1b2c45;
+  --num:#f0b95a; --num-bg:#40300f;
+  --org:#7fd6a2; --org-bg:#17362a;
+  --nor:#bfa3f2; --nor-bg:#2f2350;
+  --tra:#ff9b92; --tra-bg:#4a1f1c;
+  --eje:#aab6c2; --eje-bg:#2a323a;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#14171b; --fg:#e4e7eb; --mut:#98a1ad; --line:#2e353d; --card:#1d2227;
+  --def:#8db8f5; --def-bg:#1b2c45;
+  --num:#f0b95a; --num-bg:#40300f;
+  --org:#7fd6a2; --org-bg:#17362a;
+  --nor:#bfa3f2; --nor-bg:#2f2350;
+  --tra:#ff9b92; --tra-bg:#4a1f1c;
+  --eje:#aab6c2; --eje-bg:#2a323a;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0 auto;max-width:1180px;padding:16px;background:var(--bg);color:var(--fg);
+  font:var(--fs)/1.38 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{font-size:1.5em;margin:0 0 6px;line-height:1.15;text-wrap:balance}
+h1 small{display:block;font-size:.55em;font-weight:500;color:var(--mut);margin-top:2px}
+h2{font-size:1.08em;margin:10px 0 3px;padding:2px 6px;background:var(--fg);color:var(--bg);border-radius:3px;break-after:avoid;text-wrap:balance}
+h3{font-size:1em;margin:6px 0 2px;color:var(--def);border-bottom:1px solid var(--line);break-after:avoid}
+p{margin:2px 0}
+ul{margin:2px 0;padding-left:15px}
+li{margin:0}
+b{font-weight:700}
+table{border-collapse:collapse;width:100%;margin:3px 0;font-size:.95em}
+th,td{border:1px solid var(--line);padding:1px 4px;vertical-align:top;text-align:left}
+th{background:var(--card);font-weight:650}
+.wrap{overflow-x:auto}
+.cols{column-count:2;column-gap:16px}
+.cols>*{break-inside:auto}
+.blk{break-inside:avoid}
+.legend{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 6px}
+.chip,.d,.n,.o,.l,.t,.e{border-radius:3px;padding:0 3px}
+.d{background:var(--def-bg);color:var(--def)}
+.n{background:var(--num-bg);color:var(--num)}
+.o{background:var(--org-bg);color:var(--org)}
+.l{background:var(--nor-bg);color:var(--nor)}
+.t{background:var(--tra-bg);color:var(--tra)}
+.e{background:var(--eje-bg);color:var(--eje)}
+.chip{padding:1px 6px;font-weight:600;font-size:.9em}
+.map{display:flex;flex-wrap:wrap;gap:3px;align-items:stretch;margin:4px 0 6px}
+.map .bx{flex:1 1 120px;border:1px solid var(--line);border-radius:4px;padding:3px 5px;background:var(--card);font-size:.92em}
+.map .bx b{display:block}
+.map .ar{align-self:center;color:var(--mut);font-weight:700}
+.warn{border:1.5px solid var(--tra);background:var(--tra-bg);color:var(--fg);border-radius:4px;padding:4px 8px;margin-top:8px}
+.warn h3{color:var(--tra);border-color:var(--tra)}
+code,.c{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.93em}
+@media (max-width:760px){.cols{column-count:1}body{padding:10px}}
+@page{size:A4;margin:9mm}
+@media print{
+  :root{--fs:8.4pt;--bg:#fff;--fg:#000}
+  html,body{background:#fff}
+  body{max-width:none;padding:0}
+  h1{font-size:13pt}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<h1>B3T2 · Diseño de bases de datos. Diseño lógico y físico. Modelo lógico relacional. Normalización<small>Resumen fusionado: tema (P. Arellano, 2015-16) + repaso v1.0 2026.06 · The Globe</small></h1>
+
+<div class="legend">
+  <span class="chip d">Definición</span>
+  <span class="chip n">Cifra / año / plazo</span>
+  <span class="chip o">Órgano / sujeto / autor</span>
+  <span class="chip l">Norma / comando / sintaxis</span>
+  <span class="chip t">⚠ Trampa / excepción</span>
+  <span class="chip e">Ejemplo</span>
+</div>
+
+<div class="map">
+  <div class="bx"><b>Análisis</b>requisitos</div><span class="ar">→</span>
+  <div class="bx"><b>Modelo conceptual</b>E/R Extendido</div><span class="ar">→</span>
+  <div class="bx"><b>Diseño · modelo lógico</b>relacional → normalización (≥3FN)</div><span class="ar">→</span>
+  <div class="bx"><b>Construcción · modelo físico</b>SGBD: DDL, ficheros, índices, seguridad, afinado</div>
+</div>
+
+<div class="cols">
+
+<h2>1. Introducción</h2>
+<ul>
+<li><span class="d">Diseño de BD</span> = abstracción + modelización de un problema real → representación tratable por ordenador.</li>
+<li>Etapas: <b>Análisis</b> (captura requisitos) → <b>modelo conceptual</b> (técnica <b>E/R Extendido</b>) → validado, pasa a <b>modelo lógico</b> específico (jerárquico, red, relacional, OO) en <b>Diseño</b> → <b>modelo físico</b> en un SGBD en <b>Construcción</b>.</li>
+<li><span class="d">Diseño LÓGICO</span>: esquema de la información independiente del SGBD y de consideraciones físicas; se prueba y valida con requisitos de usuario. Conceptual y lógico: procesos <b>iterativos</b>.</li>
+<li><b>Normalización</b>: técnica para <b>comprobar la validez</b> de esquemas lógicos relacionales; sin datos redundantes → <b>modelo lógico normalizado</b>.</li>
+<li><span class="d">Diseño FÍSICO</span>: implementación en <b>memoria secundaria</b>: estructuras de almacenamiento + métodos de acceso para acceso eficiente.</li>
+</ul>
+<div class="wrap blk"><table>
+<tr><th></th><th>LÓGICO</th><th>FÍSICO</th></tr>
+<tr><td>Define</td><td>esquema lógico (qué info y cómo se estructura)</td><td>esquema interno (cómo se almacena)</td></tr>
+<tr><td>Independencia</td><td>lógica</td><td>física (más fácil de lograr)</td></tr>
+<tr><td>¿Depende SGBD?</td><td><b>No</b>, previo y portable</td><td><b>Sí</b> (SGBD, requisitos, entorno): busca eficiencia</td></tr>
+<tr><td>Salida</td><td>modelo relacional normalizado</td><td>scripts <span class="l">DDL</span> (<span class="l">CREATE TABLE</span>, <span class="l">CREATE DOMAIN</span>), ficheros, índices</td></tr>
+<tr><td>Normalización</td><td>llegar <b>al menos a 3FN</b></td><td>puede <b>desnormalizar</b> controladamente</td></tr>
+</table></div>
+
+<h2>2. Diseño de bases de datos · arquitectura ANSI</h2>
+<ul>
+<li>Objetivo: <span class="d">independencia de datos</span> = capacidad de modificar el esquema de un nivel <b>sin modificar el del nivel inmediato superior</b>. Cambios físicos (HW, formato ficheros) o lógicos (programas, lenguaje) transparentes entre niveles.</li>
+<li>Arquitectura de <span class="n">3</span> niveles <span class="o">ANSI/X3/SPARC</span> (jerárquicos; físico = más cercano a la máquina, externo = usuario).</li>
+</ul>
+<div class="wrap blk"><table>
+<tr><th>Nivel</th><th>Contenido</th><th>Esquema</th></tr>
+<tr><td><b>Externo o lógico</b></td><td>vistas parciales para usuarios/aplicaciones; aísla de lo físico y de lo no relacionado con su tarea; <b>aumenta seguridad</b></td><td>externo: datos accesibles + permisos efectivos. <b>Múltiples</b> por BD y <b>anidables</b></td></tr>
+<tr><td><b>Conceptual</b></td><td>estructura y relaciones del mundo real (<span class="d">universo del discurso</span>: se incluye lo relevante, se excluye lo irrelevante); técnica E/R Extendido; incluye adecuación al modelo lógico. Descripción <b>estable</b>, independiente de vistas y almacenamiento; <b>portable</b> entre SGBD</td><td>conceptual: estructuras de datos, relaciones, restricciones</td></tr>
+<tr><td><b>Interno o físico</b></td><td>qué/cómo/dónde se almacena; SO, ficheros, E/S; depende del HW/SW</td><td>interno: registros, métodos de representación, campos, índices. <b>Un solo</b> esquema interno por BD</td></tr>
+</table></div>
+<div class="wrap blk"><table>
+<tr><th>Independencia LÓGICA</th><th>Independencia FÍSICA</th></tr>
+<tr><td>modificar el <b>conceptual</b> sin alterar los <b>externos</b> ni los programas (ampliar/reducir BD; quitar una entidad no afecta a externos que no la usan)</td><td>modificar el <b>interno</b> sin alterar el conceptual (ni externos) (ej. reorganizar ficheros). <b>Más fácil</b> de conseguir</td></tr>
+</table></div>
+<p><span class="d">Modelo lógico de datos</span> = conjunto de conceptos, reglas y convenciones que describen un modelo conceptual:</p>
+<ul>
+<li><b>Jerárquico</b>: árbol, nodos/ramas <b>1:N</b>.</li>
+<li><b>CODASYL</b> (Conference on Data Systems Languages): red, <b>N:M</b>; más flexible que el jerárquico.</li>
+<li><b>Relacional</b>: teoría de conjuntos (álgebra) y/o lógica de predicados (cálculo); procesa <b>conjuntos</b> de datos, no registros; datos en <b>tablas</b> (relaciones).</li>
+<li><b>Orientado a objetos</b>.</li>
+</ul>
+<p class="t">⚠ En el tema «lógico» designa el nivel externo y también el modelo lógico (conceptual → lógico). Independencia lógica = conceptual vs externos.</p>
+
+<h2>3. Diseño lógico</h2>
+<p>Conceptual → lógico: el modelo debe coincidir con el del SGBD (relacional). Se hacen transformaciones + normalización.</p>
+<h3>3.1 Ajustes del modelo conceptual (E/R)</h3>
+<ul>
+<li><b>Atributos compuestos</b> → descomponer en simples (más preciso, facilita acceso). <span class="e">Código_Cuenta_Bancaria → Código_Banco, Código_Sucursal, Número_de_cuenta</span> (se elimina el Código de Control por ser calculable). Resultado: todas las entidades con atributos simples.</li>
+<li><b>Atributos multivalorados</b> (varios valores por ocurrencia; <b>no válidos</b> en relacional) → <b>nueva entidad</b> + relación con la original. <span class="e">Cuenta–Movimientos (1:N)</span>. Resultado: atributos univalorados.</li>
+<li><b>Relaciones redundantes</b>: la misma información se obtiene por otras relaciones. <span class="t">⚠ Dos caminos entre entidades ≠ redundante: depende de la <b>carga semántica</b></span>. <span class="e">Zoo–Animal–Especie: «Alberga» (Zoo–Especie) es redundante</span>.</li>
+</ul>
+<h3>3.2 Obtención del modelo lógico</h3>
+<ul>
+<li><b>Dominio</b> → dominio equivalente con <span class="l">CREATE DOMAIN</span>; si no, tipo primitivo afín + restricciones de usuario en la tabla.</li>
+<li><b>Entidad</b> → relación/tabla. PK entidad → <span class="l">PRIMARY KEY</span>; atributos de la clave <b>no nulos</b>. <span class="e">CLIENTE(NIF (PK), Nombre, Dirección, Teléfono)</span></li>
+<li><b>Atributos</b> → columnas. Identificador → PK; <b>candidatas/alternativas</b> → atributo normal + <span class="l">UNIQUE</span>; convencionales → con su dominio; compuestos y multivalorados → como en 3.1.</li>
+</ul>
+<div class="wrap blk"><table>
+<tr><th>Relación</th><th>Transformación</th></tr>
+<tr><td><b>1:1</b></td><td>Norma general: caso particular de 1:N → <b>propagar clave en las dos direcciones</b>; recoger semántica y <b>evitar nulos</b>.<br>
+<b>Nueva tabla</b> si: (a) mín. <b>0 en ambas</b> (evita nulos en FK, mantiene simetría); (b) la relación tiene <b>atributos propios</b>; (c) se prevé variar cardinalidades. <span class="e">EMPLEADO(DNI), ORDENADOR(NumSerie), UTILIZA(NumSerie+DNI (PK), horario)</span><br>
+Una mín. 0 y la otra (1,1) → propagar la clave de la <b>obligatoria</b> a la otra (ver ⚠ final).<br>
+Ambas mín. 1: <b>mismo identificador</b> → <b>una única tabla</b> (concatenación de atributos); <b>distinto</b> → 2 tablas, propagar la clave de cualquiera según accesos frecuentes/prioritarios.</td></tr>
+<tr><td><b>1:N</b></td><td><b>Entidades fuertes</b>: propagación de clave; el lado <b>1 cede</b> su clave al lado <b>N</b> (→ <span class="l">FK</span>).<br>
+<b>Dependencia (fuerte–débil)</b>: por <b>existencia</b> → propagación simple; por <b>identificador</b> → propagación + PK del lado N = <b>su clave + la cedida</b> (concatenación).</td></tr>
+<tr><td><b>N:M</b> y <b>ternarias</b></td><td>Tabla nueva; PK = <b>concatenación</b> de identificadores de las entidades; FK con <span class="l">FOREIGN KEY</span>.</td></tr>
+<tr><td><b>Agregación</b></td><td>Como las 1:N.</td></tr>
+<tr><td><b>Reflexiva</b> 1:N</td><td>Propagación de clave <b>renombrando</b> el identificador transferido (misma tabla).</td></tr>
+<tr><td><b>Exclusivas</b></td><td>Tras transformar como 1:N: comprobar que <b>una y sólo una</b> de las FK es nula por ocurrencia; si no, comprobaciones en las tablas de las relaciones.</td></tr>
+</table></div>
+<p><b>Jerarquías</b> (supertipo/subtipo; el relacional <b>no</b> los representa). Criterios: semántica vs eficiencia de acceso.</p>
+<div class="wrap blk"><table>
+<tr><th>Opción</th><th>Estructura</th><th>Cuándo / efecto</th></tr>
+<tr><td><b>1</b></td><td>Tabla supertipo (PK = identificador) + tabla por subtipo con identificador del supertipo como <b>FK</b></td><td>subtipos con <b>muchos atributos distintos</b>; <b>mejor conserva la semántica</b>; requiere restricciones/aserciones</td></tr>
+<tr><td><b>2</b></td><td>Solo tablas de subtipos; atributos comunes repetidos en cada una; PK = identificador del supertipo</td><td>mejora eficiencia al acceder a <b>todos los atributos de un subtipo</b></td></tr>
+<tr><td><b>3</b></td><td><b>Una tabla</b> con todos los atributos + <b>atributo discriminante</b></td><td>subtipos con <b>pocos atributos</b> distintos y mismas relaciones con otras entidades. Jerarquía <b>total</b> → discriminante <b>NOT NULL</b></td></tr>
+</table></div>
+
+<h2>4. Diseño físico</h2>
+<ul>
+<li>Define el <b>esquema interno</b>. Según <span class="o">Métrica v3</span>: estructura física a partir del <b>modelo lógico normalizado</b>.</li>
+<li>Objetivo: minimizar <b>tiempo de respuesta</b> y <b>espacio</b>, incrementar <b>seguridad</b>.</li>
+<li><span class="n">4</span> fases: <b>(1)</b> traducir esquema lógico al SGBD · <b>(2)</b> representación física · <b>(3)</b> mecanismos de seguridad · <b>(4)</b> monitorizar y afinar.</li>
+</ul>
+<h3>4.1 Traducir el esquema lógico al SGBD</h3>
+<ul>
+<li>Conocer qué soporta el SGBD: PK/FK/alternativas, atributos <b>no nulos</b>, dominios, restricciones/aserciones de usuario, cómo se crean tablas.</li>
+<li>Se implementan las tablas con el <span class="l">DDL</span> del SGBD. Del esquema lógico: nombre de relación, atributos, PK y FK, <b>reglas de integridad de FK</b>. Por atributo: <b>dominio</b> (tipo, longitud, restricciones), <b>valor por defecto</b> (opcional), <b>admite nulos</b>, <b>derivado</b> (y cómo se calcula).</li>
+<li>Órdenes fundamentales: <span class="l">CREATE TABLE</span> y <span class="l">CREATE DOMAIN</span> (+ referencias a almacenamiento: <i>tablespaces</i>, segmentos/bloques iniciales y de crecimiento, particionamiento).</li>
+<li><b>Restricciones de usuario</b>: <span class="l">CONSTRAINT CHECK (&lt;cond&gt;)</span> en CREATE TABLE · <span class="l">CREATE ASSERTION</span> · <span class="l">CREATE TRIGGER</span> (disparadores).</li>
+</ul>
+<h3>4.2 Representación física</h3>
+<ul>
+<li>Factores de eficiencia: <b>productividad de transacciones</b> (nº/unidad de tiempo) · <b>tiempo de respuesta</b> (mínimo) · <b>espacio en disco</b> (minimizar). No se satisfacen a la vez → <b>equilibrio</b>; el diseño inicial <b>no es el definitivo</b>.</li>
+<li><b>Analizar transacciones</b>: frecuencia; relaciones/atributos y tipo de acceso (consulta, inserción, modificación, eliminación); atributos del <span class="l">WHERE</span>; atributos del <span class="l">JOIN</span>; restricciones temporales. <span class="t">⚠ Atributos que se <b>modifican</b> = malos candidatos a estructuras de acceso.</span></li>
+<li><b>Organizaciones de fichero</b>: <b>desordenado</b> → carga masiva inicial, pocas tuplas, se leen todas, o ya hay índice. <b>Disperso (hashing)</b> → búsqueda por <b>igualdad</b> exacta. <span class="t">⚠ Rango/patrón (≠ igualdad) → no hashing: <b>ISAM</b> o <b>árboles B+</b>.</span></li>
+<li><b>Índices secundarios</b> (caminos de acceso extra; coste de mantenimiento):
+  <br><span class="o">SÍ</span>: PK (implícito con <span class="l">PRIMARY KEY</span>) · atributos de acceso muy frecuente · FK usadas a menudo en joins.
+  <br><span class="t">NO</span>: tablas pequeñas · atributos que se modifican a menudo · atributos poco selectivos · cadenas largas.</li>
+<li><b>Redundancias controladas / desnormalización</b>: lógico ≥ <span class="n">3FN</span>; desnormalizar <b>solo</b> si no se alcanzan las prestaciones. Efectos: implementación más <b>compleja</b>, se sacrifica <b>flexibilidad</b>, accesos más <b>rápidos</b> pero <b>actualizaciones más lentas</b>.</li>
+<li><span class="d">Optimización</span> = desnormalización controlada del modelo físico para reducir/simplificar nº de accesos. Recomendaciones: introducir elementos redundantes · dividir entidades · combinar entidades (accesos frecuentes en la misma transacción) · redefinir/añadir relaciones · claves secundarias/índices.</li>
+<li>Factores a considerar: tiempos de respuesta · tasa actualizaciones/recuperaciones · accesos conjuntos · longitud · tipo de aplicación (en línea / por lotes) · frecuencia y tipo · prioridad · tamaño tablas · seguridad (accesibilidad, confidencialidad, integridad, disponibilidad).</li>
+</ul>
+<h3>4.3 Seguridad</h3>
+<ul>
+<li><b>Vistas de usuario</b> = esquemas lógicos locales (<span class="l">CREATE VIEW</span>): preservan seguridad, mejoran independencia, reducen complejidad, formato deseado.</li>
+<li><b>Reglas de acceso</b>: permisos sobre objetos + privilegios de sistema (DDL); agrupados en <b>Roles</b>. <span class="l">GRANT</span> (otorgar) / <span class="l">REVOKE</span> (denegar) → <b>DCL</b>.</li>
+</ul>
+<h3>4.4 Monitorizar y afinar</h3>
+<p>Poner en marcha y observar (<b>monitorizar</b>); si no cumple, modificar (<b>afinar</b>); proceso <b>continuo</b> toda la vida del sistema (<b>refinar</b>).</p>
+
+<h2>5. El modelo lógico relacional</h2>
+<ul>
+<li><span class="o">E. F. Codd</span>, <span class="n">1970</span>; base: teoría de conjuntos. Características: estructuras simples (tablas bidimensionales, alta independencia del medio físico) · consistencia por reglas de integridad + normalización · manipulación orientada a conjuntos (<b>álgebra</b> / <b>cálculo</b>).</li>
+<li><b>Esquema BDR</b> = esquemas de relación + restricciones de integridad. <span class="l">Nombre_Relación(Atrib1,…,AtribN)</span>.</li>
+<li><span class="d">Relación</span>: dados dominios D1..Dn (no necesariamente distintos), conjunto de <b>n-tuplas</b> (d1..dn) con di ∈ Di. <span class="d">Dominio</span> = conjunto de valores; cada atributo toma sus valores de un dominio.</li>
+<li><span class="t">⚠ <b>Grado</b> = nº de atributos (columnas) · <b>Cardinalidad</b> = nº de tuplas (filas)</span>. <span class="d">Extensión/ocurrencia</span> = conjunto de tuplas (la tabla).</li>
+<li>Propiedades de la tabla: un solo tipo de fila · <b>sin filas duplicadas</b> · orden de filas y de columnas <b>indiferente</b> · columnas con nombre propio · valores de un dominio (un dominio puede servir a varias columnas) · cada intersección fila-columna = <b>un único dato</b>.</li>
+</ul>
+<h3>5.2 Reglas de integridad</h3>
+<ul>
+<li>Razones: <b>semántica</b> (reflejar mejor la realidad) e <b>integridad</b> (qué estados permite al SGBD). <b>Restricciones de dominio</b>: valores permitidos por atributo.</li>
+<li>Dos reglas que se cumplen <b>siempre</b> (todos los estados).</li>
+<li><span class="d">Nulo</span> = ausencia de información (desconocido o sin sentido para esa tupla). <span class="t">⚠ ≠ cero, ≠ cadena vacía</span>.</li>
+</ul>
+<div class="wrap blk"><table>
+<tr><th>Integridad de ENTIDAD</th><th>Integridad REFERENCIAL</th></tr>
+<tr><td>Sobre <b>claves primarias</b>: <b>ningún</b> atributo de la PK puede ser nulo (PK = identificador <b>irreducible</b>; parte nula contradice la irreducibilidad). <span class="t">⚠ No se aplica a claves alternativas.</span></td><td>Sobre <b>claves ajenas</b>: su valor coincide con un valor de la PK referenciada o es <b>completamente nulo</b>. <span class="e">Libro(…, cod_editorial) → Editorial; Escribe(autor, cod_libro) → Autor y Libro</span></td></tr>
+</table></div>
+<h3>5.3 Lenguajes relacionales</h3>
+<ul>
+<li><b>Procedurales</b> (cómo manipular) vs <b>no procedurales</b> (qué datos). Base: <b>álgebra</b> relacional (procedural) y <b>cálculo</b> relacional (no procedural); <b>equivalentes</b>; miden la potencia de los lenguajes.</li>
+<li><span class="d">Relacionalmente completo</span>: permite obtener cualquier relación derivable con el álgebra. La mayoría lo son y aportan más potencia.</li>
+<li><span class="d">Álgebra relacional</span>: operadores sobre una o varias relaciones → relación resultado, sin cambiar las originales; operandos y resultados son relaciones → <b>anidable</b>.</li>
+<li><span class="n">8</span> operadores, solo <span class="n">5</span> <b>fundamentales</b> (conjunto relacionalmente completo): selección, proyección, producto cartesiano, unión, diferencia.</li>
+</ul>
+<div class="wrap blk"><table>
+<tr><th>Operador</th><th>Símbolo</th><th>Resultado / condición</th></tr>
+<tr><td><b>Selección</b></td><td>σ<sub>c</sub>(R)</td><td>tuplas de R que cumplen la condición C (subconjunto <b>horizontal</b>, filas)</td></tr>
+<tr><td><b>Proyección</b></td><td>π<sub>1..n</sub>(R)</td><td>subconjunto <b>vertical</b> (columnas); <b>elimina duplicados</b></td></tr>
+<tr><td><b>Producto cartesiano</b></td><td>R×S</td><td>cada fila de R con todas las de S. <b>Grado = suma</b> de columnas; <b>cardinalidad = producto</b> de filas. Se antepone el nombre de relación a atributos homónimos</td></tr>
+<tr><td><b>Unión</b></td><td>R∪S</td><td>filas de una u otra o ambas (una vez). Exige <b>igual grado</b> y <b>dominios compatibles</b> par a par</td></tr>
+<tr><td><b>Diferencia</b></td><td>R−S</td><td>filas de R que no están en S. <span class="t">⚠ <b>No conmutativa</b></span></td></tr>
+<tr><td colspan="3"><b>No fundamentales</b></td></tr>
+<tr><td><b>Join</b> (concatenación)</td><td>R⋈S</td><td>producto cartesiano + selección de filas con igual valor en los campos indicados; requiere <b>al menos un campo común</b></td></tr>
+<tr><td><b>Intersección</b></td><td>R∩S</td><td>filas en R y en S; igual grado y dominios compatibles (como la unión)</td></tr>
+<tr><td><b>División</b></td><td>R÷S</td><td>X = atributos comunes a R y S; Y = solo de R. Una tupla t aparece en el resultado si en R aparece combinada con <b>cada</b> tupla de S</td></tr>
+</table></div>
+
+<h2>6. Normalización</h2>
+<ul>
+<li>Técnica formal para detectar y corregir fallos, evitando <b>anomalías</b> en la manipulación. Objetivos: eliminar dependencias entre atributos que causan anomalías de actualización · estructura más regular de las tablas. Resultado: modelo lógico <b>normalizado</b>.</li>
+<li>Las formas normales son <b>incluyentes</b>: 3FN ⊂ 2FN ⊂ 1FN. Más alta = menos vulnerable a inconsistencias.</li>
+<li><span class="d">Dependencia funcional</span> X→Y: a cada valor de X le corresponde un único valor de Y (X = <b>determinante/implicante</b>, Y = implicado).</li>
+<li><span class="d">Dep. funcional completa</span>: Y depende de X en su totalidad, <b>no de parte</b> de X.</li>
+<li><span class="d">Dep. transitiva</span>: Z depende de X si X→Y, Y↛X, Y→Z (X implica Z a través de Y).</li>
+</ul>
+<div class="wrap"><table>
+<tr><th>FN</th><th>Autor · año</th><th>Condición</th><th>Cómo se corrige</th></tr>
+<tr><td><b>1FN</b></td><td rowspan="3"><span class="o">Codd</span> <span class="n">1970</span></td><td><b>Sin grupos repetitivos</b>: cada atributo un único valor de dominio simple</td><td>Atributos no dependientes de la clave → nueva relación, PK = su(s) atributo(s) + PK antigua. O bien repetir la tupla por cada valor del grupo repetitivo</td></tr>
+<tr><td><b>2FN</b></td><td>1FN + atributos <b>no principales</b> (no forman parte de claves candidatas) con <b>dep. funcional completa</b> de las claves candidatas: <b>sin dep. parciales</b></td><td>Atributos que dependen de parte de la clave → nueva relación, PK = esa parte. <span class="e">R1(ALMACÉN,PIEZA,CANTIDAD) · R2(ALMACÉN,DIR_ALMACÉN)</span></td></tr>
+<tr><td><b>3FN</b></td><td>2FN + no principales dependen <b>directamente</b> de la clave: <b>sin dep. transitivas</b></td><td>Atributos que dependen de otro no clave → nueva relación, PK = ese atributo (en la antigua pasa a <b>FK</b>). <span class="e">R1(MATRICULA,MODELO) · R2(MODELO,POTENCIA)</span></td></tr>
+<tr><td><b>FNBC</b></td><td><span class="o">Boyce-Codd</span> <span class="n">1974</span></td><td>3FN + <b>todo determinante es clave candidata</b>. Algo más fuerte que 3FN, aún no 4FN</td><td><span class="e">R(alumno,asignatura,profesor,nota); {alumno,asignatura}→profesor,nota; <b>profesor→asignatura</b>; CC: {alumno,asignatura}, {alumno,profesor}. profesor no es CC ⇒ no FNBC.</span> Solución del tema: R1(alumno,asignatura,nota), R2(profesor,asignatura) <span class="t">⚠ ver incoherencias</span></td></tr>
+<tr><td><b>4FN</b></td><td><span class="o">Fagin</span> <span class="n">1977</span></td><td>FNBC + en toda <b>dep. multivaluada</b> el implicante es clave candidata</td><td><span class="e">Empleado(Nombre,Proyecto,Hijo): Nombre→→Proyecto|Hijo ⇒ no 4FN.</span> Se separa en dos relaciones: (Nombre,Proyecto) y (Nombre,Hijo)</td></tr>
+<tr><td><b>5FN</b></td><td><span class="o">Fagin</span> <span class="n">1979</span></td><td>4FN + toda <b>dep. de combinación (reunión)</b> implicada por una clave candidata. Relación no descomponible en 2 sin pérdida → descomponer en <b>≥3</b></td><td><span class="e">Solidarios(ONG,Proyecto,Lugar) → R1(ONG,Proyecto), R2(Proyecto,Lugar), R3(ONG,Lugar).</span> Reunión natural de <b>2</b> → tuplas falsas; de las <b>3</b> → no</td></tr>
+</table></div>
+<p class="t">⚠ 2FN = dep. <b>parciales</b> · 3FN = dep. <b>transitivas</b> · FNBC = todo <b>determinante</b> es CC · 4FN = dep. <b>multivaluadas</b> · 5FN = dep. de <b>combinación</b>. Años: 1FN-2FN-3FN 1970 · FNBC 1974 · 4FN 1977 · 5FN 1979.</p>
+
+</div>
+
+<div class="warn">
+<h3>Incoherencias del material</h3>
+<ul>
+<li><b>FNBC, ejemplo 2 (tema pág. 34): la solución es errónea.</b> Tema: R1(alumno,asignatura,nota), R2(profesor,asignatura). Esa descomposición pierde {alumno,asignatura}→profesor y la reunión por asignatura genera tuplas falsas si varios profesores dan una asignatura. Correcta (descomponer por el determinante profesor→asignatura): <b>R1(alumno,profesor,nota), R2(profesor,asignatura)</b>. El repaso no recoge este ejemplo. Para el examen, el tema; conviene conocer el fallo.</li>
+<li><b>FNBC, ejemplo 1 (pág. 33):</b> R(dni,nombre,codalumno,codasig,nota) ya incumple la <b>2FN</b> (nombre depende solo de dni, parte de la clave); no ilustra bien la FNBC. Solución del tema: R1(dni,codalumno,nombre), R2(dni,codasig,nota).</li>
+<li><b>1FN (pág. 31):</b> el tema da dos soluciones distintas (nueva relación con los atributos «que no dependen de la clave» / repetir la tupla). Redacción confusa.</li>
+<li><b>1:1 con una mín. 0 y otra (1,1) (pág. 13):</b> «propagar la clave de esta última (la obligatoria) a la primera» es ambigua sin la figura. Criterio práctico (explicación mía): evitar nulos → la FK queda en la tabla de la entidad de participación obligatoria (mín. 1).</li>
+<li><b>Años:</b> tema y repaso coinciden (1FN-2FN-3FN: Codd 1970). Según mi conocimiento, 2FN y 3FN se atribuyen a Codd en 1971; <b>no verificado</b> con fuente en esta sesión. Para el examen, 1970.</li>
+<li><b>ANSI:</b> el tema lo traduce como «Instituto Nacional de Estandarización Americano» (American National Standards Institute). Dato menor.</li>
+<li><b>5FN (pág. 35):</b> «cada Xi es clave candidata» es una formulación imprecisa; la definición es que la dependencia de combinación esté <b>implicada por claves candidatas</b>.</li>
+<li>Tema (curso 2015-2016) y repaso (v1.0 2026.06) no se contradicen entre sí. No se comprobó vigencia de Métrica v3 ni del soporte real de CREATE ASSERTION/CREATE DOMAIN en los SGBD; son datos literales del tema.</li>
+</ul>
+</div>
+
+</body>
+</html>

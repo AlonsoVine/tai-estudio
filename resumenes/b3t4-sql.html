@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TAI · B3T4 · Resumen SQL</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1b2430; --muted:#5b6675; --line:#d8dde5; --card:#f4f6f9;
+  --c:#1a5fd0; --l:#7a3fc9; --o:#c25a00; --f:#0b7a3e; --t:#b3267a; --v:#7a6a4f; --p:#c4281c;
+  --bgc:#e8f0fd; --bgl:#f0e9fb; --bgo:#fdf0e3; --bgf:#e4f5ea; --bgt:#fbe8f2; --bgv:#f3efe6; --bgp:#fce8e6;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14181f; --fg:#e4e8ee; --muted:#9aa5b4; --line:#2b333f; --card:#1c222b;
+    --c:#6fa3ff; --l:#b896ff; --o:#ffa75c; --f:#5fd08b; --t:#ff7fc0; --v:#cdb98f; --p:#ff7b70;
+    --bgc:#1b2a45; --bgl:#2a2043; --bgo:#3a2a18; --bgf:#16301f; --bgt:#3a1c2e; --bgv:#2e2a20; --bgp:#3b1f1c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14181f; --fg:#e4e8ee; --muted:#9aa5b4; --line:#2b333f; --card:#1c222b;
+  --c:#6fa3ff; --l:#b896ff; --o:#ffa75c; --f:#5fd08b; --t:#ff7fc0; --v:#cdb98f; --p:#ff7b70;
+  --bgc:#1b2a45; --bgl:#2a2043; --bgo:#3a2a18; --bgf:#16301f; --bgt:#3a1c2e; --bgv:#2e2a20; --bgp:#3b1f1c;
+  color-scheme: dark;
+}
+html{height:100%}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:13px/1.4 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+main{max-width:1200px;margin:0 auto;padding:14px 16px 24px}
+h1{font-size:20px;margin:0 0 2px}
+.sub{color:var(--muted);font-size:12px;margin-bottom:8px}
+h2{font-size:14px;margin:12px 0 4px;padding:2px 8px;border-left:4px solid var(--c);background:var(--card);break-after:avoid}
+h3{font-size:12.5px;margin:7px 0 2px;color:var(--c);break-after:avoid}
+p{margin:2px 0}
+ul{margin:2px 0 3px;padding-left:16px}
+li{margin:1px 0}
+code,.sql{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.93em}
+code{background:var(--card);padding:0 3px;border-radius:3px}
+.cols{column-count:2;column-gap:22px}
+.cols>*{break-inside:avoid-column}
+.cols h2{break-inside:avoid}
+.c{color:var(--c);font-weight:700}
+.l{color:var(--l);font-weight:600}
+.o{color:var(--o);font-weight:600}
+.f{color:var(--f);font-weight:600}
+.t{color:var(--t);font-weight:600}
+.v{color:var(--v);font-style:italic}
+.p{color:var(--p);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:4px 8px;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);margin:6px 0 8px;font-size:11.5px}
+.legend span.chip{padding:1px 7px;border-radius:10px;border:1px solid var(--line);white-space:nowrap}
+.chip.c{background:var(--bgc)}.chip.l{background:var(--bgl)}.chip.o{background:var(--bgo)}.chip.f{background:var(--bgf)}.chip.t{background:var(--bgt)}.chip.v{background:var(--bgv)}.chip.p{background:var(--bgp)}
+.map{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0 4px}
+.map div{border:1px solid var(--line);border-radius:6px;padding:5px 7px;background:var(--card);font-size:11.5px}
+.map b{display:block;font-size:12px;margin-bottom:2px}
+.map .a{border-top:3px solid var(--c)}.map .b{border-top:3px solid var(--o)}.map .d{border-top:3px solid var(--p)}.map .e{border-top:3px solid var(--f)}
+.sub-map{font-size:11px;color:var(--muted);margin-top:2px;display:block}
+table{border-collapse:collapse;width:100%;margin:3px 0 4px;font-size:11.5px}
+th,td{border:1px solid var(--line);padding:2px 5px;text-align:left;vertical-align:top}
+th{background:var(--card)}
+.sql{display:block;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:3px 6px;margin:3px 0;white-space:pre-wrap}
+.warn{border:1px solid var(--o);background:var(--bgo);border-radius:6px;padding:4px 8px;font-size:11.5px;margin-top:8px}
+.warn ul{margin:2px 0}
+@media (max-width:760px){.cols{column-count:1}.map{grid-template-columns:1fr 1fr}}
+@page{size:A4;margin:9mm}
+@media print{
+  :root{--bg:#fff!important}
+  body{font-size:8.4pt;line-height:1.28;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  main{max-width:none;padding:0}
+  h1{font-size:14pt} h2{font-size:9.5pt;margin:7px 0 3px} h3{font-size:8.8pt;margin:4px 0 1px}
+  table{font-size:7.8pt} .legend,.map div{font-size:7.8pt}
+  .sql{padding:1px 4px;margin:2px 0}
+  ul{margin:1px 0 2px}
+}
+</style>
+</head>
+<body>
+<main>
+<h1>TAI · Bloque 3 · Tema 4 — SQL, procedimientos, triggers y conectividad</h1>
+<div class="sub">Resumen condensado a partir del tema y del repaso (The Globe · Pablo Arellano). Código SQL coloreado por tipo de elemento.</div>
+
+<div class="legend">
+  <b>Leyenda:</b>
+  <span class="chip c"><span class="c">SELECT</span> sentencias (DDL/DML/DCL)</span>
+  <span class="chip l"><span class="l">FROM · WHERE · JOIN · ON</span> cláusulas</span>
+  <span class="chip o"><span class="o">PRIMARY KEY · CASCADE · NULL</span> restricciones y opciones</span>
+  <span class="chip f"><span class="f">AND · LIKE · COUNT · UNION</span> operadores, predicados, funciones</span>
+  <span class="chip t"><span class="t">VARCHAR · INTEGER</span> tipos de datos</span>
+  <span class="chip p"><span class="p">PROCEDURE · TRIGGER · BEGIN · CALL</span> programación en BD</span>
+  <span class="chip v"><span class="v">&lt;nombre&gt; @param :NEW</span> variables / marcadores</span>
+</div>
+
+<div class="map">
+  <div class="a"><b>1 · ANSI SQL</b>Declarativo: QUÉ, no CÓMO<span class="sub-map">DDL · DML · DCL</span></div>
+  <div class="b"><b>2 · Procedimientos</b>SQL Server · MySQL · Oracle (PL/SQL)</div>
+  <div class="d"><b>3 · Triggers</b>Evento → condición → acción<span class="sub-map">temporalidad + granularidad</span></div>
+  <div class="e"><b>4 · Conectividad</b>ODBC (Microsoft) · JDBC (Java, 4 drivers)</div>
+</div>
+<div class="sub" style="margin:0 0 2px">Mapa: <span class="c">DDL</span> CREATE · ALTER · DROP · TRUNCATE &nbsp;|&nbsp; <span class="c">DML</span> SELECT · INSERT · UPDATE · DELETE &nbsp;|&nbsp; <span class="c">DCL</span> COMMIT · ROLLBACK · SAVEPOINT · GRANT · REVOKE</div>
+
+<div class="cols">
+
+<h2>1. Estándar ANSI/ISO SQL</h2>
+<ul>
+<li>Origen: IBM, mediados de los 70, <strong>SEQUEL</strong>, sistema <strong>SYSTEM R</strong>. Primera BD comercial con SQL: <strong>Oracle, 1979</strong>. ANSI lo adopta en 1986 e ISO en 1987.</li>
+<li>Notación BNF: <code>&lt; &gt;</code> no terminal · <code>::=</code> definición · <code>[ ]</code> opcional · <code>{ }</code> agrupa · <code>|</code> alternativa · <code>...</code> repetición.</li>
+</ul>
+<table>
+<tr><th>Año</th><th>Nombre</th><th>Novedad</th></tr>
+<tr><td>1986</td><td>SQL-86 (SQL-87)</td><td>1.ª publicación ANSI, confirmada por ISO</td></tr>
+<tr><td>1989</td><td>SQL-89 (SQL1)</td><td>Revisión menor</td></tr>
+<tr><td>1992</td><td>SQL-92 (SQL2)</td><td>Revisión mayor</td></tr>
+<tr><td>1999</td><td>SQL:1999 (SQL3)</td><td>Disparadores, recursivas, regex, objetos</td></tr>
+<tr><td>2003</td><td>SQL:2003</td><td>XML, SEQUENCE, autonuméricas</td></tr>
+<tr><td>2005</td><td>SQL:2005</td><td>Integración XML</td></tr>
+<tr><td>2008</td><td>SQL:2008</td><td>Disparadores INSTEAD OF</td></tr>
+<tr><td>2011</td><td>SQL:2011</td><td>Datos temporales</td></tr>
+<tr><td>2016</td><td>SQL:2016</td><td>JSON</td></tr>
+<tr><td>2023</td><td>ISO/IEC 9075:2023</td><td>Última publicada (el repaso dice 2016: error)</td></tr>
+</table>
+
+<h2>2. DDL — definición</h2>
+<p><strong>Tipos:</strong> <span class="t">CHAR(n) VARCHAR(n) BIT BIT VARYING NUMERIC DECIMAL INTEGER SMALLINT REAL FLOAT(p) DOUBLE PRECISION DATE TIME TIMESTAMP</span></p>
+<h3>Esquema</h3>
+<p>El estándar no tiene «crear BD»; usa esquema:</p>
+<span class="sql"><span class="c">CREATE SCHEMA</span> {<span class="v">&lt;nombre&gt;</span> | <span class="l">AUTHORIZATION</span> <span class="v">&lt;usuario&gt;</span>} [<span class="v">&lt;elementos&gt;</span>];
+<span class="c">DROP SCHEMA</span> <span class="v">&lt;nombre&gt;</span> {<span class="o">RESTRICT</span>|<span class="o">CASCADE</span>};</span>
+<p><span class="o">RESTRICT</span>: solo si está vacío · <span class="o">CASCADE</span>: siempre.</p>
+<h3>Tabla</h3>
+<span class="sql"><span class="c">CREATE TABLE</span> <span class="v">t</span> (
+  <span class="v">col</span> <span class="t">VARCHAR(50)</span> <span class="o">DEFAULT</span> {<span class="v">literal</span>|<span class="v">función</span>|<span class="o">NULL</span>} <span class="o">NOT NULL</span>,
+  <span class="o">PRIMARY KEY</span> (<span class="v">col</span>),
+  <span class="o">FOREIGN KEY</span> (<span class="v">fk</span>) <span class="o">REFERENCES</span> <span class="v">t2</span>(<span class="v">pk</span>)
+     <span class="l">ON DELETE</span> {<span class="o">NO ACTION</span>|<span class="o">CASCADE</span>|<span class="o">SET DEFAULT</span>|<span class="o">SET NULL</span>}
+     <span class="l">ON UPDATE</span> {…mismas opciones…},
+  <span class="o">CONSTRAINT</span> <span class="v">n</span> <span class="o">CHECK</span> (<span class="v">cond</span>) );</span>
+<ul>
+<li><span class="o">UNIQUE</span>: sin repetidos (clave candidata). <span class="o">PRIMARY KEY</span>: sin repetidos <em>ni nulos</em>. Existen a nivel de columna y de tabla (varias columnas).</li>
+<li><span class="o">REFERENCES</span> = clave foránea.</li>
+</ul>
+<h3>Aserción (restricción global, varias tablas)</h3>
+<span class="sql"><span class="c">CREATE ASSERTION</span> <span class="v">n</span> <span class="o">CHECK</span> (<span class="v">cond</span>);  <span class="c">DROP ASSERTION</span> <span class="v">n</span>;</span>
+<h3>Modificar y borrar tabla</h3>
+<span class="sql"><span class="c">ALTER TABLE</span> <span class="v">t</span> { <span class="l">ADD</span> [COLUMN] <span class="v">col def</span>
+  | <span class="l">ALTER</span> [COLUMN] <span class="v">col</span> {<span class="l">SET</span> <span class="o">DEFAULT</span> <span class="v">x</span> | <span class="l">DROP</span> <span class="o">DEFAULT</span>}
+  | <span class="l">DROP</span> [COLUMN] <span class="v">col</span> {<span class="o">RESTRICT</span>|<span class="o">CASCADE</span>}
+  | <span class="l">ADD</span> <span class="v">restricción</span> | <span class="l">DROP CONSTRAINT</span> <span class="v">n</span> {<span class="o">RESTRICT</span>|<span class="o">CASCADE</span>} };
+<span class="c">DROP TABLE</span> <span class="v">t</span> {<span class="o">RESTRICT</span>|<span class="o">CASCADE</span>};</span>
+<p><span class="o">RESTRICT</span>: no borra si hay dependencias · <span class="o">CASCADE</span>: borra lo que la referencie.</p>
+<h3>Vista (tabla virtual, no materializada; esquema externo)</h3>
+<span class="sql"><span class="c">CREATE VIEW</span> <span class="v">v</span> [<span class="v">cols</span>] <span class="l">AS</span> (<span class="v">consulta</span>) [<span class="o">WITH CHECK OPTION</span>];  <span class="c">DROP VIEW</span> <span class="v">v</span> {<span class="o">RESTRICT</span>|<span class="o">CASCADE</span>};</span>
+<ul>
+<li>Actualizable solo si procede de <strong>una tabla</strong> sin <span class="l">GROUP BY</span>/<span class="l">HAVING</span>.</li>
+<li><span class="o">WITH CHECK OPTION</span>: solo admite inserciones/modificaciones que cumplan la consulta de la vista.</li>
+<li>Ventajas: seguridad y legibilidad.</li>
+</ul>
+<h3>Dominio</h3>
+<span class="sql"><span class="c">CREATE DOMAIN</span> <span class="v">d</span> [<span class="l">AS</span>] <span class="t">tipo</span> [<span class="o">DEFAULT</span> …] [<span class="o">CONSTRAINT</span> <span class="v">n</span> <span class="o">CHECK</span> (<span class="l">VALUE</span> <span class="f">IN</span> (…))];
+<span class="c">ALTER DOMAIN</span> <span class="v">d</span> {<span class="l">SET</span> <span class="o">DEFAULT</span>|<span class="l">DROP</span> <span class="o">DEFAULT</span>|<span class="l">ADD</span> <span class="o">CONSTRAINT</span> …|<span class="l">DROP CONSTRAINT</span> <span class="v">n</span>};
+<span class="c">DROP DOMAIN</span> <span class="v">d</span> {<span class="o">RESTRICT</span>|<span class="o">CASCADE</span>};</span>
+<p>Dominio: <span class="o">RESTRICT</span> solo si no se usa; <span class="o">CASCADE</span> lo borra y deja su tipo base.</p>
+<h3>Índice y TRUNCATE</h3>
+<span class="sql"><span class="c">CREATE</span> [<span class="o">UNIQUE</span>] <span class="c">INDEX</span> <span class="v">i</span> <span class="l">ON</span> <span class="v">t</span>(<span class="v">c1</span>,<span class="v">c2</span>);  <span class="c">DROP INDEX</span> <span class="v">i</span>;
+<span class="c">TRUNCATE TABLE</span> <span class="v">t</span>;</span>
+<p><span class="c">DELETE</span> borra filas (DML, admite <span class="l">WHERE</span>) · <span class="c">TRUNCATE</span> vacía la tabla y resetea contadores (DDL) · <span class="c">DROP</span> elimina la tabla.</p>
+
+<h2>3. DML — manipulación y consulta</h2>
+<span class="sql"><span class="c">INSERT INTO</span> <span class="v">t</span> [(<span class="v">cols</span>)] {<span class="l">VALUES</span> (<span class="v">v</span>|<span class="o">DEFAULT</span>|<span class="o">NULL</span>,…) | <span class="v">consulta</span>};
+<span class="c">UPDATE</span> <span class="v">t</span> <span class="l">SET</span> <span class="v">col</span> = {<span class="v">expr</span>|<span class="o">DEFAULT</span>|<span class="o">NULL</span>}[,…] [<span class="l">WHERE</span> <span class="v">cond</span>];
+<span class="c">DELETE FROM</span> <span class="v">t</span> [<span class="l">WHERE</span> <span class="v">cond</span>];   <span class="v">-- sin WHERE: todas las filas</span></span>
+<h3>SELECT</h3>
+<span class="sql"><span class="c">SELECT</span> [<span class="f">ALL</span>|<span class="f">DISTINCT</span>] <span class="v">cols</span>|* <span class="l">FROM</span> <span class="v">tablas</span> [<span class="l">WHERE</span> <span class="v">c</span>]
+[<span class="l">GROUP BY</span> <span class="v">cols</span>] [<span class="l">HAVING</span> <span class="v">c_grupo</span>] [<span class="l">ORDER BY</span> <span class="v">col</span> [<span class="l">DESC</span>]];</span>
+<ul>
+<li>Álgebra relacional: <span class="c">SELECT</span> = proyección π · <span class="l">WHERE</span> = selección σ · <span class="l">FROM</span> = producto cartesiano ×.</li>
+<li><span class="l">AS</span> = alias. <span class="f">ALL</span> es el valor por defecto. <span class="l">ORDER BY</span>: ASC por defecto; columnas ya presentes en SELECT.</li>
+<li>Operadores: <code>&lt; &lt;= &gt; &gt;= = !=</code> · <span class="f">AND OR NOT</span>. <strong>Precedencia:</strong> comparación → <span class="f">NOT</span> → <span class="f">AND</span> → <span class="f">OR</span> (paréntesis para forzar).</li>
+<li><span class="f">BETWEEN a AND b</span> (intervalo cerrado) · <span class="f">LIKE</span> (<code>%</code> 0..n caracteres, <code>_</code> 1 carácter) · <span class="f">IN</span> · <span class="f">IS [NOT] NULL</span>. Todos admiten <span class="f">NOT</span>.</li>
+<li><span class="f">CASE</span> simple <code>CASE expr WHEN v THEN r … ELSE r END</code> o de búsqueda <code>CASE WHEN cond THEN r …</code>. Sin ELSE ni coincidencia → <span class="o">NULL</span>.</li>
+<li><strong>Agregación:</strong> <span class="f">COUNT SUM MIN MAX AVG</span>. <span class="f">COUNT(*)</span> filas · <span class="f">COUNT(col)</span> no nulos · <span class="f">COUNT(DISTINCT col)</span> no nulos y distintos.</li>
+<li><span class="l">WHERE</span> filtra <strong>filas</strong> (antes de agrupar) · <span class="l">HAVING</span> filtra <strong>grupos</strong>. En SELECT con GROUP BY: solo columnas del GROUP BY + agregados.</li>
+<li><strong>Subconsultas</strong> (en WHERE/HAVING): <span class="f">ANY</span> (alguno) · <span class="f">ALL</span> (todos) · <span class="f">[NOT] EXISTS</span> (¿devuelve algo?).</li>
+</ul>
+<h3>JOINs</h3>
+<ul>
+<li><span class="l">CROSS JOIN</span> (o <code>FROM t1, t2</code> sin condición): producto cartesiano.</li>
+<li>Combinación: <code>FROM t1, t2 WHERE t1.k = t2.k</code> o <span class="l">JOIN … ON</span> <span class="v">cond</span> | <span class="l">USING</span>(<span class="v">col</span>). <strong>SELF JOIN</strong>: la tabla consigo misma.</li>
+<li><span class="l">NATURAL JOIN</span>: automático por columnas de igual nombre, elimina la duplicada (caso de INNER).</li>
+<li><span class="l">INNER JOIN</span>: solo coincidentes; hay que indicar ON/USING.</li>
+<li><span class="l">LEFT | RIGHT | FULL [OUTER] JOIN</span>: conservan todo lo de la izquierda / derecha / ambas, con <span class="o">NULL</span> sin pareja.</li>
+<li>Más de 2 tablas: <code>(t1 JOIN t2 ON …) JOIN t3 ON …</code></li>
+</ul>
+<h3>Operaciones de conjuntos</h3>
+<p>Columnas con dominios compatibles. <span class="f">UNION [ALL]</span> unión · <span class="f">INTERSECT [ALL]</span> en ambas · <span class="f">EXCEPT [ALL]</span> en la 1.ª y no en la 2.ª. Con <span class="f">ALL</span> mantienen repetidas.</p>
+
+<h2>4. DCL — control</h2>
+<ul>
+<li><strong>Transacción:</strong> unidad lógica de trabajo (todo o nada). Inicio implícito (CREATE, ALTER, INSERT, UPDATE…) o explícito <span class="c">SET TRANSACTION</span>. Fin explícito:</li>
+<li><span class="c">COMMIT</span> confirma · <span class="c">ROLLBACK</span> deshace hasta el inicio · <span class="c">SAVEPOINT</span> punto intermedio al que volver con ROLLBACK.</li>
+</ul>
+<span class="sql"><span class="c">GRANT</span> <span class="v">privilegios</span> <span class="l">ON</span> <span class="v">objeto</span> <span class="l">TO</span> <span class="v">usuarios</span> [<span class="o">WITH GRANT OPTION</span>];
+<span class="c">REVOKE</span> [<span class="o">GRANT OPTION FOR</span>] <span class="v">privilegios</span> <span class="l">ON</span> <span class="v">objeto</span> <span class="l">FROM</span> <span class="v">usuarios</span>;</span>
+<ul>
+<li>Privilegios: <span class="o">ALL PRIVILEGES</span>, <span class="o">USAGE</span>, SELECT, INSERT, UPDATE, DELETE. Objetos: DOMAIN, TABLE, VIEW. Usuarios: lista o <span class="o">PUBLIC</span>.</li>
+<li><span class="o">WITH GRANT OPTION</span>: el receptor puede conceder a su vez esos privilegios.</li>
+</ul>
+
+<h2>5. Procedimientos almacenados</h2>
+<p>Programa guardado y ejecutado <strong>dentro del SGBD</strong>: acceso directo a datos y solo devuelve el resultado (eficiencia). Usos: validar datos, encapsular procesos complejos o costosos, lógica de negocio. La implementación varía por gestor.</p>
+<table>
+<tr><th></th><th>SQL Server</th><th>MySQL</th><th>Oracle (PL/SQL)</th></tr>
+<tr><td>Crear</td><td><span class="c">CREATE</span> [<span class="p">OR ALTER</span>] <span class="p">PROC|PROCEDURE</span> n <span class="v">@p</span> <span class="t">tipo</span> [= def] [<span class="o">OUT|OUTPUT</span>|<span class="o">READONLY</span>] <span class="l">AS</span> …</td><td><span class="c">CREATE</span> <span class="p">PROCEDURE|FUNCTION</span> n(params) <span class="p">BEGIN … END</span></td><td><span class="c">CREATE</span> [<span class="p">OR REPLACE</span>] <span class="p">PROCEDURE|FUNCTION</span> n(params) <span class="p">IS</span> decl <span class="p">BEGIN … END;</span></td></tr>
+<tr><td>Parámetros</td><td>Por defecto entrada; salida con <span class="o">OUTPUT</span> (mejor que OUT). Opcional si tiene valor por defecto</td><td><span class="o">IN|OUT|INOUT</span> solo en PROCEDURE; en FUNCTION siempre IN</td><td><span class="o">IN|OUT|IN OUT</span></td></tr>
+<tr><td>Retorno</td><td>Código entero (0 por defecto) con <span class="p">RETURN</span></td><td>FUNCTION: <span class="p">RETURNS</span> tipo (obligatorio) + <span class="p">RETURN</span> valor</td><td>FUNCTION: <span class="p">RETURN</span> tipo + <span class="p">RETURN</span> valor</td></tr>
+<tr><td>Ejecutar</td><td><span class="p">EXEC | EXECUTE</span></td><td><span class="p">CALL</span> sp(args) (OUT/INOUT con variable <span class="v">@v</span>)</td><td><span class="p">EXEC | EXECUTE</span></td></tr>
+<tr><td>Borrar</td><td><span class="c">DROP PROCEDURE</span></td><td><span class="c">DROP</span> {PROCEDURE|FUNCTION} [<span class="o">IF EXISTS</span>]</td><td><span class="c">DROP</span> {PROCEDURE|FUNCTION}</td></tr>
+</table>
+<ul>
+<li>Modificar: <span class="c">ALTER</span> PROCEDURE / FUNCTION.</li>
+<li>SQL Server: si un parámetro va como <code>@p = valor</code>, todos los siguientes también. <code>N'texto'</code> = nvarchar (2 bytes/carácter). OUTPUT también se indica al llamar.</li>
+</ul>
+<span class="sql"><span class="p">EXEC</span> sp <span class="v">@color</span> = N'Black', <span class="v">@name</span> = N'%arm%';   <span class="v">-- cualquier orden</span>
+<span class="p">CALL</span> citycount('JPN', <span class="v">@cities</span>);              <span class="v">-- MySQL</span></span>
+
+<h2>6. Eventos y disparadores (triggers)</h2>
+<p>Procedimiento almacenado que se ejecuta <strong>automáticamente</strong> ante <span class="c">INSERT</span>, <span class="c">UPDATE</span> o <span class="c">DELETE</span>, sin intervención del usuario. Usos: reglas de negocio, campos calculados, históricos/logs, restricciones, relaciones exclusivas.</p>
+<ul>
+<li><strong>Temporalidad:</strong> <span class="p">BEFORE</span> / <span class="p">AFTER</span> el evento, o <span class="p">INSTEAD OF</span> (sustituye la sentencia; útil en vistas).</li>
+<li><strong>Granularidad:</strong> <span class="p">FOR EACH ROW</span> (una vez por fila) / <span class="p">FOR EACH STATEMENT</span> (una vez por sentencia). <code>UPDATE OF col1, col2</code> solo en nivel de fila.</li>
+<li><strong>Condición:</strong> <span class="l">WHEN</span> (…) solo en nivel de fila. <span class="v">:OLD</span> = valor antiguo (sin sentido en INSERT) · <span class="v">:NEW</span> = nuevo (sin valor en DELETE).</li>
+<li><strong>Acción:</strong> <span class="p">BEGIN … END;</span></li>
+</ul>
+<span class="sql"><span class="c">CREATE</span> <span class="p">OR REPLACE TRIGGER</span> actualizar
+<span class="p">AFTER</span> <span class="c">UPDATE</span> <span class="l">OF</span> A, B <span class="l">ON</span> tabla
+<span class="p">FOR EACH ROW</span>
+<span class="p">BEGIN</span>
+  <span class="c">INSERT INTO</span> log (A, B) <span class="l">VALUES</span> (<span class="v">:new.A</span>, <span class="v">:new.B</span>);
+<span class="p">END</span> actualizar;</span>
+
+<h2>7. Conectividad: ODBC y JDBC</h2>
+<table>
+<tr><th></th><th>ODBC</th><th>JDBC</th></tr>
+<tr><td>Qué es</td><td>API estándar de <strong>Microsoft</strong>, independiente del SGBD (relacionales y no relacionales)</td><td>API de <strong>Java</strong> de acceso universal a datos</td></tr>
+<tr><td>Base</td><td>CLI (Open Group) e ISO/IEC 9075-3:1995; usa SQL</td><td>Paquetes <code>java.sql</code> y <code>javax.sql</code> (interfaces; las implementa el driver)</td></tr>
+<tr><td>Objetivo</td><td>Máxima interoperabilidad: mismo código con distintos SGBD</td><td>Interfaz común para cualquier fuente de datos</td></tr>
+<tr><td>Driver</td><td>Uno ODBC por cada SGBD</td><td>El fabricante aporta el suyo; se instala donde corre la app</td></tr>
+</table>
+<p><strong>4 tipos de driver JDBC:</strong></p>
+<ul>
+<li><strong>Tipo 1 · Puente JDBC-ODBC:</strong> traduce a ODBC (driver ODBC en el cliente). Acceso a casi todo, pero ineficiente.</li>
+<li><strong>Tipo 2 · API nativa:</strong> traduce a la API propia del SGBD. Más eficiente que el 1; ligado al SGBD; se instala en cada cliente.</li>
+<li><strong>Tipo 3 · Middleware:</strong> protocolo independiente hacia un servidor intermedio. Un driver vale para varias BD; añade un nivel y baja el rendimiento.</li>
+<li><strong>Tipo 4 · Java puro (thin):</strong> 100 % Java, habla directo el protocolo del SGBD. Muy eficiente; ligado al SGBD.</li>
+</ul>
+<p>Flujo JDBC: <code>DriverManager.getConnection(url,user,pass)</code> → <code>createStatement()</code> → <code>executeQuery()</code> → <code>ResultSet</code>.</p>
+
+</div>
+
+<div class="warn"><strong>Incoherencias del material (para el examen manda el tema):</strong>
+<ul>
+<li>Repaso: última norma ISO/IEC 9075:<strong>2016</strong>; tema: <strong>2023</strong>. Vale 2023.</li>
+<li>El tema describe <code>NUMERIC</code>/<code>INT</code> como «decimal»: <code>INT</code> es entero.</li>
+<li>El tema pone <code>DELETE FROM empleados</code> como «eliminar la tabla»: solo borra las filas; la tabla se elimina con <code>DROP TABLE</code>.</li>
+<li>Muchos textos llaman TCL a COMMIT/ROLLBACK/SAVEPOINT; el tema los incluye en DCL, y TRUNCATE en DDL.</li>
+<li>En la práctica, casi ningún SGBD implementa <code>CREATE ASSERTION</code>, y <code>OR REPLACE</code> en procedimientos MySQL no existe en MySQL puro (sí en MariaDB).</li>
+</ul></div>
+</main>
+</body>
+</html>

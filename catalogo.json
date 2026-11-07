@@ -1,0 +1,66 @@
+{
+  "titulo": "Técnico Auxiliar de Informática (TAI) — esquema del temario",
+  "total": 36,
+  "bloques": [
+    {
+      "numero": 1,
+      "nombre": "Organización del Estado y Administración electrónica",
+      "temas": [
+        {"codigo": "B1T1", "nombre": "Constitución Española"},
+        {"codigo": "B1T2", "nombre": "Cortes Generales"},
+        {"codigo": "B1T3", "nombre": "Gobierno"},
+        {"codigo": "B1T4", "nombre": "Gobierno abierto"},
+        {"codigo": "B1T5", "nombre": "TREBEP"},
+        {"codigo": "B1T6", "nombre": "Fuentes del derecho"},
+        {"codigo": "B1T7", "nombre": "Políticas de igualdad"},
+        {"codigo": "B1T8", "nombre": "Sociedad de la información"},
+        {"codigo": "B1T9", "nombre": "Protección de datos"},
+        {"codigo": "B1T10", "nombre": "Acceso electrónico"},
+        {"codigo": "B1T11", "nombre": "Instrumentos acceso electrónico"}
+      ]
+    },
+    {
+      "numero": 2,
+      "nombre": "Tecnología básica",
+      "temas": [
+        {"codigo": "B2T1", "nombre": "Informática básica"},
+        {"codigo": "B2T2", "nombre": "Periféricos"},
+        {"codigo": "B2T3", "nombre": "Estructura de datos"},
+        {"codigo": "B2T4", "nombre": "Sistemas operativos"},
+        {"codigo": "B2T5", "nombre": "SGBD"}
+      ]
+    },
+    {
+      "numero": 3,
+      "nombre": "Desarrollo de sistemas",
+      "temas": [
+        {"codigo": "B3T1", "nombre": "Modelo ER"},
+        {"codigo": "B3T2", "nombre": "Diseño BD"},
+        {"codigo": "B3T3", "nombre": "Lenguajes programación"},
+        {"codigo": "B3T4", "nombre": "SQL"},
+        {"codigo": "B3T5", "nombre": "POO"},
+        {"codigo": "B3T6", "nombre": "Jakarta EE y .NET"},
+        {"codigo": "B3T7", "nombre": "Arquitectura sistemas"},
+        {"codigo": "B3T8", "nombre": "Aplicaciones web"},
+        {"codigo": "B3T9", "nombre": "Accesibilidad y seguridad"},
+        {"codigo": "B3T10", "nombre": "Metodologías pruebas colaboración"}
+      ]
+    },
+    {
+      "numero": 4,
+      "nombre": "Sistemas y comunicaciones",
+      "temas": [
+        {"codigo": "B4T1", "nombre": "Admon Sistema operativo"},
+        {"codigo": "B4T2", "nombre": "Admon BD y virtualización"},
+        {"codigo": "B4T3", "nombre": "Admon correo electrónico"},
+        {"codigo": "B4T4", "nombre": "Admon LAN"},
+        {"codigo": "B4T5", "nombre": "Seguridad CPD y criptografía"},
+        {"codigo": "B4T6", "nombre": "Comunicaciones y redes"},
+        {"codigo": "B4T7", "nombre": "Modelo TCP y OSI"},
+        {"codigo": "B4T8", "nombre": "Internet"},
+        {"codigo": "B4T9", "nombre": "Seguridad en redes"},
+        {"codigo": "B4T10", "nombre": "Redes locales"}
+      ]
+    }
+  ]
+}
