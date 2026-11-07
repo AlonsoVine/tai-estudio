@@ -147,3 +147,14 @@ Los defectos 4, 6, 7, 8 y 9 son baratos y no se aplicaron solo porque la regla d
 - **Lighthouse:** se ejecuta localmente (Lighthouse 13 con throttling simulado). Con batería y CPU limitada la medida no es fiable (`benchmarkIndex` < 1500), así que esas ejecuciones se descartan y se toma la mediana de 3 válidas (ver DECISIONES).
 - **Decisiones:** en DECISIONES.md (concepto «Ficha perforada», tipografía, tema por CSSOM, rail, ajuste de desbordes, `sin-ordenar/`, autoría de los commits).
 - **Despliegue:** GitHub Pages mediante GitHub Actions (`.github/workflows/pages.yml`), que publica solo la salida de `build.py --dist _site`. Tras el despliegue se repiten los checks de navegación sobre la URL pública (ver abajo).
+
+## Verificación del sitio publicado
+
+URL: https://alonsovine.github.io/tai-estudio/. El workflow `Pages` (run 42322388685) terminó bien.
+`python _verif/verificar.py --url https://alonsovine.github.io/tai-estudio/` da **7/7**:
+- se ven los 36 temas con código y nombre exactos;
+- los 5 disponibles abren con su barra y «← Índice» vuelve al índice;
+- los temas «próximamente» no son clicables;
+- la consola queda limpia en ambos temas.
+
+Las rutas privadas (`sin-ordenar/`, `_verif/`, `resumenes/` y `build.py`) devuelven 404 en el sitio publicado.
