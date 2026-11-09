@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TAI - B1T3 El Gobierno</title>
+<style>
+:root{
+  --bg:#ffffff;--fg:#1b1f24;--mut:#5b6570;--line:#c9d1d9;--box:#f4f6f8;--th:#e6ebf0;
+  --d-bg:#dbeafe;--d-fg:#14407a;   /* definiciones */
+  --p-bg:#fef0c3;--p-fg:#7a4b00;   /* plazos / cifras */
+  --o-bg:#d5f3e0;--o-fg:#0e5a2e;   /* órganos / sujetos */
+  --n-bg:#e9ddfb;--n-fg:#4b2a8a;   /* normas / artículos */
+  --x-bg:#fbd9d9;--x-fg:#8a1414;   /* excepciones / trampas */
+  --e-bg:#e4e7ea;--e-fg:#3a424a;   /* ejemplos */
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#14181d;--fg:#e4e8ec;--mut:#9aa5b1;--line:#35404b;--box:#1c2229;--th:#252d36;
+    --d-bg:#1b3558;--d-fg:#b9d6ff;
+    --p-bg:#4a3a0e;--p-fg:#ffdf8a;
+    --o-bg:#16422a;--o-fg:#a9eac3;
+    --n-bg:#36265c;--n-fg:#d6c2ff;
+    --x-bg:#5a1c1c;--x-fg:#ffb9b9;
+    --e-bg:#2c333a;--e-fg:#c3cbd3;
+  }
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0 auto;max-width:1280px;padding:14px 16px 28px;padding-top:max(14px,env(safe-area-inset-top,0px));padding-bottom:max(28px,env(safe-area-inset-bottom,0px));background:var(--bg);color:var(--fg);font:13px/1.38 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+h1{font-size:1.55em;margin:0 0 6px;line-height:1.15}
+h2{font-size:1.08em;margin:12px 0 4px;padding:2px 6px;background:var(--th);border-left:4px solid var(--n-fg);break-after:avoid}
+h3{font-size:1em;margin:7px 0 2px;color:var(--mut);break-after:avoid}
+p{margin:2px 0}
+ul{margin:2px 0;padding-left:15px}
+li{margin:0}
+i{font-style:normal;border-radius:3px;padding:0 3px}
+i.d{background:var(--d-bg);color:var(--d-fg)}
+i.p{background:var(--p-bg);color:var(--p-fg);font-weight:600}
+i.o{background:var(--o-bg);color:var(--o-fg)}
+i.n{background:var(--n-bg);color:var(--n-fg)}
+i.x{background:var(--x-bg);color:var(--x-fg)}
+i.e{background:var(--e-bg);color:var(--e-fg)}
+.legend{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 8px;font-size:.92em}
+.legend i{padding:1px 7px;border-radius:9px}
+.cols{column-count:2;column-gap:18px}
+section{break-inside:auto}
+table{width:100%;border-collapse:collapse;margin:3px 0 5px;font-size:.96em;break-inside:avoid}
+th,td{border:1px solid var(--line);padding:1px 4px;vertical-align:top;text-align:left}
+th{background:var(--th)}
+.wrap{overflow-x:auto}
+.map{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:3px 0 4px;column-span:all;font-size:.93em}
+.map div{border:1px solid var(--line);background:var(--box);border-radius:4px;padding:2px 5px}
+.map b{display:block;border-bottom:1px solid var(--line);margin-bottom:1px}
+.box{border:1px solid var(--x-fg);background:var(--box);padding:4px 7px;margin-top:10px;break-inside:avoid;border-radius:4px}
+.box h2{background:none;border:0;margin:0 0 2px;padding:0;color:var(--x-fg)}
+.flow{font-family:ui-monospace,Consolas,monospace;font-size:.92em;background:var(--box);border:1px solid var(--line);padding:2px 5px;margin:3px 0;break-inside:avoid}
+@media (max-width:760px){.cols{column-count:1}.map{grid-template-columns:1fr 1fr}}
+@page{size:A4;margin:9mm}
+@media print{
+  html,body{background:#fff}
+  body{max-width:none;padding:0;font-size:8.4pt;line-height:1.28;color:#000}
+  h1{font-size:13pt}
+  h2{font-size:9.2pt;margin:6px 0 2px}
+  .cols{column-gap:10px}
+  table,.box,.flow{break-inside:avoid}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<h1>B1T3 · El Gobierno: composición, nombramiento y cese · Funciones · Relaciones con las Cortes Generales</h1>
+<div class="legend">
+  <i class="d">Definición</i><i class="p">Plazo / cifra</i><i class="o">Órgano / sujeto</i><i class="n">Norma / artículo</i><i class="x">⚠ Excepción / trampa</i><i class="e">Ejemplo / aclaración</i>
+</div>
+
+<div class="map">
+  <div><b>Composición</b>Obligatorios: <i class="o">Presidente</i>, <i class="o">Ministros</i> · Potestativo: <i class="o">Vicepresidente/s</i> · <i class="x">SE no</i></div>
+  <div><b>Funciones</b>Políticas: dir. pol. interior/exterior, Admón. civil y militar, defensa · Administrativas: <i class="d">f. ejecutiva</i>, <i class="d">pot. reglamentaria</i></div>
+  <div><b>Órganos</b>Unipersonales: Pdte, VP, Ministros · Colegiados: Consejo Ministros, Com. Delegadas · Apoyo: SE, Com. Gral. SE y Subsec., Secretariado, Gabinetes</div>
+  <div><b>Cese</b>Elecciones generales · pérdida confianza · dimisión / fallecimiento Pdte → <i class="d">en funciones</i></div>
+</div>
+
+<div class="cols">
+
+<section>
+<h2>1. Introducción · marco normativo</h2>
+<table>
+<tr><td><i class="n">CE Tít. IV</i> arts. <b>97-107</b> «Del Gobierno y de la Administración»</td><td>Principios básicos del régimen jurídico del Gobierno. Desarrollado por 2 normas con rango de ley: LG y RJSP</td></tr>
+<tr><td><i class="n">CE Tít. V</i> arts. <b>108-116</b></td><td>Relaciones Gobierno–Cortes Generales</td></tr>
+<tr><td><i class="n">Ley 50/1997</i> (LG), 27-nov</td><td>Composición, organización, funciones, órganos de colaboración, <b>estatuto</b> de miembros del Gobierno y SE, <b>Gobierno en funciones</b>, iniciativa legislativa</td></tr>
+<tr><td><i class="n">Ley 40/2015</i> (RJSP), 1-oct</td><td>Organización AGE; <b>órganos superiores = Ministros y SE</b> y sus funciones</td></tr>
+<tr><td><i class="n">Ley 3/2015</i>, 30-mar</td><td>Ejercicio del <b>alto cargo</b> AGE; ámbito: miembros del Gobierno y SE</td></tr>
+<tr><td><i class="n">Ley 39/2015</i>, 1-oct (PAC)</td><td>Su <b>Tít. VI</b>: iniciativa legislativa y potestad reglamentaria</td></tr>
+<tr><td><i class="n">LO 4/1981</i>, 1-jun</td><td>Estados de alarma, excepción y sitio (desarrolla art. 116 CE)</td></tr>
+</table>
+
+<h2>2. El Gobierno</h2>
+<ul>
+<li><i class="n">Art. 97 CE</i>: el Gobierno <b>dirige</b> política interior y exterior, Administración civil y militar, defensa del Estado. <b>Ejerce</b> función ejecutiva y potestad reglamentaria (según CE y leyes).</li>
+<li>Doble vertiente: <b>política</b> (composición según elecciones generales) + <b>administrativa</b> (Ministros = titulares de Departamentos).</li>
+<li><i class="n">Art. 108 CE</i>: responde <b>solidariamente</b> en su gestión política ante el <b>Congreso</b>.</li>
+</ul>
+
+<h2>3. Composición del Gobierno</h2>
+<ul>
+<li><i class="n">Art. 98 CE</i>: Presidente + Vicepresidentes <i class="d">(en su caso)</i> + Ministros + «demás miembros que establezca la ley» (cláusula <b>no desarrollada</b> por la LG).</li>
+<li><i class="n">Art. 1.2 LG</i>: Presidente, VP (en su caso), Ministros. <i class="x">⚠ Secretarios de Estado NO forman parte del Gobierno</i>. Vicepresidencia = <b>opcional</b>.</li>
+<li><b>Ministros sin cartera</b> (figura creada por la LG): responsabilidad de ciertas funciones gubernamentales.</li>
+<li><i class="n">Art. 1.3 LG</i>: los miembros del Gobierno se reúnen en <b>Consejo de Ministros</b> y <b>Comisiones Delegadas</b> (colegiados).</li>
+<li><i class="d">Órgano colegiado</i>: creado formalmente, <b>≥3 personas</b>, con funciones de decisión, propuesta, asesoramiento, seguimiento o control.</li>
+</ul>
+<table>
+<tr><th></th><th>Consejo de Ministros</th><th>Comisiones Delegadas</th></tr>
+<tr><td>Composición</td><td><i class="o">Presidente</i> + Ministros + VP (en su caso)</td><td>Un miembro del Gobierno que preside + miembros del Gobierno y <i class="o">SE</i> que fije su norma de creación</td></tr>
+<tr><td>Convoca/preside</td><td>Presidente; <b>Secretario: Ministro de la Presidencia</b>; orden del día lo fija el Presidente</td><td>—</td></tr>
+<tr><td>Creación</td><td>—</td><td><b>RD del Consejo de Ministros</b>, a propuesta del Presidente (también modif. y supresión)</td></tr>
+<tr><td>Deliberaciones</td><td><i class="x">SECRETAS</i></td><td><i class="x">SECRETAS</i></td></tr>
+<tr><td>Carácter</td><td>Decisorio o deliberante. Asisten SE y, excepcionalmente, otros altos cargos si son convocados</td><td>—</td></tr>
+</table>
+<p><i class="e">Rey</i> puede presidir el Consejo «cuando lo estime oportuno, a petición del Presidente» (<i class="n">art. 62.g CE</i>) — solo para ser informado de asuntos de Estado.</p>
+
+<h2>4. Órganos de colaboración y apoyo</h2>
+<table>
+<tr><th>Órgano</th><th>Datos</th></tr>
+<tr><td><i class="o">Secretarios de Estado</i> <i class="n">art. 7 LG</i></td><td><b>Órganos superiores de la AGE y altos cargos</b>; responsables de ejecutar la acción del Gobierno en un <b>sector</b> de un Departamento o de la Presidencia. Actúan bajo dirección del titular del Departamento; si adscritos a Presidencia, del <b>Presidente</b>. Competencias: <i class="n">art. 62 Ley 40/2015</i>. <i class="x">⚠ No son Gobierno</i></td></tr>
+<tr><td><i class="o">Comisión General de SE y Subsecretarios</i> <i class="n">art. 8 LG</i></td><td>Titulares de Secretarías de Estado + Subsecretarios. Deliberaciones <i class="x">RESERVADAS</i>. <b>Preside</b>: un <b>VP</b> o, en su defecto, <b>Min. Presidencia</b>. <b>Secretaría</b>: Subsecretario de la Presidencia.<br>Funciones: (1) <b>examen</b> de asuntos que vayan al Consejo de Ministros, <i class="x">excepto</i> nombramientos, ceses, ascensos a oficiales generales y los que por urgencia vayan directos; (2) análisis de asuntos que <b>afecten a varios Ministerios</b> sin ser competencia del CM/Com. Delegadas, sometidos por su presidente.<br><i class="e">Subsecretario</i>: representación ordinaria del Ministerio, dirige servicios comunes, jefatura superior del personal.</td></tr>
+<tr><td><i class="o">Secretariado del Gobierno</i> <i class="n">art. 9 LG</i></td><td>Apoya al CM, Com. Delegadas y Com. Gral. Funciones: asistir al Ministro-Secretario del CM; remitir convocatorias; colaborar con Secretarías Técnicas de Com. Delegadas; archivo y custodia de convocatorias, órdenes del día y actas; velar por principios de <b>buena regulación</b>; velar por publicación correcta en <b>BOE</b>.<br>Como asistencia al <b>Min. Presidencia</b>: sanción y promulgación de leyes y expedición de RD; actos del Rey con refrendo del Presidente; actos atribuidos al Presidente. Integrado en el Ministerio de la Presidencia.</td></tr>
+<tr><td><i class="o">Gabinetes</i> <i class="n">art. 10 LG</i></td><td>Apoyo <b>político y técnico</b> de Presidente, VP, Ministros y SE. Tareas de <b>confianza y asesoramiento especial</b>. <i class="x">⚠ Nunca adoptan actos o resoluciones</i> que correspondan a órganos de la AGE (sí pueden pertenecer a colegiados que decidan). Apoyo en labor política, tareas parlamentarias y relaciones con instituciones y organización administrativa.</td></tr>
+</table>
+
+<h2>5. Estatuto jurídico e incompatibilidades</h2>
+<ul>
+<li><i class="n">Art. 98.4 CE</i>: la ley regula estatuto e incompatibilidades. Estatuto: <i class="n">arts. 11-13 LG</i>; incompatibilidades: <i class="n">art. 14 LG</i> (+ Ley 3/2015).</li>
+<li><b>Requisitos</b> <i class="n">art. 11 LG</i>: español · mayor de edad · sufragio activo y pasivo · no inhabilitado para empleo/cargo público por sentencia judicial firme · idoneidad <i class="n">Ley 3/2015</i>.</li>
+<li><i class="d">Idóneo</i> = <b>honorabilidad</b> + <b>formación y experiencia</b> en la materia, según el cargo; la aprecian quien <b>propone</b> y quien <b>nombra</b>.</li>
+<li><b>Suplencia Presidente</b> <i class="n">13.1 LG</i> (vacante, ausencia, enfermedad): <b>VP</b> por orden de prelación → en su defecto <b>Ministros</b> por orden de precedencia de Departamentos.</li>
+<li><b>Suplencia Ministros</b> <i class="n">13.2 LG</i> (despacho ordinario): <b>RD del Presidente</b>, siempre en <b>otro miembro del Gobierno</b>; expresa causa y carácter. <i class="x">⚠ No es ausencia</i> la interrupción transitoria de asistencia a un colegiado: ejerce la siguiente autoridad en rango presente.</li>
+<li><b>Responsabilidad criminal</b> <i class="n">art. 102 CE</i>: ante la <i class="o">Sala de lo Penal del Tribunal Supremo</i>. Traición o delito contra la seguridad del Estado: iniciativa de <i class="p">1/4</i> del Congreso + aprobación por <i class="p">mayoría absoluta</i>. <i class="x">⚠ Prerrogativa real de gracia NO aplicable.</i></li>
+<li><b>Incompatibilidades</b> <i class="n">art. 98.3 CE</i>: NO pueden ejercer otras funciones representativas que las propias del mandato parlamentario · ni otra función pública que no derive de su cargo · ni actividad profesional o mercantil. Régimen = el de los altos cargos AGE (<i class="n">art. 14 LG</i>, Ley 3/2015); también aplicable a SE.</li>
+</ul>
+
+<h2>6. Nombramiento y cese</h2>
+<h3>Presidente · <i class="n">art. 99 CE</i></h3>
+<ul>
+<li>Se activa tras <b>renovación del Congreso</b> y demás supuestos constitucionales: <b>dimisión</b> voluntaria, <b>fallecimiento</b>, <b>pérdida de cuestión de confianza</b>.</li>
+<li>El <i class="o">Rey</i>, previa consulta a representantes de Grupos con representación parlamentaria, y a través del <i class="o">Pdte del Congreso</i> (refrendo), <b>propone candidato</b>. Este expone su <b>programa político</b> y solicita confianza.</li>
+</ul>
+<div class="flow">Candidato → 1ª votación: <b>M. ABSOLUTA</b> ✔ → Rey nombra (refrendo Pdte Congreso)<br>✘ → 2ª votación <b>48 h después</b>: <b>M. SIMPLE</b> ✔ → nombra<br>✘ → nuevas propuestas sucesivas · el Rey puede proponer el mismo u otro candidato<br><b>2 meses</b> desde 1ª votación sin confianza → Rey <b>disuelve ambas Cámaras</b> y convoca elecciones (refrendo Pdte Congreso)</div>
+<p><i class="n">Art. 12 LG</i>: nombramiento y cese del Presidente según la CE.</p>
+<h3>Vicepresidentes y Ministros · <i class="n">art. 100 CE</i></h3>
+<ul>
+<li>Nombrados y separados por el <i class="o">Rey</i>, <b>a propuesta del Presidente</b>; mediante <b>RD expedido por el Rey con refrendo del Presidente</b>.</li>
+<li>El nombramiento conlleva el cese en el puesto anterior, salvo VP que sea Ministro y conserve la titularidad del Departamento.</li>
+<li>Separación de <b>Ministros sin cartera</b> → extinción de esos órganos. Separación de <b>VP</b> → extinción, salvo que simultáneamente se designe otro VP sustituto.</li>
+<li><i class="d">NEW · Presencia equilibrada</i> (VP + Ministerios): cada sexo, como mínimo, <i class="p">40%</i> <b>en su conjunto</b>.</li>
+</ul>
+<h3>Cese del Gobierno · <i class="n">art. 101 CE</i></h3>
+<ul>
+<li>Cesa: tras <b>elecciones generales</b> · <b>pérdida de confianza</b> parlamentaria (casos CE) · <b>dimisión</b> o <b>fallecimiento</b> del Presidente. El <i class="d">Gobierno cesante</i> continúa <b>en funciones</b> hasta la toma de posesión del nuevo.</li>
+<li>Presidente cesa en los mismos supuestos que el Gobierno. Su estatuto tras el cese: por <b>RD</b>.</li>
+<li><b>Secretarios de Estado</b> <i class="n">art. 15 LG</i>: nombrados y separados por <b>RD del Consejo de Ministros</b>, a propuesta del <b>Presidente</b> o del <b>miembro del Gobierno</b> del Departamento.</li>
+</ul>
+
+<h2>7. Funciones del Gobierno</h2>
+<p><b>Políticas</b>: dirección política interior y exterior · Admón. civil y militar · defensa del Estado. <b>Administrativas</b>: función ejecutiva · potestad reglamentaria. Principales: <b>potestad reglamentaria + iniciativa legislativa</b> (según Tít. VI Ley 39/2015 y Tít. del Gobierno).</p>
+<h3>Forma de las decisiones</h3>
+<table>
+<tr><th>Forma</th><th>Contenido</th></tr>
+<tr><td><i class="n">RD Legislativos</i> · <i class="n">RD-leyes</i></td><td>Normas de los <b>arts. 82 y 86 CE</b></td></tr>
+<tr><td><b>RD del Presidente</b></td><td>Disposiciones y actos atribuidos al Presidente</td></tr>
+<tr><td><b>RD acordados en Consejo de Ministros</b></td><td>Normas reglamentarias de su competencia y resoluciones que deban adoptar esa forma</td></tr>
+<tr><td><b>Acuerdos del Consejo de Ministros</b></td><td>Decisiones que <i class="x">no</i> deban ser RD</td></tr>
+<tr><td><b>Acuerdos de Comisiones Delegadas</b></td><td>Forma de <b>Orden del Ministro competente</b>, o del <b>Min. Presidencia</b> si compete a varios Ministros</td></tr>
+<tr><td><b>Órdenes Ministeriales</b></td><td>Disposiciones y resoluciones de Ministros; si afectan a varios Departamentos: Orden del Min. Presidencia a propuesta de los Ministros interesados</td></tr>
+</table>
+<p><b>Jerarquía de reglamentos</b>: 1.º RD (del Presidente o acordado en CM) · 2.º Orden Ministerial.</p>
+
+<h3>Presidente del Gobierno</h3>
+<p><i class="n">Art. 98.2 CE</i>: <b>dirige la acción del Gobierno</b> y <b>coordina</b> a los demás miembros, sin perjuicio de la competencia y responsabilidad directa de los Ministros. Le corresponde:</p>
+<ul>
+<li>Representar al Gobierno · establecer el <b>programa político</b> y directrices de política interior y exterior, y velar por su cumplimiento.</li>
+<li><b>Proponer</b> al Rey, previa deliberación del CM, la <b>disolución</b> del Congreso, Senado o Cortes Generales.</li>
+<li><b>Plantear</b> la <b>cuestión de confianza</b> ante el Congreso, previa deliberación del CM.</li>
+<li><b>Proponer</b> al Rey <b>referéndum consultivo</b>, previa <b>autorización del Congreso</b>.</li>
+<li>Dirigir la <b>política de defensa</b> y funciones sobre Fuerzas Armadas (legislación de defensa nacional).</li>
+<li><b>Convocar, presidir y fijar el orden del día</b> del CM (sin perjuicio del art. 62.g CE).</li>
+<li><b>Refrendar</b> actos del Rey (<i class="n">art. 64 CE</i>) y someterle para <b>sanción</b> las leyes y normas con rango de ley (<i class="n">art. 91 CE</i>).</li>
+<li>Interponer el <b>recurso de inconstitucionalidad</b>.</li>
+<li><b>Crear, modificar y suprimir</b>, por <b>RD</b>, <b>Departamentos Ministeriales</b> y <b>Secretarías de Estado</b>; aprobar la estructura orgánica de la Presidencia.</li>
+<li><b>Proponer</b> al Rey el nombramiento y separación de VP y Ministros.</li>
+</ul>
+<h3>Vicepresidente/s · Ministros</h3>
+<ul>
+<li><b>VP</b>: funciones que les encomiende el Presidente. Si asume un Departamento, <b>además es Ministro</b>.</li>
+<li><b>Ministros</b> (titulares de Departamentos; competencia y responsabilidad en su esfera): desarrollar la acción del Gobierno en su Departamento (según acuerdos del CM / directrices del Presidente) · <b>potestad reglamentaria</b> en materias de su Departamento · otras competencias legales · <b>refrendar</b> actos del Rey en su materia.</li>
+<li><b>Ministros sin cartera</b>: <b>RD</b> fija ámbito de competencias, estructura administrativa y medios materiales y personales.</li>
+</ul>
+<h3>Consejo de Ministros · funciones</h3>
+<ul>
+<li>Aprobar <b>proyectos de ley</b> y remitirlos al Congreso (o, en su caso, Senado) · aprobar el <b>proyecto de Ley de PGE</b>.</li>
+<li>Aprobar <b>RD-leyes</b> y <b>RD Legislativos</b>.</li>
+<li>Acordar <b>negociación y firma de Tratados</b> internacionales y su <b>aplicación provisional</b>; remitirlos a las Cortes (<i class="n">arts. 94 y 96.2 CE</i>).</li>
+<li><b>Declarar</b> estados de <b>alarma</b> y <b>excepción</b>; <b>proponer</b> al Congreso el de <b>sitio</b>.</li>
+<li>Emisión de <b>Deuda Pública</b> o contraer crédito, si autorizado por <b>ley</b>.</li>
+<li>Aprobar reglamentos de desarrollo y ejecución de leyes, <b>previo dictamen del Consejo de Estado</b>, y demás disposiciones reglamentarias.</li>
+<li><b>Crear, modificar y suprimir los órganos directivos</b> de los Departamentos.</li>
+<li>Programas, planes y directrices <b>vinculantes</b> para todos los órganos de la AGE · otras atribuciones.</li>
+</ul>
+<h3>Comisiones Delegadas · funciones</h3>
+<ul>
+<li><b>Examinar</b> cuestiones generales relacionadas con varios Departamentos integrantes.</li>
+<li><b>Estudiar</b> asuntos de varios Ministerios que requieran <b>propuesta conjunta</b> previa a su resolución por el CM.</li>
+<li><b>Resolver</b> asuntos que afecten a más de un Ministerio y <b>no</b> requieran elevarse al CM.</li>
+<li>Otras atribuciones del ordenamiento o delegadas por el CM.</li>
+</ul>
+<h3>Gobierno en funciones</h3>
+<ul>
+<li>Facilita la formación del nuevo Gobierno y el traspaso de poderes; <b>limita su gestión al despacho ordinario de asuntos públicos</b>. <i class="x">Excepción</i>: urgencia debidamente acreditada o interés general con acreditación expresa.</li>
+<li><i class="x">⚠ El Gobierno en funciones NO puede</i>: aprobar el <b>proyecto de Ley de PGE</b> · presentar <b>proyectos de ley</b> al Congreso/Senado.</li>
+<li><i class="x">⚠ El Presidente en funciones NO puede</i>: proponer <b>disolución</b> · plantear <b>cuestión de confianza</b> · proponer <b>referéndum consultivo</b>.</li>
+<li><b>Delegaciones legislativas</b> de las Cortes: <b>en suspenso</b> mientras esté en funciones por elecciones generales.</li>
+</ul>
+
+<h2>8. Órganos vs titulares</h2>
+<table>
+<tr><th></th><th>Ministerio</th><th>Secretaría de Estado</th></tr>
+<tr><td>Creación del órgano</td><td colspan="2"><b>RD del Presidente</b> (ambos)</td></tr>
+<tr><td>Nombramiento/cese titular</td><td><b>RD expedido por el Rey</b>, a propuesta del Presidente</td><td><b>RD del Consejo de Ministros</b>, a propuesta del Presidente o del Ministro</td></tr>
+</table>
+
+<h2>9. Relaciones Gobierno – Cortes Generales (arts. 108-116 CE)</h2>
+<table>
+<tr><th>Gobierno</th><th>Cortes Generales</th></tr>
+<tr><td>Acceso a sesiones · cuestión de confianza · disolver Cámaras · declarar alarma y excepción</td><td>Interpelaciones y preguntas · moción de censura · declarar estado de sitio</td></tr>
+</table>
+<ul>
+<li><b>Información</b> <i class="n">art. 109</i>: Cámaras y Comisiones recaban, <b>a través de sus Presidentes</b>, información y ayuda del Gobierno, Departamentos y autoridades del Estado y CCAA; pueden reclamar la <b>presencia</b> de miembros del Gobierno.</li>
+<li><b>Acceso</b> <i class="n">art. 110</i>: miembros del Gobierno tienen acceso a sesiones y Comisiones, facultad de hacerse oír, y pueden pedir que informen funcionarios de sus Departamentos.</li>
+<li><b>Interpelaciones y preguntas</b> <i class="n">art. 111</i>: Gobierno y cada miembro; Reglamentos fijan <b>tiempo mínimo semanal</b>. Toda interpelación puede dar lugar a una <b>moción</b>.</li>
+</ul>
+<table>
+<tr><th></th><th>Cuestión de confianza <i class="n">112, 114.1</i></th><th>Moción de censura <i class="n">113, 114.2</i></th></tr>
+<tr><td>Quién</td><td><i class="o">Presidente</i>, previa deliberación del CM</td><td>Al menos <i class="p">1/10</i> de Diputados; <b>incluye candidato</b> a Presidente</td></tr>
+<tr><td>Sobre</td><td>Su <b>programa</b> o una <b>declaración de política general</b></td><td><b>Responsabilidad política</b> del Gobierno</td></tr>
+<tr><td>Mayoría</td><td><i class="p">SIMPLE</i> a favor</td><td><i class="p">ABSOLUTA</i></td></tr>
+<tr><td>Plazos</td><td>—</td><td>No se vota hasta <i class="p">5 días</i> desde presentación; en los <i class="p">2 primeros</i>, mociones alternativas</td></tr>
+<tr><td>Efecto</td><td>Si el Congreso <b>niega</b> confianza → Gobierno dimite ante el Rey → se designa Presidente por <i class="n">art. 99</i></td><td>Si <b>prospera</b> → Gobierno dimite ante el Rey; candidato = <b>investido</b>; el Rey lo nombra Presidente</td></tr>
+<tr><td>Si fracasa</td><td>—</td><td>Firmantes <b>no pueden presentar otra</b> en el mismo período de sesiones</td></tr>
+</table>
+<ul>
+<li><b>Disolución</b> <i class="n">art. 115</i>: el <b>Presidente</b>, previa deliberación del CM y <b>bajo su exclusiva responsabilidad</b>, propone disolver Congreso, Senado o Cortes; la <b>decreta el Rey</b>; el decreto fija la fecha de elecciones. <i class="x">⚠ No puede proponerse con una moción de censura en trámite.</i> <i class="x">⚠ Nueva disolución no antes de <span class="p">1 año</span></i> desde la anterior, salvo <i class="n">art. 99.5</i> (2 meses sin investidura).</li>
+</ul>
+
+<h3>Estados de alarma, excepción y sitio · <i class="n">art. 116 CE</i> + <i class="n">LO 4/1981</i></h3>
+<table>
+<tr><th></th><th>Alarma</th><th>Excepción</th><th>Sitio</th></tr>
+<tr><td>Declara</td><td><i class="o">Gobierno</i>, decreto en CM</td><td><i class="o">Gobierno</i>, decreto en CM</td><td><i class="o">Congreso</i>, <i class="p">mayoría absoluta</i></td></tr>
+<tr><td>Congreso</td><td><b>Da cuenta</b> (se reúne inmediatamente); sin su autorización no se prorroga</td><td><b>Previa autorización</b></td><td><b>Propuesta exclusiva</b> del Gobierno</td></tr>
+<tr><td>Duración</td><td>máx. <i class="p">15 días</i> + prórroga autorizada</td><td>máx. <i class="p">30 días</i> + <i class="p">30</i> (mismos requisitos)</td><td>La fija el Congreso</td></tr>
+<tr><td>Fija</td><td>Ámbito territorial y efectos</td><td>Efectos, ámbito, duración</td><td>Ámbito, duración y condiciones</td></tr>
+<tr><td>Derechos suspendidos</td><td>Ninguno</td><td colspan="2">CE <b>art. 55.1</b>: 17 (libertad y seguridad; <b>17.3</b> derechos del detenido), 18.2 (domicilio), 18.3 (comunicaciones), 19 (residencia y circulación), 20.1.a (expresión), 20.1.d (información), 20.5 (secuestro de publicaciones sin resolución judicial), 21 (reunión), 28.2 (huelga), 37.2 (conflicto colectivo). <i class="x">⚠ Excepción = sitio salvo 17.3</i></td></tr>
+</table>
+<ul>
+<li><b>Suspensión individual</b> <i class="n">art. 55.2 CE</i> (investigación de banda armada o terroristas): <b>17.2</b> (duración máx. detención preventiva), <b>18.2</b>, <b>18.3</b>.</li>
+<li>Mientras haya estado declarado: <i class="x">⚠ no se puede disolver el Congreso</i>; Cámaras <b>automáticamente convocadas</b> si no están en sesiones; su funcionamiento y el de los demás poderes constitucionales <b>no se interrumpe</b>. Si el Congreso está disuelto o expirado su mandato: asume sus competencias la <i class="o">Diputación Permanente</i>.</li>
+<li>La declaración <b>no modifica</b> el principio de responsabilidad del Gobierno y sus agentes.</li>
+</ul>
+
+<h2>10. Relaciones del Gobierno con otros</h2>
+<ul>
+<li><i class="n">Art. 104 CE</i>: <b>Fuerzas y Cuerpos de Seguridad</b>, <b>bajo la dependencia del Gobierno</b>: proteger el libre ejercicio de derechos y libertades y garantizar la seguridad ciudadana. <b>Ley orgánica</b>: funciones, principios básicos de actuación y estatutos.</li>
+<li><i class="n">Art. 107 CE</i>: <b>Consejo de Estado</b> = <b>supremo órgano consultivo</b> del Gobierno. <b>Ley orgánica</b> regula composición y competencia.</li>
+</ul>
+
+<h2>⚠ Trampas típicas (parejas)</h2>
+<table>
+<tr><td>Miembros del Gobierno (Pdte, VP, Ministros) ↔ <b>SE: NO</b> son Gobierno</td></tr>
+<tr><td>Unipersonales (Pdte, VP, Ministros) ↔ colegiados (CM, Com. Delegadas)</td></tr>
+<tr><td><b>ABSOLUTA</b>: investidura 1ª · moción de censura · estado de sitio ↔ <b>SIMPLE</b>: investidura 2ª (48 h) · cuestión de confianza</td></tr>
+<tr><td>Deliberaciones <b>SECRETAS</b> (CM, Com. Delegadas) ↔ <b>RESERVADAS</b> (Com. Gral. SE y Subsec.)</td></tr>
+<tr><td>Creación Ministerio/SE = RD <b>Presidente</b> ↔ titular: Ministro = RD <b>Rey</b> (a prop. Presidente) · SE = RD <b>CM</b></td></tr>
+<tr><td><b>1/10</b> Diputados (moción) ↔ <b>1/4</b> Congreso + M. abs. (acusación art. 102) · <b>5 días</b> (moción) ↔ <b>2 meses</b> (investidura) ↔ <b>1 año</b> (disolución)</td></tr>
+<tr><td>Alarma <b>15</b> (da cuenta) ↔ Excepción <b>30+30</b> (autorización previa) ↔ Sitio (Congreso, lo fija él)</td></tr>
+</table>
+
+</div>
+
+<div class="box">
+<h2>Incoherencias del material</h2>
+<ul>
+<li><b>Presencia equilibrada 40%</b>: tema (p. 15) y repaso la marcan «NEW» sin citar la norma (el repaso dice que no la añade). Verificado: <b>LO 2/2024, de 1-ago (BOE 2-ago-2024; en vigor 22-ago-2024)</b> añade el apartado <b>2 bis al art. 12 LG</b>. El tema (p. 14) afirma que el art. 12 LG «no desarrolla» el art. 100 CE: queda <b>desactualizado</b> en ese punto. Para examen: mínimo 40% de cada sexo, en conjunto, en Vicepresidencias y Ministerios. Fuente: BOE-A-2024-15936 / Norm@doc Hacienda (87973).</li>
+<li><b>Emparejamiento del repaso</b> marcado «pendiente del visto bueno del formador»: contrastado con el tema, <b>coincide</b> en todos los puntos.</li>
+<li><b>Tabla de derechos suspendidos</b> (tema p. 25): imagen difícil de leer; recogida según lo legible y coherente con CE art. 55.1/55.2. <b>No verificada</b> contra el BOE en esta ocasión.</li>
+<li>Aviso (no está en el material): LO 2/2024 también modifica Ley 40/2015 (arts. 54.1, 55 bis y 84 bis) sobre presencia equilibrada en órganos superiores y directivos de la AGE.</li>
+<li>No verificadas por separado: resto de artículos de la LG (arts. 1-15, 21) y Ley 3/2015 respecto a posibles reformas posteriores. Tema y repaso <b>no se contradicen</b> entre sí en datos normativos.</li>
+</ul>
+</div>
+
+<!-- TAI Estudio: barra inyectada por build.py -->
+<script type="application/json" id="tai-barra-datos">{"codigo": "B1T3", "nombre": "Gobierno", "indice": "../index.html#tema-B1T3", "anterior": {"codigo": "B1T2", "nombre": "Cortes Generales", "href": "b1t2.html"}, "siguiente": {"codigo": "B1T4", "nombre": "Gobierno abierto", "href": "b1t4.html"}, "temaManual": false, "ficha": [[["B1T1", 1], ["B1T2", 1], ["B1T3", 1], ["B1T4", 1], ["B1T5", 0], ["B1T6", 0], ["B1T7", 0], ["B1T8", 0], ["B1T9", 0], ["B1T10", 0], ["B1T11", 0]], [["B2T1", 0], ["B2T2", 0], ["B2T3", 0], ["B2T4", 1], ["B2T5", 1]], [["B3T1", 1], ["B3T2", 1], ["B3T3", 0], ["B3T4", 1], ["B3T5", 0], ["B3T6", 0], ["B3T7", 0], ["B3T8", 0], ["B3T9", 0], ["B3T10", 0]], [["B4T1", 0], ["B4T2", 0], ["B4T3", 0], ["B4T4", 0], ["B4T5", 0], ["B4T6", 0], ["B4T7", 0], ["B4T8", 0], ["B4T9", 0], ["B4T10", 0]]], "base": "../assets/"}</script>
+<tai-barra></tai-barra>
+<script src="../assets/barra.js"></script>
+</body>
+</html>

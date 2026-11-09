@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TAI - B2T5 SGBD</title>
+<style>
+:root{
+  --bg:#fff;--fg:#1b1f24;--mut:#5b6572;--line:#cfd6de;--card:#f5f7fa;
+  --d:#0b5cad;--dbg:#e3effb;
+  --n:#9a5b00;--nbg:#fff0d6;
+  --o:#14733a;--obg:#e0f4e6;
+  --r:#6f35b8;--rbg:#efe6fa;
+  --x:#b3261e;--xbg:#fde7e5;
+  --e:#0f766e;--ebg:#dcf3f0;
+}
+@media (prefers-color-scheme:dark){
+:root{
+  --bg:#14171b;--fg:#e4e8ed;--mut:#98a3b0;--line:#343c46;--card:#1c2127;
+  --d:#7fb6f2;--dbg:#162b44;
+  --n:#f0b45a;--nbg:#3a2a0e;
+  --o:#6fd28f;--obg:#12301d;
+  --r:#c4a0f2;--rbg:#2a1d41;
+  --x:#f2918a;--xbg:#431a17;
+  --e:#6ad6cc;--ebg:#0f3330;
+}}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0 auto;max-width:1100px;padding:10px 12px 24px;background:var(--bg);color:var(--fg);
+  font:12.5px/1.32 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{font-size:1.5em;margin:0 0 4px;line-height:1.15}
+h1 small{font-weight:400;color:var(--mut);font-size:.55em;display:block}
+h2{font-size:1.02em;margin:9px 0 3px;padding:2px 6px;background:var(--card);border-left:4px solid var(--d);break-after:avoid}
+h3{font-size:.98em;margin:6px 0 2px;color:var(--d);break-after:avoid}
+p{margin:2px 0}
+ul{margin:2px 0;padding-left:15px}
+li{margin:0}
+.cols{column-count:2;column-gap:14px}
+.cols>*{break-inside:avoid-column}
+.cols h2,.cols table,.cols .box{break-inside:avoid}
+table{border-collapse:collapse;width:100%;margin:3px 0 5px;font-size:.96em}
+th,td{border:1px solid var(--line);padding:1px 4px;vertical-align:top;text-align:left}
+th{background:var(--card);font-weight:650}
+.chip{display:inline-block;padding:0 6px;border-radius:9px;font-size:.88em;font-weight:600;margin:0 2px 2px 0;white-space:nowrap}
+.d{color:var(--d);background:var(--dbg)}
+.n{color:var(--n);background:var(--nbg)}
+.o{color:var(--o);background:var(--obg)}
+.r{color:var(--r);background:var(--rbg)}
+.x{color:var(--x);background:var(--xbg)}
+.e{color:var(--e);background:var(--ebg)}
+span.d,span.n,span.o,span.r,span.x,span.e{padding:0 2px;border-radius:2px}
+b{font-weight:700}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.94em;color:var(--r);background:var(--rbg);padding:0 2px;border-radius:2px}
+.legend{display:flex;flex-wrap:wrap;gap:2px;align-items:center;margin:3px 0 6px;font-size:.92em}
+.map{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:4px 0 6px;font-size:.9em}
+.map div{border:1px solid var(--line);border-radius:4px;padding:2px 5px;background:var(--card)}
+.map b{display:block;color:var(--d)}
+.box{border:1px solid var(--x);background:var(--xbg);border-radius:4px;padding:4px 8px;margin-top:8px}
+.box h2{background:none;border:0;padding:0;margin:0 0 3px;color:var(--x)}
+.box li{margin-bottom:2px}
+.warn{color:var(--x);font-weight:700}
+@media (max-width:720px){.cols{column-count:1}.map{grid-template-columns:repeat(2,1fr)}}
+@page{size:A4;margin:9mm}
+@media print{
+  :root{--bg:#fff;--fg:#000;--mut:#444;--line:#aaa;--card:#eee;--d:#0b5cad;--dbg:#e3effb;--n:#9a5b00;--nbg:#fff0d6;--o:#14733a;--obg:#e0f4e6;--r:#6f35b8;--rbg:#efe6fa;--x:#b3261e;--xbg:#fde7e5;--e:#0f766e;--ebg:#dcf3f0}
+  html,body{background:#fff}
+  body{font-size:7.9pt;line-height:1.14;max-width:none;padding:0;margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  h1{font-size:13pt}
+  .cols{column-gap:6mm} th,td{padding:0 3px} h2{margin:5px 0 2px} h3{margin:3px 0 1px} table{margin:2px 0 3px} p{margin:1px 0} .map{margin:2px 0 3px}
+}
+</style>
+</head>
+<body>
+
+<h1>B2T5 · SGBD relacionales, orientados a objetos y NoSQL: características y componentes<small>TAI · The Globe (P. Arellano) · tema + repaso v1.0 fusionados</small></h1>
+
+<div class="legend">
+  <span class="chip d">Definición</span>
+  <span class="chip n">Cifra / dato numérico</span>
+  <span class="chip o">Producto / órgano / sujeto</span>
+  <span class="chip r">Sentencia / norma / sintaxis</span>
+  <span class="chip x">⚠ Trampa / excepción</span>
+  <span class="chip e">Ejemplo</span>
+</div>
+
+<div class="map">
+  <div><b>1 · SGBD</b>funciones · ANSI 3 niveles · componentes · transacciones ACID · concurrencia · aislamiento</div>
+  <div><b>2 · Relacional</b>tablas + SQL · Codd · Oracle, MySQL, MariaDB, SQLite, PostgreSQL, SQL Server, Derby, MaxDB, HSQLDB, Aurora</div>
+  <div><b>3 · Objetos</b>datos+métodos · OID · clases · OQL · db4o</div>
+  <div><b>4 · NoSQL</b>BASE · clave-valor · documentos · grafos · columnas · multimodelo</div>
+  <div><b>5 · Otros</b>series temporales</div>
+</div>
+
+<div class="cols">
+
+<h2>1. SGBD</h2>
+<p><span class="d"><b>SGBD</b> = conjunto coordinado de programas, procedimientos y lenguajes</span> que da a usuarios informáticos, no informáticos y administrador los medios para <b>describir, recuperar y manipular</b> los datos integrados en la BD, asegurando <b>confidencialidad y seguridad</b>.</p>
+
+<h3>Funciones</h3>
+<ul>
+<li>Descripción unificada de datos, estructura, relaciones y vistas parciales → <span class="r"><b>DDL</b></span> (definición)</li>
+<li>Manipulación (añadir, buscar, suprimir, modificar) → <span class="r"><b>DML</b></span></li>
+<li>Seguridad/confidencialidad: control de acceso + privilegios → <span class="r"><b>DCL</b></span></li>
+<li>Catálogo = <b>diccionario de datos</b></li>
+<li>Independencia <b>física y lógica</b> · integridad (consistencia) · acceso concurrente · recuperación ante fallos · escalabilidad · estadísticas al vuelo (rendimiento)</li>
+</ul>
+
+<h3>Arquitectura</h3>
+<p><span class="n"><b>ANSI/X3/SPARC · 3 niveles</b></span>: externo · conceptual · interno.</p>
+
+<h3>Componentes</h3>
+<table>
+<tr><th>Componente</th><th>Función</th></tr>
+<tr><td><b>Preprocesador de consultas</b></td><td>consultas → instrucciones de bajo nivel hacia el gestor de BD</td></tr>
+<tr><td><b>Gestor de la BD</b></td><td>interfaz con aplicaciones y consultas; examina esquemas externo y conceptual → llama al gestor de ficheros. Contiene ↓</td></tr>
+<tr><td>· Control de autorización</td><td>comprueba permisos</td></tr>
+<tr><td>· Procesador de comandos</td><td>recibe el control tras comprobar permisos</td></tr>
+<tr><td>· Control de integridad</td><td>verifica restricciones de integridad al cambiar datos</td></tr>
+<tr><td>· Optimizador de consultas</td><td>estrategia óptima de ejecución</td></tr>
+<tr><td>· Gestor de transacciones</td><td>procesa transacciones</td></tr>
+<tr><td>· Planificador (<i>scheduler</i>)</td><td>operaciones concurrentes sin conflictos</td></tr>
+<tr><td>· Gestor de recuperación</td><td>BD consistente tras fallo</td></tr>
+<tr><td>· Gestor de buffers (= gestor de datos)</td><td>transfiere datos memoria principal ↔ almacenamiento secundario</td></tr>
+<tr><td><b>Gestor de ficheros</b></td><td>ficheros en disco; mantiene lista de estructuras e índices del esquema interno</td></tr>
+<tr><td><b>Preprocesador/precompilador DML</b></td><td>DML embebido en la aplicación → llamadas a funciones del lenguaje anfitrión (con el procesador de consultas)</td></tr>
+<tr><td><b>Compilador DML</b></td><td>DML → plan de evaluación (bajo nivel); elige el plan de <b>menor coste</b> (optimización)</td></tr>
+<tr><td><b>Intérprete DDL</b></td><td>DDL → tablas de <b>metadatos</b> (registradas en el diccionario)</td></tr>
+<tr><td><b>Motor de ejecución</b></td><td>ejecuta las instrucciones del compilador DML</td></tr>
+<tr><td><b>Gestor del diccionario de datos</b></td><td>controla accesos y mantiene el diccionario</td></tr>
+</table>
+<p class="warn">⚠ Optimizar = gestor de BD (optimizador) y compilador DML; intérprete DDL ≠ compilador DML.</p>
+
+<h3>Transacciones</h3>
+<p><span class="d"><b>Transacción</b> = secuencia de operaciones de acceso a la BD que constituye una <b>unidad lógica de ejecución</b></span> (todas o ninguna). <span class="e">Ej.: compra en Amazon: validar cuenta → saldo → cuenta vendedor → retirar → ingresar.</span></p>
+<table>
+<tr><th colspan="2"><span class="n">ACID</span> (4)</th></tr>
+<tr><td><b>A</b>tomicidad</td><td>unidad atómica: todas las operaciones o ninguna</td></tr>
+<tr><td><b>C</b>onsistencia</td><td>deja la BD consistente; se cumplen restricciones de integridad</td></tr>
+<tr><td><b>I</b>solation (aislamiento)</td><td>cambios no confirmados no visibles al resto</td></tr>
+<tr><td><b>D</b>urabilidad</td><td>commit ⇒ cambios grabados y permanentes</td></tr>
+</table>
+<ul>
+<li><b>Inicio</b>: implícito (<code>CREATE</code>, <code>ALTER</code>, <code>INSERT</code>, <code>UPDATE</code>…) o explícito (<code>SET TRANSACTION</code>).</li>
+<li><b>Fin</b> (explícito): <code>COMMIT</code> confirma cambios · <code>ROLLBACK</code> deshace todo → estado previo al inicio · <code>SAVEPOINT</code> punto de recuperación para revertir <b>parcialmente</b> con <code>ROLLBACK</code>.</li>
+<li><span class="o"><b>Commit en 2 fases</b></span> (BD distribuidas): <b>coordinador</b> + <b>participantes</b>; fase 1 <b>preparación</b> (coordinador prepara a todos) · fase 2 <b>commit</b> (coordinador completa).</li>
+<li><b>Estados</b>: principio → <b>activa</b> →(fin)→ <b>pendiente de confirmar</b> →(confirmación)→ <b>confirmada</b> → <b>terminada</b>; activa y pendiente →(anulación)→ <b>fallada</b> → <b>terminada</b>.</li>
+<li>Acceso: <code>leer(X)</code> = consulta · <code>escribir(X)</code> = inserción/modificación/borrado. <span class="e">Ej.: P1 retira 100 y P2 retira 200 de saldo 1000 → resultado incorrecto (pierde actualización).</span></li>
+<li>Control de concurrencia evita: <b>pérdida de actualizaciones</b>, <b>información incoherente</b>, <b>lectura de datos no confirmados</b> anulables.</li>
+</ul>
+<p class="warn">⚠ SAVEPOINT NO finaliza la transacción (ver incoherencias). Fin implícito/explícito: el tema dice «debe ser explícita».</p>
+
+<h3>Problemas de concurrencia (3)</h3>
+<table>
+<tr><th>Lectura</th><th>Qué pasa</th><th>Esquema</th></tr>
+<tr><td><b>SUCIA</b> (dirty)</td><td>T2 lee dato modificado por T1 <b>sin commit</b> (viola aislamiento); si T1 falla/rollback, el valor nunca fue válido</td><td><span class="e">T1 inserta A · T2 lee A · T1 rollback</span></td></tr>
+<tr><td><b>NO REPETIBLE</b></td><td>T1 lee 2 veces el mismo valor y no coincide: T2 lo <b>modificó</b> entre lecturas</td><td><span class="e">T1 lee A · T2 modifica A · T1 relee A ≠</span></td></tr>
+<tr><td><b>FANTASMA</b></td><td>caso particular de no repetible: 2 consultas idénticas; T2 <b>inserta</b> filas → la 2ª devuelve <b>más</b> filas</td><td><span class="e">T1 lee conjunto WHERE · T2 inserta fila que cumple · T1 repite → +1</span></td></tr>
+</table>
+
+<h3>Niveles de aislamiento ANSI SQL-92 (4, de menor a mayor)</h3>
+<table>
+<tr><th>Nivel</th><th>Sucia</th><th>No repet.</th><th>Fantasma</th></tr>
+<tr><td><b>No comprometida</b> (<i>read uncommitted</i>) — cambios visibles de inmediato</td><td class="x">NO</td><td class="x">NO</td><td class="x">NO</td></tr>
+<tr><td><b>Comprometida</b> (<i>read committed</i>) — visibles tras commit; <b>solo previene sucias</b></td><td class="o">SÍ</td><td class="x">NO</td><td class="x">NO</td></tr>
+<tr><td><b>Repetible</b> (<i>repeatable read</i>) — filas leídas/actualizadas bloqueadas hasta fin de transacción</td><td class="o">SÍ</td><td class="o">SÍ</td><td class="x">NO</td></tr>
+<tr><td><b>Serializable</b> — mismo efecto que ejecución en serie; previene todas</td><td class="o">SÍ</td><td class="o">SÍ</td><td class="o">SÍ</td></tr>
+</table>
+<p>SÍ/NO = «evita» la interferencia. Alias: no comprometida = no confirmada; comprometida = confirmada.</p>
+
+<h2>2. SGBD relacionales (SGBDR / RDBMS)</h2>
+<p><span class="d">Modelo más popular hoy. Basado en <b>tablas</b>; <b>relación</b> = tabla (término matemático). Formulado con <b>álgebra relacional</b> → fundamento de <b>SQL</b>.</span> Fila = registro/<b>tupla</b>; columnas = <b>atributos</b> (A1…An). <b>Clave primaria</b> (normalmente A1, no modificable) identifica inequívocamente el registro. Antecesores: modelo <b>jerárquico</b> (árbol) y <b>Codasyl</b> (red). Se imponen desde los <span class="n">años 80</span>.</p>
+
+<h3>Reglas de Codd</h3>
+<p><span class="n"><b>1985 · Regla 0 + 12 reglas</b>; al menos <b>6</b> para considerarse relacional</span> (según el tema).</p>
+<table>
+<tr><th>#</th><th>Regla</th><th>Idea</th></tr>
+<tr><td>0</td><td>Gestión de BD relacional</td><td>manejar la BD <b>exclusivamente</b> con capacidades relacionales</td></tr>
+<tr><td>1</td><td>Representación de la información</td><td>todo explícito a nivel lógico, <b>valores en tablas</b></td></tr>
+<tr><td>2</td><td>Acceso garantizado</td><td>nombre de tabla + <b>valor de clave primaria</b> + nombre de columna</td></tr>
+<tr><td>3</td><td>Información que falta</td><td><b>nulos</b> sistemáticos (desconocido/inaplicable)</td></tr>
+<tr><td>4</td><td>Catálogo dinámico</td><td>descripción de la BD en la misma forma que los datos; consultable con el mismo lenguaje</td></tr>
+<tr><td>5</td><td>Sublenguaje global de datos</td><td>≥1 lenguaje con sintaxis definida: definición de datos y vistas, manipulación, integridad, autorizaciones, transacciones</td></tr>
+<tr><td>6</td><td>Actualización de vistas</td><td>vistas teóricamente actualizables → actualizables por el sistema</td></tr>
+<tr><td>7</td><td>Insert/update/delete de alto nivel</td><td>una relación (base o derivada) como <b>un solo operando</b>, también al modificar</td></tr>
+<tr><td>8</td><td>Independencia <b>física</b></td><td>cambios en almacenamiento/métodos de acceso no afectan a programas</td></tr>
+<tr><td>9</td><td>Independencia <b>lógica</b></td><td>cambios en tablas que preservan información no afectan a programas</td></tr>
+<tr><td>10</td><td>Independencia de la <b>integridad</b></td><td>reglas definidas en el sublenguaje y almacenadas en el <b>catálogo</b>, no en las aplicaciones</td></tr>
+<tr><td>11</td><td>Independencia de la <b>distribución</b></td><td>soporta BD distribuidas sin alterar programas</td></tr>
+<tr><td>12</td><td>No inversión (no subversión)</td><td>el lenguaje de bajo nivel no puede saltarse las reglas de integridad</td></tr>
+</table>
+<p>Un SGBDR: datos externos como tablas (internamente índices, páginas…); lenguaje sin predefinir caminos de acceso (recuperación, modificación, selección, definición, control de integridad/seguridad/consistencia); acceso concurrente (terminales + aplicaciones); herramientas de respaldo y recuperación.</p>
+
+<h3>Oracle</h3>
+<ul>
+<li><span class="o">Referente empresarial</span>: transacciones, estabilidad, escalabilidad, multiplataforma. Desventaja: <b>coste</b> (gratis: <b>Express Edition / XE</b>).</li>
+<li><span class="r">PL/SQL</span> (Procedural Language/SQL): lenguaje procedimental con SQL embebido; <b>compilado y almacenado en la BD</b>.</li>
+<li>SGBD Oracle = <b>instancia</b> (procesos + estructuras en memoria) + <b>archivos de la BD</b> (disco). Estructura <b>física</b> y <b>lógica</b> separadas.</li>
+<li><b>Física</b> (ficheros SO): <b>DATAFILES</b> (datos) · <b>REDO LOG</b> (registra todos los cambios en datos y objetos, para recuperar) · <b>CONTROLFILES</b> (estructura física de la BD).</li>
+<li><b>Lógica</b>: <b>tablespaces</b> + objetos del esquema (tablas, vistas, índices…).</li>
+<li><b>Vista</b>: guarda la consulta, se ejecuta en cada acceso → datos <b>actuales</b>. <b>Vista materializada</b>: guarda el <b>resultado</b> en un momento (creación/refresco). <span class="o">SQL Server: «vista indexada».</span></li>
+<li><b>Tablespace</b> = división lógica de la BD. BD → ≥1 tablespace (cada tablespace en <b>una sola</b> BD). Tablespace → ≥1 datafile (cada datafile en <b>un solo</b> tablespace). Por defecto <b>SYSTEM</b> (diccionario de datos); recomendado reservarlo al servidor. Ventajas: offline por fallo de disco sin parar el resto · distribución lógica/física · aislar datos de aplicaciones · backup/recovery por tablespace en caliente.</li>
+<li><b>Jerarquía</b>: tablespace ⊃ <b>segmento</b> (conjunto de extensiones; al borrarlo, el espacio vuelve al tablespace) ⊃ <b>extensión</b> (bloques Oracle contiguos en disco) ⊃ <b>bloque de datos Oracle</b> (múltiplo de bloques de disco del SO; granularidad mínima).</li>
+<li><span class="n"><b>5 segmentos</b></span>: <b>datos</b> (tablas) · <b>índices</b> (árboles B; consultas solo sobre columnas indexadas se resuelven en el índice; control de unicidad; un segmento por índice) · <b>rollback</b> (restaura transacciones no validadas, consistencia en lectura, reutilizables cíclicamente; registro = ID transacción, dirección bloque, nº fila, nº columna, valor antiguo) · <b>temporales</b> (ordenaciones que no caben en memoria; <code>CREATE INDEX</code>, <code>ORDER BY</code>, <code>GROUP BY</code>, <code>DISTINCT</code>, <code>UNION</code>, <code>INTERSECT</code>, <code>MINUS</code>; se eliminan al acabar la sentencia) · <b>bootstrap</b> (en SYSTEM; definiciones del diccionario, se cargan al abrir la BD).</li>
+<li>Tipos: String <code>CHAR NCHAR NVARCHAR2 VARCHAR2 LONG RAW LONG RAW</code> · Num <code>NUMBER BINARY_FLOAT BINARY_DOUBLE</code> · Fecha <code>DATE TIMESTAMP (WITH TIME ZONE / WITH LOCAL TIME ZONE) INTERVAL</code> · Objetos <code>BFILE BLOB CLOB NCLOB</code>.</li>
+</ul>
+
+<h3>Comparativa del resto de SGBDR</h3>
+<table>
+<tr><th>SGBD</th><th>Datos clave</th></tr>
+<tr><td><b>MySQL</b></td><td>«Por excelencia» relacional; <b>multihilo y multiusuario</b>; el más usado en software libre y web. <b>GNU GPL</b> (+ licencia comercial; Oracle lo orienta a empresa). Ventajas: fácil uso/instalación, rendimiento, multiplataforma, <b>TLS/SSL</b>. Desventaja: <b>escalabilidad</b> (BD muy grandes). Motores: <b>InnoDB</b> (estándar, <b>por defecto</b>, transaccional) · <b>MyISAM</b> (versiones antiguas, índices/tablas rápidos, <b>sin seguridad transaccional</b>). Parte de <b>LAMP</b> (Linux+Apache+MySQL/MariaDB+PHP). Tipos: String <code>CHAR VARCHAR TINYTEXT TEXT MEDIUMTEXT LONGTEXT ENUM SET BINARY VARBINARY JSON</code> · Num <code>BIT TINYINT SMALLINT MEDIUMINT INT BIGINT DECIMAL FLOAT DOUBLE BOOLEAN</code> · Fecha <code>DATE DATETIME TIMESTAMP TIME YEAR</code> · Objetos <code>TINYBLOB BLOB MEDIUMBLOB LONGBLOB</code></td></tr>
+<tr><td><b>MariaDB</b></td><td>Lanzado en <span class="n">2009</span>; <b>derivado de MySQL</b> tras su compra por Oracle; <b>GNU GPL</b>, <b>totalmente compatible</b>. Más motores, gran escalabilidad, transacciones seguras y rápidas, extensiones para NoSQL. Desventajas: pequeñas incompatibilidades en migración, retrasos en versiones estables. Motores (según tema): InnoDB y MyISAM. Mismos tipos que MySQL. Parte de LAMP.</td></tr>
+<tr><td><b>SQLite</b></td><td><b>Biblioteca en C</b>; <b>dominio público</b>; consultas eficientes; tamaño muy pequeño; soporta <b>ACID</b>; <span class="n">máx. BD <b>281 TB</b></span>; portabilidad y rendimiento. Desventaja: <b>no fácilmente escalable</b>.</td></tr>
+<tr><td><b>PostgreSQL</b></td><td>Relacional «orientado a objetos», <b>código abierto, licencia BSD</b>. <b>MVCC</b> (control de concurrencia multiversión): se lee sin bloqueos mientras se escribe. Multilenguaje, multiplataforma, más tipos nativos, <b>pgAdmin</b>, soporta <b>JSON</b>. Desventaja: <b>lento en BD pequeñas</b> (optimizado para grandes volúmenes). Cliente-servidor: servidor central <b>«postmaster»</b> (archivos y conexiones); cliente nativo <b>psql</b>. Tipos: String <code>varchar char text</code> · Num <code>smallint integer bigint decimal numeric real double precision smallserial serial bigserial</code> · Binario <code>byte</code> · Fecha <code>timestamp (with time zone) time interval</code> · <code>boolean</code> · Geométricos <code>point line lseg box path polygon circle</code> · Red <code>cidr inet macaddr macaddr8</code> · Texto <code>tsvector tsquery</code> · Otros <code>JSON XML arrays</code></td></tr>
+<tr><td><b>SQL Server</b></td><td><b>Propietario Microsoft</b>; <span class="r">Transact-SQL</span>. Escalable, estable, seguro; cancelar consultas; entorno gráfico (DDL/DML); nativo Windows, también <b>Linux y Docker</b>; transacciones; <b>snapshots</b> de BD; <b>vista indexada</b> (= materializada). Desventaja: <b>precio</b>; planes: <b>Express</b> (gratis), Standard, Developer, Enterprise, <b>SQL Azure</b> (nube). <b>Machine Learning Services</b>: scripts <b>Python y R</b> con datos relacionales.</td></tr>
+<tr><td><b>Apache Derby</b></td><td>Java, código abierto, <b>Apache 2.0</b>.</td></tr>
+<tr><td><b>MaxDB</b></td><td>De <b>SAP</b>; originalmente <b>Adabas</b>.</td></tr>
+<tr><td><b>HSQLDB</b></td><td>Java; incluido en <b>OpenOffice</b> (soporte a <i>Base</i>); multiplataforma; <b>BSD</b>.</td></tr>
+<tr><td><b>Aurora</b> (Amazon)</td><td>Compatible con <b>MySQL y PostgreSQL</b>, para la <b>nube</b>; gestionada por <b>Amazon RDS</b>. <span class="n">Hasta <b>5×</b> MySQL y <b>3×</b> PostgreSQL; escala hasta <b>128 TiB</b> por instancia; hasta <b>15 réplicas</b> de lectura</span>; recuperación a un momento dado y backup continuo; almacenamiento distribuido, tolerante a fallos y autorreparable.</td></tr>
+</table>
+
+<h2>3. SGBD orientados a objetos</h2>
+<ul>
+<li>Nacen a <span class="n">finales de los 80</span>; escasa aplicación; también open source; típicos en plataformas <b>Java y .NET</b>. Lenguaje <span class="r"><b>OQL</b></span> (muy similar a SQL).</li>
+<li>Datos guardados en un objeto <b>junto con sus métodos</b> y atributos; los <b>métodos definen cómo se accede</b> al objeto. Objetos complejos, <b>únicos</b>, con <span class="n"><b>OID</b></span> (identificador de objeto) único. Se agrupan en <b>clases</b> → jerarquía de clases.</li>
+<li class="warn">⚠ Parecido con el modelo jerárquico solo aparente: predomina el paradigma OO y <b>no hay relación padre-hijo fija</b>.</li>
+<li><b>Ventajas</b>: tipos de datos complejos; funcionan de forma autónoma <b>sin normalización ni correspondencia de ID</b>; altas de objetos sencillas. <b>Desventajas</b>: consultas <b>más ágiles en relacional</b>; poca compatibilidad con aplicaciones habituales (baja popularidad).</li>
+<li><span class="o"><b>db4o</b> (la más conocida; escaso uso de memoria)</span>, ZODB (Zope ObjectDB), Gemstone, ObjectDB, ObjectStore, ODABA, Objectivity/DB, Perst, Wakanda, ObjectDataBase++, FastObjects, VelocityDB, EyeDB, Matisse, Object Box, Eloquera.</li>
+</ul>
+
+<h2>4. SGBD NoSQL</h2>
+<p><span class="d"><b>NoSQL = «Not Only SQL»</b>: lenguaje alternativo a SQL + información <b>no estructurada</b> (sin tablas ni columnas).</span> Surge con la <b>web 2.0</b> (Facebook, Twitter, YouTube → crecimiento exponencial de datos); más máquinas = caro e ineficaz → sistemas para usos específicos.</p>
+<p><b>Característicos</b>: sin estructuras fijas · <b>no garantizan ACID completo</b> · <b>escalan muy bien en horizontal</b>. Entornos distribuidos, siempre disponibles, gran volumen.</p>
+<table>
+<tr><th colspan="2"><span class="n">BASE</span> (en vez de ACID)</th></tr>
+<tr><td><b>B</b>asically <b>A</b>vailable</td><td>prioridad a la <b>disponibilidad</b></td></tr>
+<tr><td><b>S</b>oft state</td><td>prioriza <b>propagación</b> de datos; control de inconsistencias delegado a elementos externos</td></tr>
+<tr><td><b>E</b>ventual consistency</td><td>inconsistencias temporales evolucionan a un estado final estable</td></tr>
+</table>
+<p><b>Ventajas</b>: máquinas con pocos recursos · escalado horizontal (añadir nodos) · gran volumen (estructura distribuida, tablas hash) · sin cuello de botella (SQL debe «transcribir» cada sentencia).</p>
+
+<table>
+<tr><th>Eje</th><th>Relacional / SQL</th><th>NoSQL</th></tr>
+<tr><td>Estructura</td><td>tablas, filas y columnas; esquema fijo</td><td>sin tablas fijas; no estructurado</td></tr>
+<tr><td>Garantías</td><td><b>ACID</b></td><td><b>BASE</b></td></tr>
+<tr><td>Lenguaje</td><td>SQL (álgebra relacional)</td><td>alternativo/apoyo: <b>CQL</b> (Cassandra), <b>JSON</b> (MongoDB), <b>GQL</b> (BigTable)</td></tr>
+<tr><td>Escalado</td><td>peor con grandes volúmenes; centralizado (cliente-servidor, una máquina)</td><td><b>horizontal</b>; distribuido (<b>tablas hash distribuidas</b>)</td></tr>
+<tr><td>JOIN</td><td>nativo</td><td>no suele permitirlo: <b>desnormalizar</b> o JOIN en la <b>capa de aplicación</b></td></tr>
+</table>
+<p class="warn">⚠ Cruces habituales: ACID↔BASE · tablas↔no estructurado · vertical↔horizontal.</p>
+
+<h3>Tipos NoSQL (4 + multimodelo)</h3>
+<table>
+<tr><th>Tipo</th><th>Características</th><th>Productos</th></tr>
+<tr><td><b>Clave-valor</b></td><td><span class="d">el <b>más popular y simple</b></span>; clave única por elemento; valor normalmente <b>BLOB</b>; muy eficiente en lectura y escritura; muy divisible; juegos, adtech, IoT</td><td>Cassandra, Redis, DynamoDB, Memcached, Oracle NoSQL, Aerospike, Riak</td></tr>
+<tr><td><b>Documentos</b></td><td>doc <b>JSON/XML</b> con clave única; agrupados en <b>colecciones</b>; además de clave-valor, consultas sobre el <b>contenido</b>; <b>los más versátiles</b></td><td>MongoDB, CouchDB, SimpleDB, RethinkDB</td></tr>
+<tr><td><b>Grafos</b></td><td><b>nodos</b> = información, <b>aristas</b> = relaciones; teoría de grafos; puntero directo a adyacentes (<b>sin índices</b>); rendimiento no se degrada con el tamaño global (depende de la parte recorrida)</td><td>Neo4j, AllegroGraph, FlockDB, InfinityGraph, OrientDB (Java, multimodelo)</td></tr>
+<tr><td><b>Columnas / tabular</b></td><td>información por <b>columnas</b> en vez de filas; ventaja: acceso a disco en posiciones <b>consecutivas</b> más rápido que aleatorio</td><td>Bigtable, HBase (+ Cassandra a veces)</td></tr>
+<tr><td><b>Multimodelo</b></td><td>soportan varios modelos (clave-valor, documentos, grafos)</td><td>OrientDB, ArangoDB, Azure Cosmos DB</td></tr>
+</table>
+
+<h3>Productos NoSQL</h3>
+<table>
+<tr><th>SGBD</th><th>Datos clave</th></tr>
+<tr><td><b>Cassandra</b> (clave-valor)</td><td>Inicio: <b>Facebook</b>; hoy <b>Apache</b>; escalable, distribuida, <b>eventualmente consistente</b>; <b>híbrido</b> clave-valor/columnas; lenguaje <span class="r">CQL</span>; <b>Java</b> (corre en cualquier plataforma con JVM).</td></tr>
+<tr><td><b>Redis</b> (clave-valor)</td><td>En <b>memoria</b> con <b>persistencia a disco</b>; «array gigante» (cadenas, hashes, conjuntos, listas); <b>RE</b>mote <b>DI</b>ctionary <b>S</b>erver; <b>ANSI C</b>; licencia <b>BSD</b> (según tema); multiplataforma.</td></tr>
+<tr><td><b>DynamoDB</b> (clave-valor)</td><td>Amazon; <b>propietaria</b>; parte de <b>AWS</b>; lanzada en <span class="n">2007</span> (según tema).</td></tr>
+<tr><td><b>MongoDB</b> (documentos)</td><td>NoSQL <b>más popular y usado</b>; <b>BSON</b> (basado en JSON) con <b>esquema dinámico</b>; <b>C++</b>; licencia <b>GNU AGPL</b> (según tema); indexación, replicación, balanceo de carga, almacenamiento en ficheros, consultas <i>ad hoc</i>, escalado horizontal. Desventaja: <b>no apto para transacciones complejas</b>.</td></tr>
+<tr><td><b>CouchDB</b> (documentos)</td><td><b>Apache</b>; <b>Erlang</b>; multiplataforma; <b>JSON</b>; consistencia eventual + <b>semántica ACID</b>; interfaz <b>RESTful HTTP API</b>; <b>JavaScript</b>; <b>vistas</b> = combinan documentos → permite <b>JOIN</b>.</td></tr>
+<tr><td><b>Neo4j</b> (grafos)</td><td><b>Java</b>; <b>Neo Technology</b> (sueca); el más conocido de grafos; ideado para <b>relaciones / datos conectados</b>.</td></tr>
+<tr><td><b>Bigtable</b> (columnas)</td><td><b>Google</b>; distribuido, muy eficiente.</td></tr>
+<tr><td><b>HBase</b> (columnas)</td><td>Proyecto <b>Hadoop</b> (Apache); <b>Java</b>; <b>Apache License 2.0</b>; multiplataforma; implementación <b>open source de Bigtable</b>; distribuida, persistente, dispersa, ordenada, mapa multidimensional. <span class="n">Celda = <b>rowkey</b> + <b>columnkey</b> + <b>timestamp</b></span>.</td></tr>
+<tr><td><b>IndexedDB</b></td><td>API de bajo nivel; almacenamiento persistente <b>en el navegador</b> (cliente); objetos JSON; <b>offline</b>. Pares clave-valor (valores = objetos complejos; claves = propiedades). <b>Transaccional</b> (todo en una transacción) · <b>asíncrona</b> (solicitudes + <b>eventos DOM</b>) · orientada a objetos, <b>sin SQL</b>: consulta sobre un <b>índice</b> → <b>cursor</b>. <b>Política del mismo origen</b> (origen = dominio + protocolo + puerto) <span class="e">ej.: distinto puerto o http/https = otro origen.</span></td></tr>
+</table>
+
+<h2>5. Otros tipos: series temporales</h2>
+<p><span class="d">Recopilan, sintetizan y derivan información de datos que <b>cambian con el tiempo</b>; consultas sobre <b>intervalos de tiempo</b>.</span> Uso: sensores <b>IoT</b>, flujos de clics, cotizaciones bursátiles, telemetría. Productos: <b>AWS Timestream</b>, <b>InfluxDB</b> (código abierto), <b>Prometheus</b>, <b>TimescaleDB</b> (<b>relacional</b> con soporte de series temporales), Graphite, QuestDB, OpenTSDB.</p>
+
+</div>
+
+<div class="box">
+<h2>Incoherencias del material</h2>
+<ul>
+<li><b>SAVEPOINT como fin de transacción</b> — Tema y repaso («3 sentencias: COMMIT, ROLLBACK, SAVEPOINT») lo meten entre las sentencias de finalización. Correcto (estándar SQL): finalizan <code>COMMIT</code> y <code>ROLLBACK</code>; <code>SAVEPOINT</code> marca un punto intermedio. Para el examen, ojo a cómo plantee la pregunta (el tema manda).</li>
+<li><b>MariaDB: motores</b> — El tema dice que ofrece «aumento de motores de almacenamiento» y, a la vez, que son «los mismos que MySQL: InnoDB y MyISAM». Se contradice; MariaDB incluye motores propios adicionales (p. ej. Aria).</li>
+<li><b>Lectura no repetible</b> — El tema la define primero como dos transacciones que modifican el mismo objeto tras leerlo (más parecido a pérdida de actualización) y luego como T1 que lee dos veces y T2 modifica entre medias. Vale la segunda (la del repaso).</li>
+<li><b>Lectura fantasma</b> — Tema: «modifica datos» y luego «inserta»; repaso: «inserta filas». Respuesta de examen: <b>inserción</b> → más filas.</li>
+<li><b>SQLite «281 TB (264 Tibit)»</b> — el paréntesis del tema es una errata (la cifra 281 TB = 2<sup>48</sup> bytes). Repaso: solo 281 TB.</li>
+<li><b>HSQLDB</b> — El tema desarrolla las siglas como «Hyperthreaded Structured Query Language Database»; el nombre oficial es <b>HyperSQL Database</b> (antes Hypersonic SQL). Licencia BSD: correcta.</li>
+<li><b>MongoDB — licencia</b> — Tema: GNU AGPL. Desde octubre de 2018 el servidor se publica bajo <b>SSPL</b> (Server Side Public License). Para el examen: AGPL (tema). Fuente: <a href="https://techcrunch.com/2018/10/16/mongodb-switches-up-its-open-source-license">TechCrunch</a>.</li>
+<li><b>Redis — licencia</b> — Tema: BSD. Cambió en 2024 a RSALv2/SSPL y con Redis 8 (mayo 2025) vuelve a ofrecer <b>AGPLv3</b>. Para el examen: BSD (tema). Fuente: <a href="https://redis.io/legal/licenses/">redis.io</a>.</li>
+<li><b>DynamoDB «lanzada en 2007»</b> — 2007 es el artículo científico <i>Dynamo</i>; el servicio DynamoDB se lanzó en <b>2012</b>. Para el examen: 2007 (tema). Fuente: <a href="https://allthingsdistributed.com/2017/10/a-decade-of-dynamo.html">Werner Vogels</a>.</li>
+<li><b>Aurora «128 TiB»</b> — Desde julio de 2025 los clústeres Aurora MySQL y PostgreSQL admiten hasta <b>256 TiB</b>. Para el examen: 128 TiB (tema y repaso). Fuente: <a href="https://aws.amazon.com/about-aws/whats-new/2025/07/amazon-aurora-mysql-database-clusters-256-tib-storage">AWS</a>.</li>
+<li><b>No verificado</b> — «Al menos 6 de las 12 reglas de Codd» y la clasificación de Cassandra (clave-valor en el tema; a veces columnas) se recogen como los da el tema; no he localizado fuente que los confirme.</li>
+</ul>
+</div>
+
+
+<!-- TAI Estudio: barra inyectada por build.py -->
+<script type="application/json" id="tai-barra-datos">{"codigo": "B2T5", "nombre": "SGBD", "indice": "../index.html#tema-B2T5", "anterior": {"codigo": "B2T4", "nombre": "Sistemas operativos", "href": "b2t4.html"}, "siguiente": {"codigo": "B3T1", "nombre": "Modelo ER", "href": "b3t1.html"}, "temaManual": false, "ficha": [[["B1T1", 1], ["B1T2", 1], ["B1T3", 1], ["B1T4", 1], ["B1T5", 0], ["B1T6", 0], ["B1T7", 0], ["B1T8", 0], ["B1T9", 0], ["B1T10", 0], ["B1T11", 0]], [["B2T1", 0], ["B2T2", 0], ["B2T3", 0], ["B2T4", 1], ["B2T5", 1]], [["B3T1", 1], ["B3T2", 1], ["B3T3", 0], ["B3T4", 1], ["B3T5", 0], ["B3T6", 0], ["B3T7", 0], ["B3T8", 0], ["B3T9", 0], ["B3T10", 0]], [["B4T1", 0], ["B4T2", 0], ["B4T3", 0], ["B4T4", 0], ["B4T5", 0], ["B4T6", 0], ["B4T7", 0], ["B4T8", 0], ["B4T9", 0], ["B4T10", 0]]], "base": "../assets/"}</script>
+<tai-barra></tai-barra>
+<script src="../assets/barra.js"></script>
+</body>
+</html>

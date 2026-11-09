@@ -23,16 +23,16 @@ window.TAI_DATA = {
     {
      "codigo": "B1T3",
      "nombre": "Gobierno",
-     "disponible": false,
-     "href": null,
-     "epigrafe": null
+     "disponible": true,
+     "href": "temas/b1t3.html",
+     "epigrafe": "El Gobierno: composición, nombramiento y cese · Funciones · Relaciones con las Cortes Generales"
     },
     {
      "codigo": "B1T4",
      "nombre": "Gobierno abierto",
-     "disponible": false,
-     "href": null,
-     "epigrafe": null
+     "disponible": true,
+     "href": "temas/b1t4.html",
+     "epigrafe": "Gobierno Abierto y Transparencia · Ley 19/2013 · Agenda 2030 y ODS"
     },
     {
      "codigo": "B1T5",
@@ -113,16 +113,16 @@ window.TAI_DATA = {
     {
      "codigo": "B2T4",
      "nombre": "Sistemas operativos",
-     "disponible": false,
-     "href": null,
-     "epigrafe": null
+     "disponible": true,
+     "href": "temas/b2t4.html",
+     "epigrafe": "Sistemas operativos"
     },
     {
      "codigo": "B2T5",
      "nombre": "SGBD",
-     "disponible": false,
-     "href": null,
-     "epigrafe": null
+     "disponible": true,
+     "href": "temas/b2t5.html",
+     "epigrafe": "SGBD relacionales, orientados a objetos y NoSQL: características y componentes"
     }
    ]
   },

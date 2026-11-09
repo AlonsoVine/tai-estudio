@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TAI - B1T4 Gobierno Abierto y Transparencia</title>
+<style>
+:root{
+  --bg:#ffffff;--fg:#14181f;--mut:#566170;--line:#c9d1db;--card:#f3f5f8;
+  --d:#1b4fd1;--dbg:#e4ecff;
+  --c:#b04a05;--cbg:#ffeedb;
+  --o:#13792f;--obg:#e0f5e6;
+  --n:#7a28c0;--nbg:#f0e4fb;
+  --t:#c01c1c;--tbg:#fde6e6;
+  --e:#0a6f82;--ebg:#dcf3f7;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12151b;--fg:#e6e9ef;--mut:#9aa4b2;--line:#2d3440;--card:#1a1f28;
+    --d:#93b4ff;--dbg:#1b2a50;--c:#ffa965;--cbg:#3b2512;--o:#6fe09b;--obg:#143321;
+    --n:#caa2ff;--nbg:#2e1e46;--t:#ff9494;--tbg:#431b1b;--e:#70d8ea;--ebg:#10343b;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12151b;--fg:#e6e9ef;--mut:#9aa4b2;--line:#2d3440;--card:#1a1f28;
+  --d:#93b4ff;--dbg:#1b2a50;--c:#ffa965;--cbg:#3b2512;--o:#6fe09b;--obg:#143321;
+  --n:#caa2ff;--nbg:#2e1e46;--t:#ff9494;--tbg:#431b1b;--e:#70d8ea;--ebg:#10343b;
+  color-scheme:dark;
+}
+html{height:auto}
+body{margin:0;background:var(--bg);color:var(--fg);font:8.4pt/1.2 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:10px 12px}
+h1{font-size:14pt;margin:0 0 3px;line-height:1.15}
+h2{font-size:9.6pt;margin:5px 0 1px;border-bottom:1.5px solid var(--fg);padding-bottom:1px;break-after:avoid}
+h3{font-size:8.6pt;margin:3px 0 0;color:var(--d);break-after:avoid}
+p{margin:0 0 2px}
+ul{margin:0 0 2px;padding-left:9px}
+li{margin:0}
+table{border-collapse:collapse;width:100%;margin:1px 0 3px;font-size:8pt}
+th,td{border:1px solid var(--line);padding:0 2px;vertical-align:top;text-align:left}
+th{background:var(--card)}
+td.k{font-weight:600;background:var(--card);width:21%}
+.cols{column-count:2;column-gap:6mm}
+.cols > *{break-inside:auto}
+.full{column-span:all}
+.nb{break-inside:avoid}
+d,c,o,n,t,e{display:inline;padding:0 2px;border-radius:2px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+d{color:var(--d);background:var(--dbg)}
+c{color:var(--c);background:var(--cbg)}
+o{color:var(--o);background:var(--obg)}
+n{color:var(--n);background:var(--nbg)}
+t{color:var(--t);background:var(--tbg)}
+e{color:var(--e);background:var(--ebg)}
+.legend{display:flex;flex-wrap:wrap;gap:3px;align-items:center;margin:2px 0 4px;font-size:7.8pt}
+.legend span{padding:0 5px;border-radius:8px;border:1px solid currentColor}
+.legend .l1{color:var(--d);background:var(--dbg)}.legend .l2{color:var(--c);background:var(--cbg)}
+.legend .l3{color:var(--o);background:var(--obg)}.legend .l4{color:var(--n);background:var(--nbg)}
+.legend .l5{color:var(--t);background:var(--tbg)}.legend .l6{color:var(--e);background:var(--ebg)}
+.legend small{color:var(--mut)}
+.map{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin:2px 0 5px;font-size:7.7pt}
+.map div{border:1px solid var(--line);background:var(--card);border-radius:3px;padding:2px 4px;position:relative}
+.map b{display:block;color:var(--d)}
+.box{border:1.5px solid var(--t);background:var(--tbg);border-radius:4px;padding:3px 6px;margin:6px 0 0;font-size:7.9pt}
+.box h2{border-color:var(--t);margin-top:0}
+.box a{color:var(--d)}
+.ods td:first-child{white-space:nowrap;font-weight:700;width:1%}
+@media (max-width:760px){.cols{column-count:1}.map{grid-template-columns:1fr 1fr}main{padding:8px}}
+@page{size:A4;margin:9mm}
+@media print{
+  :root{--bg:#fff;--fg:#14181f;--mut:#566170;--line:#b9c2ce;--card:#f3f5f8;--d:#1b4fd1;--dbg:#e4ecff;--c:#b04a05;--cbg:#ffeedb;--o:#13792f;--obg:#e0f5e6;--n:#7a28c0;--nbg:#f0e4fb;--t:#c01c1c;--tbg:#fde6e6;--e:#0a6f82;--ebg:#dcf3f7;padding:0}
+  body{font-size:8.4pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  main{max-width:none;padding:0}
+}
+</style>
+</head>
+<body>
+<main>
+<h1>TAI · B1T4 · Gobierno Abierto y Transparencia · Ley 19/2013 · Agenda 2030 y ODS</h1>
+<div class="legend">
+  <span class="l1">Definición</span><span class="l2">Plazo / cifra / fecha</span><span class="l3">Órgano / sujeto</span><span class="l4">Norma / artículo</span><span class="l5">⚠ Excepción / trampa</span><span class="l6">Ejemplo</span>
+  <small><b>Negrita</b> = lo que se pregunta · ⚠ = aviso mío derivado del material · PA publicidad activa · DA derecho de acceso · RC rendición de cuentas · PMA países menos adelantados</small>
+</div>
+<div class="map">
+  <div><b>1 · Gobierno Abierto</b>4 principios · OGP 2011 · Planes I–V · Com. Sectorial 2017 · Foro 2018</div>
+  <div><b>2 · Ley 19/2013</b>40 arts · PA 5–11 · DA 12–24 · Buen gobierno 25–32</div>
+  <div><b>3 · CTBG</b>arts 33–40 · Presidente 5 años · Comisión 8</div>
+  <div><b>4 · Agenda 2030</b>2015 · 17 ODS · 169 metas · 5P · gobernanza 3 niveles</div>
+  <div><b>5 · ODS</b>1 pobreza → 17 alianzas · sustituyen a los ODM</div>
+</div>
+<div class="cols">
+
+<h2>1. Gobierno Abierto (GA)</h2>
+<p><d><b>Def. OCDE</b> (Rec. Consejo OCDE, <c>14/12/2017</c>): cultura de gobernanza que promueve <b>transparencia, integridad, RC y participación</b> de las partes interesadas, en apoyo de la democracia y el crecimiento inclusivo.</d> <d>Otra def.: mecanismos de gobernanza y buen gobierno basados en transparencia, participación, RC, <b>colaboración e innovación</b>; actividad pública abierta al escrutinio ciudadano.</d> Objetivo: ciudadanos colaboran en la <b>creación y mejora de servicios públicos</b> y en robustecer transparencia y RC. <t>⚠ Principios informadores (tema) = <b>colaboración, participación, transparencia, RC</b> (la OCDE dice «integridad», no «colaboración»)</t>.</p>
+<ul>
+<li><b>Colaboración</b>: trabajo coordinado con ciudadanía, empresas, asociaciones y entre AAPP; 3 niveles <c>G2G, G2B, G2C</c> (Government to Government / Business / Citizens).</li>
+<li><b>Participación</b>: ciudadanos comunican preocupaciones e influyen en la agenda; democratización (discusión pública, implicación, visión compartida); innovación en proceso y producto. <t>⚠ No vinculante</t>; genera <b>confianza</b>.</li>
+<li><b>Transparencia</b>: informar de lo que se hace y de los planes; acceso sencillo y claro → control de la acción de gobierno + valor económico con datos públicos.</li>
+<li><b>RC</b>: normas y mecanismos sobre autoridades electas y funcionarios (poder y gasto); decisiones motivadas y justificadas; protección de denunciantes; reacción ante irregularidades.</li>
+</ul>
+<h3>1.1 Alianza para el GA (OGP)</h3>
+<p><d><b>OGP</b> = Open Government Partnership: plataforma internacional para comprometer reformas (gobiernos abiertos, que rinden cuentas y responden); gobierno + sociedad civil.</d> España: <c>sept. 2011</c>. Calendario <c>bianual</c>: Plan de Acción → ejecución → evaluación continua; <b>IRM</b> (Independent Reporting Mechanism) = evaluación independiente. <b>Estrategia OGP <c>2023–2028</c></b>, 5 objetivos: ① comunidad global de reformadores · ② GA en todos los niveles y poderes · ③ proteger y ampliar el espacio cívico · ④ acelerar avances colectivos · ⑤ centro de casos innovadores, evidencias e historias.</p>
+<h3>1.2 Planes de GA</h3>
+<p><c>5 planes</c> elaborados, <t>⚠ ejecutados los 4 primeros</t>: <b>I</b> <c>2012–14</c> · <b>II</b> <c>2014–16</c> · <b>III</b> <c>2017–19</c> (compromisos: Comisión Sectorial y Foro) · <b>IV</b> <c>2020–24</c>, aprobado <c>29/10/2020</c> (AGE + AAPP + sociedad civil) · <b>V</b> <c>2025–29</c>, aprobado por el pleno del Foro <c>6/10/2025</c> (AGE + CCAA + Melilla + FEMP). <b>Hitos</b>: 2011 OGP · 2013 Ley 19/2013 · 2014 Portal de la Transparencia · 2018 Foro y 1ª Semana de la Administración Abierta · 2021 HazLab · 2023 Comité Directivo OGP · 2024–25 copresidencia · 2025 Cumbre Global OGP.</p>
+<p><b>IV Plan</b>: <c>4 objetivos + un 5º</c>, <c>10 compromisos</c> (2+2+2+3+1). <b>Transparencia y RC</b>: 1 reforma marco regulatorio, 2 plan de mejora de transparencia y RC · <b>Participación</b>: 3 plan de mejora, 4 huella normativa · <b>Integridad</b>: 5 sistemas preventivos de integridad pública, 6 protección de denunciantes · <b>Sensibilización</b>: 7 educación y formación en GA, 8 comunicación, 9 observatorio · <b>Ámbitos autonómico y local</b>: 10 iniciativas de CCAA, ciudades autónomas y FEMP.</p>
+<p><b>V Plan</b>, <c>10 compromisos</c>: 1 <b>Participación y espacio cívico</b> (consultas públicas, convenciones ciudadanas, mejora del Foro y observadores) · 2 <b>Transparencia y acceso a la información</b> (Ley de Administración Abierta, refuerzo del CTBG, nuevo Portal: <b>saber, entender y participar</b>) · 3 <b>Integridad y RC</b> (OCDE Integridad Pública, Dir. 2014/24/UE, GRECO, Informe Estado de Derecho CE; conflictos de intereses, grupos de interés) · 4 <b>Administración abierta</b> (Estrategia de Consenso; lenguaje claro) · 5 <b>Gobernanza digital e IA</b> (Plan de Acción por la Democracia UE) · 6 <b>Apertura fiscal: cuentas claras y abiertas</b> (Cuadro de Mando de Ejecución Presupuestaria) · 7 <b>Información veraz / ecosistema informativo</b> (Código de buenas prácticas en desinformación, CE) · 8 <b>Difusión, formación y promoción del GA</b> (Estrategia de Comunicación) · 9 <b>Observatorio de GA</b> · 10 <b>Estado abierto</b>.</p>
+<h3>1.3–1.4 Comisión Sectorial vs Foro</h3>
+<table>
+<tr><th></th><th>Comisión Sectorial</th><th>Foro de GA</th></tr>
+<tr><td class="k">Creación</td><td><c>6/3/2017</c> (III Plan)</td><td><n>Orden HFP/134/2018</n> (15/2), BOE <c>20/2/2018</c> (III Plan)</td></tr>
+<tr><td class="k">Naturaleza</td><td><b>Órgano técnico y de trabajo</b>; diálogo y debate permanente</td><td>Espacio de diálogo y colaboración</td></tr>
+<tr><td class="k">Miembros</td><td><o>Solo AAPP</o> (AGE, CCAA/Ciudades Autónomas, EELL)</td><td><o>AAPP + sociedad civil</o>, <b>igual nº</b></td></tr>
+<tr><td class="k">Fin</td><td>Coordinación interadministrativa (transparencia, participación, RC); intercambio de experiencias</td><td>Institucionalizar colaboración y diálogo permanente; diseño y seguimiento de los Planes</td></tr>
+</table>
+<p><b>Foro (tema)</b>: <o>Pleno · Comisión Permanente · Grupos de trabajo</o>. <b>Pleno</b>: órgano formal; AAPP + sociedad civil (Real Academia de Ciencias Morales y Políticas, catedráticos/profesores, asociaciones y fundaciones sin ánimo de lucro, Consejo de Consumidores y Usuarios, Tercer Sector); <c>1–2 reuniones/año</c>. <b>Com. Permanente</b> = <b>órgano ejecutivo</b>: <c>Vicepresidentes 1º y 2º + 6 vocales AAPP + 6 sociedad civil</c>; eleva propuestas al Pleno, coordina trabajos y vela por acuerdos, informa al Pleno. <b>Grupos de trabajo</b>: reflexión, grupos reducidos (agilidad); estudios, propuestas a la Com. Permanente, informan a ambos. <t>⚠ El RD 371/2026 deroga la Orden (ver Incoherencias 1).</t></p>
+
+<h2>2. Ley 19/2013 (LTAIBG)</h2>
+<p><n>Ley 19/2013, de 9 de diciembre</n>: <c>40 arts</c>. <b>Tít. Preliminar</b> <n>art. 1</n> (objeto: ampliar y reforzar la transparencia; regular y garantizar el DA; establecer obligaciones de buen gobierno de responsables públicos y consecuencias de su incumplimiento) · <b>Tít. I Transparencia</b>: Cap. I ámbito <n>2–4</n>, Cap. II PA <n>5–11</n>, Cap. III DA <n>12–24</n> · <b>Tít. II Buen gobierno</b> <n>25–32</n> · <b>Tít. III CTBG</b> <n>33–40</n>.</p>
+<h3>Ámbito subjetivo (arts 2–4; letras a–l según el tema)</h3>
+<p><b>a</b> <o>AGE, CCAA, Ceuta y Melilla, Admón. Local</o> · <b>b</b> <o>entidades gestoras y servicios comunes de la Seg. Social; mutuas</o> colaboradoras · <b>c</b> <o>OO.AA., Agencias Estatales, EPE y entidades de D. Público</o> con funciones de regulación o supervisión externa · <b>d</b> <o>entidades de D. Público con personalidad jurídica propia</o> vinculadas o dependientes, incl. <b>Universidades públicas</b>. <d>a–d = «Administraciones Públicas»</d>. <b>e</b> <o>corporaciones de D. Público</o> (solo actividad sujeta a D. Administrativo) · <b>f</b> <o>Casa de S.M. el Rey, Congreso, Senado, TC, CGPJ, Banco de España, Consejo de Estado, Defensor del Pueblo, Tribunal de Cuentas, CES</o> + autonómicas análogas (idem) · <b>g</b> <o>sociedades mercantiles</o> con participación pública <c>&gt; 50 %</c> · <b>h</b> <o>fundaciones del sector público</o> · <b>i</b> <o>asociaciones</o> constituidas por las anteriores (cumple quien ostente la Secretaría del órgano de cooperación) · <b>j</b> <o>partidos, sindicatos, organizaciones empresariales</o> <t>⚠ solo PA</t> · <b>k</b> <o>entidades privadas</o> con ayudas <c>&gt; 100.000 €/año</c> o <c>≥ 40 %</c> de ingresos anuales (mín. <c>5.000 €</c>) <t>⚠ solo PA</t> · <b>l</b> <o>personas físicas/jurídicas</o> que prestan servicios públicos o ejercen potestades (incl. adjudicatarios): <b>suministran</b> información a la Admón. vinculada, previo requerimiento <t>⚠ no publican</t>.</p>
+<h3>Publicidad ACTIVA (arts 5–11)</h3>
+<p><d>Publicar <b>de oficio</b> información relevante para la transparencia.</d> Sujetos a–j; <b>periódica y actualizada</b>. Sin perjuicio de normativa autonómica u otra más amplia. Aplican <b>límites art. 14</b> y <b>datos personales art. 15</b> (datos especialmente protegidos → <b>previa disociación</b>). Medio: <b>sedes electrónicas o webs</b>; <b>clara, estructurada, entendible</b>, preferiblemente <b>formatos reutilizables</b>; accesible, interoperable, de calidad, reutilizable, identificable y localizable; <b>comprensible, de acceso fácil y gratuito</b>; accesible a personas con discapacidad. <d>Sin ánimo de lucro</d> con fines <b>exclusivamente</b> sociales o culturales y presupuesto <c>&lt; 50.000 €</c> → medios electrónicos de la AP que aporte más ayudas.</p>
+<table>
+<tr><td class="k">TODOS (a–l)</td><td><b>Institucional</b>: funciones, normativa, estructura, <b>organigrama</b> actualizado con responsables, perfil y trayectoria. <b>Económica</b> (mínimo, actos con repercusión económica): <b>todos los contratos</b> (+ desistimiento y renuncia; <b>menores trimestral</b>; % en volumen presupuestario) · <e>NEW</e> % de participación de <b>pymes</b> (Reglamento UE 651/2014) en nº y valor: <c>semestral</c>, desde <c>1 año</c> tras publicarse la norma (BOE <c>9/7/2022</c>) · convenios y <b>encomiendas de gestión</b> · subvenciones y ayudas · presupuestos · cuentas anuales e informes de auditoría y fiscalización · <b>retribuciones anuales de altos cargos</b> e <b>indemnizaciones por abandono del cargo</b> · compatibilidades de empleados públicos y actividad privada al cese de altos cargos AGE · <b>declaraciones anuales de bienes y actividades de representantes locales</b> (sin localización de inmuebles) · estadística de calidad de servicios. <t>⚠ j y k: contratos/convenios solo con una AP; subvenciones solo si concede una AP.</t></td></tr>
+<tr><td class="k">SOLO AAPP (a–d)</td><td><b>Planes y programas</b> anuales y plurianuales (en la AGE los evalúan las <b>inspecciones generales de servicios</b>) · <b>bienes inmuebles</b> (propiedad o derecho real) · <b>relevancia jurídica</b>: directrices, instrucciones, circulares, respuestas a consultas con interpretación del Derecho · <b>anteproyectos de ley y proyectos de decretos legislativos</b> (al pedir dictámenes; si no son preceptivos, al aprobarse) · <b>proyectos de reglamentos</b> · <b>memoria de análisis de impacto normativo</b> (<n>RD 1083/2009</n>) · documentos en información pública.</td></tr>
+</table>
+<p><b>Control</b>: <o>CTBG</o> (cumplimiento de la AGE). <t>⚠ Incumplimiento <b>reiterado</b> de PA = infracción <b>grave</b>.</t> <b>Portal de la Transparencia</b> (<n>arts 10–11</n>): <o>AGE</o>, dependiente del <o>Ministerio de la Presidencia</o>; información de <b>mayor frecuencia</b> de solicitud; medidas complementarias: AGE, CCAA/Ceuta/Melilla, EELL. <b>Principios técnicos</b>: <b>accesibilidad</b> (información estructurada), <b>interoperabilidad</b> (<b>ENI</b> y normas técnicas), <b>reutilización</b> (<n>Ley 37/2007</n>).</p>
+<h3>Derecho de ACCESO = publicidad PASIVA (arts 12–24)</h3>
+<p><d><n>art. 12</n>: <b>todas las personas</b> (<n>art. 105.b CE</n>). <n>art. 13</n> <b>información pública</b>: contenidos o documentos, cualquier soporte, <b>en poder</b> de los sujetos y <b>elaborados o adquiridos en el ejercicio de sus funciones</b>.</d> <b>Límites (art. 14)</b>, si hay <b>perjuicio</b> para: a seguridad nacional · b defensa · c relaciones exteriores · d seguridad pública · e prevención, investigación y sanción de ilícitos <b>penales, administrativos o disciplinarios</b> · f igualdad de las partes en procesos judiciales y tutela judicial efectiva · g funciones de vigilancia, inspección y control · h intereses económicos y comerciales · i política económica y monetaria · j secreto profesional y propiedad intelectual e industrial · k confidencialidad en procesos de toma de decisión · l medio ambiente. Aplicación <b>justificada y proporcionada</b>, valorando un <b>interés público o privado superior</b>.</p>
+<p><b>Datos personales (art. 15)</b>:</p>
+<ul>
+<li>Ideología, afiliación sindical, religión, creencias → consentimiento <b>expreso y por escrito</b> (salvo que los hiciera manifiestamente públicos).</li>
+<li>Origen racial, salud, vida sexual, genéticos/biométricos, infracciones penales o administrativas sin amonestación pública → consentimiento <b>expreso</b> o <b>norma con rango de Ley</b>. <t>⚠ Sin «por escrito».</t></li>
+<li>Meramente identificativos (organización, funcionamiento, actividad del órgano) → acceso salvo que prevalezca la protección de datos.</li>
+<li>Sin datos especialmente protegidos → <b>ponderación razonada</b> interés público vs afectados: menor perjuicio por plazos del art. 57 <n>Ley 16/1985</n> · solicitante que ejerce un derecho o investigador (fines históricos, científicos, estadísticos) · solo datos identificativos · mayor garantía si afecta a intimidad, seguridad o <b>menores</b>.</li>
+<li>No aplica si hay <b>disociación</b>. <o>CTBG + AEPD</o> fijan criterios conjuntos (<n>DA 5ª</n>). <b>Acceso parcial</b> (<n>art. 16</n>): se omite lo afectado por el límite, salvo información distorsionada; se avisa.</li>
+</ul>
+<ul>
+<li><b>1 Solicitud</b> <n>art. 17</n>: al <b>titular del órgano</b> (si la tiene un prestador de servicios públicos → Admón. vinculada). Consta: <b>identidad, información solicitada, contacto</b> (preferente electrónico), <b>modalidad de acceso</b>. <t>⚠ No hay que motivar; su ausencia no es causa de rechazo.</t> Lenguas cooficiales.</li>
+<li><b>2 Inadmisión</b> <n>art. 18</n> (resolución <b>motivada</b>): a en <b>curso de elaboración o publicación general</b> · b <b>auxiliar o de apoyo</b> (notas, borradores, opiniones, resúmenes, informes internos) · c <b>reelaboración</b> · d órgano sin la información (indica el competente si lo conoce) · e <b>repetitiva o abusiva</b>.</li>
+<li><b>3 Tramitación</b> <n>art. 19</n>: no la tiene → <b>remite al competente</b>; imprecisa → <c>10 días</c> para concretar, si no <b>desistido</b> (+ suspensión); afecta a terceros → <c>15 días</c> de alegaciones (+ suspensión); elaborada por otro en su integridad o parte principal → se le remite.</li>
+<li><b>4 Resolución</b> <n>art. 20</n>: <c>1 mes</c> (ampliable <c>+1</c> por volumen o complejidad, notificándolo). <b>Motivadas</b>: denegación · acceso parcial o por modalidad distinta · acceso con oposición de tercero (solo tras vencer el plazo contencioso o resolverse). <b>Silencio = desestimación</b>. Recurso directo <b>contencioso-administrativo</b> o <b>reclamación potestativa ante el CTBG</b>. <t>⚠ Incumplimiento reiterado de resolver en plazo = infracción grave.</t></li>
+<li><b>Unidades de información</b> <n>art. 21</n> (AGE): recabar y difundir, tramitar solicitudes, trámites internos, seguimiento y control, <b>registro</b>, disponibilidad web. <n>DA 6ª</n>: la <o>Secretaría General de la Presidencia del Gobierno</o> tramita lo de la <b>Casa de S.M. el Rey</b>.</li>
+<li><b>Formalización</b> <n>art. 22</n>: preferentemente <b>electrónica</b>; si no es inmediata, <c>≤ 10 días</c>; si ya está publicada, se indica cómo acceder. <b>Gratuito</b>; copias o cambio de formato → <b>exacciones</b>. <n>DA 1ª</n>: procedimientos en curso y regímenes específicos → su norma; la Ley, <b>supletoria</b> (incl. información ambiental y reutilización).</li>
+<li><b>Reclamación CTBG</b> <n>arts 23–24</n>: contra resolución expresa o presunta; <b>potestativa y previa</b> al contencioso; <c>1 mes</c> desde el día siguiente a la notificación o al silencio; el CTBG resuelve en <c>3 meses</c>, si no <b>desestimada</b>. Resoluciones publicadas previa disociación; el Presidente las comunica al <o>Defensor del Pueblo</o>. CCAA con órgano propio o <b>convenio con la AGE</b> (<n>DA 4ª</n>).</li>
+</ul>
+<p><t>⚠ <b>Límites</b> (art. 14) = perjuicio a bienes protegidos ≠ <b>inadmisión</b> (art. 18). Solicitud: 1 mes (+1) ≠ reclamación: se interpone en 1 mes, el CTBG resuelve en 3.</t></p>
+<h3>Buen gobierno (arts 25–32)</h3>
+<p><b>Ámbito (art. 25)</b>: <o>miembros del Gobierno, Secretarios de Estado y resto de altos cargos</o> de la AGE y del sector público estatal; altos cargos según la normativa de conflictos de intereses; autonómicos y locales según su norma, incl. <b>Juntas de Gobierno de EELL</b>. <b>Principios (art. 26)</b>: <b>generales (7)</b>: transparencia, dedicación al servicio público, imparcialidad, trato igual sin discriminaciones, diligencia debida, conducta digna, responsabilidad. <b>De actuación (9)</b>: plena dedicación y respeto a incompatibilidades y conflictos de intereses · <b>debida reserva</b> · comunicar actuaciones irregulares · poderes con <b>finalidad exclusiva</b> · no implicarse en situaciones incompatibles (abstención) · <b>no aceptar regalos</b> que superen usos habituales, sociales o de cortesía (los de relevancia institucional → patrimonio de la AP) · transparencia · gestionar y conservar recursos públicos · no valerse de su posición. <n>art. 27</n>: incumplir incompatibilidades o declaraciones → normativa de conflictos de intereses de la AGE.</p>
+<table>
+<tr><td class="k"><t>MUY GRAVES</t> (a–m)</td><td>a incumplir respeto a la <b>CE y Estatutos de Autonomía</b> · b <b>discriminación</b> y acoso (racial/étnico, religioso, discapacidad, edad, orientación sexual, <b>moral, sexual, por razón de sexo</b>) · c acuerdos manifiestamente ilegales con perjuicio <b>grave</b> · d publicación o uso indebido de información · e negligencia en custodia de <b>secretos oficiales</b> · f notorio incumplimiento de funciones esenciales · g violar la imparcialidad en <b>procesos electorales</b> · h prevalerse de la condición de alto cargo · i obstaculizar libertades públicas y derechos sindicales · j coartar el <b>derecho de huelga</b> · k <b>acoso laboral</b> · l gestión económico-presupuestaria · m <b>reincidencia</b>: grave habiendo sido sancionado por <c>2 graves en el año anterior</c></td></tr>
+<tr><td class="k"><t>GRAVES</t> (a–f)</td><td>a <b>abuso de autoridad</b> · b intervenir habiendo causa de abstención · c informes/acuerdos manifiestamente ilegales con perjuicio (no muy graves) · d no guardar sigilo (perjuicio o provecho propio) · e incumplir plazos en <b>incompatibilidades</b> · f <b>reincidencia</b>: leve habiendo sido sancionado por <c>2 leves en el año anterior</c></td></tr>
+<tr><td class="k"><t>LEVES</t> (a–b)</td><td>a <b>incorrección</b> con superiores, compañeros o subordinados · b <b>descuido o negligencia</b> / incumplir principios de actuación si no es grave ni muy grave</td></tr>
+<tr><td class="k">Sanciones <n>art. 30</n></td><td><b>Muy graves</b>: <b>destitución</b> + no ser alto cargo <c>5–10 años</c> + las de las graves · <b>Graves</b>: <b>declaración del incumplimiento y publicación en el BOE</b> + <b>no percepción de la indemnización por cese</b> · <b>Leves</b>: <b>amonestación</b>. Si es <b>delito</b> → <o>Fiscal General del Estado</o> y se <b>abstiene</b> hasta resolución judicial.</td></tr>
+<tr><td class="k">Procedimiento <n>art. 31</n></td><td><b>De oficio</b> (iniciativa propia, orden superior, petición razonada, denuncia); se informa al <o>Tribunal de Cuentas</o>. <b>Ordena la incoación</b>: Gobierno y Secretarios de Estado → <o>Consejo de Ministros</o> a propuesta del <o>Ministro de Hacienda y Función Pública</o>; resto AGE → ese <o>Ministro</o>; CCAA/EELL → sus órganos. <b>Instrucción</b>: AGE → <o>Oficina de Conflictos de Intereses</o>. Recurso <b>contencioso-administrativo</b>.</td></tr>
+<tr><td class="k">Prescripción <n>art. 32</n></td><td>Infracciones y sanciones: <c>5 / 3 / 1 años</c> (muy graves / graves / leves). <t>⚠ No confundir con inhabilitación 5–10.</t></td></tr>
+</table>
+
+<h2>3. Consejo de Transparencia y Buen Gobierno</h2>
+<p><d><b>CTBG</b>: organismo público, <n>Título III (arts 33–40)</n>, <b>órgano independiente</b> con personalidad jurídica propia y plena capacidad de obrar; estructura sencilla; <b>respaldo parlamentario</b> al nombramiento del Presidente.</d> <t>⚠ Solo tiene competencias en las CCAA con <b>convenio</b>.</t> <b>Fines (art. 34)</b>: promover la transparencia · velar por la PA · salvaguardar el DA · garantizar el buen gobierno. <b>Composición (art. 35)</b>: <o>Comisión + Presidente</o> <t>⚠ Comisión ≠ CTBG</t>.</p>
+<p><b>Comisión (art. 36)</b> = <c>8</c>: <o>Presidente · Diputado · Senador · Tribunal de Cuentas · Defensor del Pueblo · AEPD · Secretaría de Estado de Administraciones Públicas · AIReF</o>. Sin dedicación exclusiva ni remuneración (salvo el Presidente). <c>≥ 1 vez/año</c> convoca a los órganos autonómicos análogos; puede convocar a un representante de EELL propuesto por la <b>FEMP</b>.</p>
+<p><b>Presidente (art. 37)</b>: <c>5 años NO renovable</c>; <b>Real Decreto</b> a propuesta del Ministro de Hacienda y Función Pública, entre personas de reconocido prestigio y competencia; <b>previa comparecencia</b> ante la Comisión del Congreso, que <b>refrenda por mayoría absoluta</b> en <c>1 mes natural</c>. <b>Cese</b>: fin del mandato · petición propia · separación por el Gobierno: incumplimiento grave, incapacidad permanente, incompatibilidad sobrevenida, <b>condena por delito doloso</b>.</p>
+<table>
+<tr><th>CTBG (art. 38.1)</th><th>Presidente (art. 38.2)</th></tr>
+<tr><td><b>recomendaciones</b> · <b>asesorar</b> · <b>informar preceptivamente</b> proyectos normativos estatales · <b>evaluar la aplicación</b> (memoria anual a las <b>Cortes</b>) · promover borradores de recomendaciones y buenas prácticas · formación y sensibilización · colaborar con órganos análogos</td><td>criterios de <b>interpretación uniforme</b> · velar por la <b>PA</b> · <b>conocer reclamaciones</b> · <b>consultas facultativas</b> · <b>instar el procedimiento sancionador</b> · aprobar el <b>anteproyecto de presupuesto</b></td></tr>
+</table>
+<p><b>Régimen (art. 39)</b>: <o>Consejo de Ministros</o> aprueba por <b>RD</b> el <b>Estatuto</b>. Personal: <b>funcionarios</b> (<n>Ley 7/2007</n> EBEP) y laboral. Medios: <b>PGE</b>, patrimonio, otros. <b>Cortes (art. 40)</b>: memoria <b>anual</b>; el Presidente <b>comparece</b> ante la Comisión.</p>
+
+<h2>4. Agenda 2030</h2>
+<p><d><b>Agenda 2030 para el Desarrollo Sostenible</b>: firmada en <c>2015</c> por jefes de Estado y de Gobierno de la ONU; lema <b>«Transformar Nuestro Mundo»</b>; personas, planeta, prosperidad y paz.</d> <c>17 ODS</c> y <c>169 metas</c> integradas e indivisibles (económica, social, ambiental); rige <c>2016–2030</c>; alianzas centradas en los más pobres y vulnerables; consultas desde <c>2013</c>. <b>5 ejes (5P)</b>: <b>Planeta, Personas, Prosperidad, Paz, Alianzas</b> (Planet, People, Prosperity, Peace, Partnership).</p>
+<table>
+<tr><th></th><th>ODM</th><th>ODS</th></tr>
+<tr><td class="k">Periodo</td><td>Suscritos <c>2000</c>, límite <c>2015</c></td><td>Aprobados <c>2015</c>; <c>2016–2030</c></td></tr>
+<tr><td class="k">Ambición</td><td><b>Mitigación</b> de la pobreza</td><td><b>Erradicación</b>; más ambiciosos, participativos, universales</td></tr>
+<tr><td class="k">Alcance</td><td>Países en desarrollo</td><td><b>Universales</b>; componente ambiental (hasta <c>6</c> objetivos)</td></tr>
+<tr><td class="k">Origen</td><td>Iniciativa mundial 2000</td><td>Conferencia ONU, <b>Río 2012</b></td></tr>
+</table>
+<h3>4.1 Gobernanza (3 niveles)</h3>
+<p><b>① <o>Comisión Delegada del Gobierno para la Agenda 2030</o></b>: estudio, impulso, coordinación y evaluación de planes y estrategias; coordinación interministerial; apoyo del <b>Grupo de Trabajo de Ministerios</b>; eleva al Consejo de Ministros la Estrategia de Desarrollo Sostenible (esquema: preside la Vicepresidenta Tercera y Ministra de Trabajo y Economía Social; <c>16 ministerios</c>). <b>② <o>Conferencia Sectorial</o></b>: AGE + CCAA + Ceuta y Melilla + Admón. local (vía <b>FEMP</b>); apoyo: <o>Comisión Sectorial</o>. <b>③ <o>Consejo de Desarrollo Sostenible</o></b>: órgano <b>asesor, de colaboración y cauce de participación</b> (academia, empresas, sindicatos, ecologistas, ONG, cooperación); preside el Secretario de Estado para la Agenda 2030, vicepresidencia del <b>Tercer Sector</b>; Pleno, Com. Permanente (15 vocales) y GT (Estrategia de Desarrollo Sostenible, Igualdad de Género, Coherencia de Políticas). Además: <o>Comisión Mixta Congreso–Senado</o> (seguimiento de la Estrategia Española).</p>
+
+<h2>5. Objetivos de Desarrollo Sostenible</h2>
+<p><d><c>17 objetivos</c> aprobados en <c>2015</c> por todos los Estados de la ONU; plan a 15 años; gestados en <b>Río 2012</b>; <b>sustituyen a los ODM</b>; interrelacionados; <b>nadie atrás</b>.</d> Coinciden con el <n>Acuerdo de París</n> (COP21, 2015) y el <n>Marco de Sendai</n> (Japón, marzo 2015). <t>⚠ Cifras y años de las metas en naranja.</t></p>
+<p><b>1 Fin de la pobreza</b>: pobreza extrema <c>2030</c> (<c>&lt; 1,25 $/día</c>); reducir <c>a la mitad</c> la pobreza relativa; protección social; acceso a servicios, tierra y microfinanciación; resiliencia; recursos; marcos normativos.</p>
+<p><b>2 Hambre cero</b> (seguridad alimentaria, nutrición, agricultura sostenible): fin del hambre <c>2030</c> (incl. <c>menores de 1 año</c>); malnutrición: retraso y emaciación de menores de 5 años <c>2025</c>; <c>duplicar</c> productividad de pequeños productores <c>2030</c>; diversidad genética <c>2020</c>; mercados (Ronda de Doha) y volatilidad de precios.</p>
+<p><b>3 Salud y bienestar</b>: mortalidad materna <c>&lt; 70/100.000</c>; neonatal <c>≤ 12/1.000</c>; menores de 5 años <c>≤ 25/1.000</c> (2030); fin de SIDA, tuberculosis, malaria; no transmisibles <c>−1/3</c> <c>2030</c>; accidentes de tráfico <c>−50 %</c> <c>2020</c>; cobertura universal; Convenio Marco OMS de control del tabaco; I+D de vacunas (Doha, ADPIC); alerta temprana.</p>
+<p><b>4 Educación de calidad</b>: primaria y secundaria gratuita <c>2030</c>; preescolar; formación superior igualitaria; competencias para el empleo; paridad de género; alfabetización; educación para el desarrollo sostenible; <b>becas</b> <c>2020</c>; docentes cualificados <c>2030</c>.</p>
+<p><b>5 Igualdad de género</b>: fin de la discriminación y la violencia (trata, explotación sexual); matrimonio infantil y <b>mutilación genital femenina</b>; cuidados no remunerados; participación plena; salud sexual y reproductiva (Programa de Acción de Población y Desarrollo, Plataforma de Beijing); recursos económicos; TIC.</p>
+<p><b>6 Agua limpia y saneamiento</b>: agua potable universal <c>2030</c>; saneamiento y <b>fin de la defecación al aire libre</b> <c>2030</c>; aguas residuales sin tratar <c>a la mitad</c>; gestión integrada y transfronteriza; ecosistemas del agua <c>2020</c>; comunidades locales.</p>
+<p><b>7 Energía asequible y no contaminante</b>: acceso universal; renovables; <c>duplicar</c> eficiencia energética (todo <c>2030</c>); cooperación en energía limpia; infraestructura en países en desarrollo. Contexto: 2020–2050, CO₂ principal vector.</p>
+<p><b>8 Trabajo decente y crecimiento económico</b>: PIB <c>≥ 7 %</c> en PMA; diversificación e innovación; pymes; producción y consumo eficientes (Marco Decenal); pleno empleo e igual remuneración <c>2030</c>; jóvenes sin empleo ni estudios <c>2020</c>; <b>trabajo infantil en todas sus formas</b> <c>2025</c>; derechos laborales; turismo sostenible; estrategia de empleo juvenil <c>2020</c> (Pacto Mundial para el Empleo, OIT).</p>
+<p><b>9 Industria, innovación e infraestructuras</b>: infraestructura resiliente; industria inclusiva, <c>duplicar</c> su contribución en PMA <c>2030</c>; acceso de pymes a financiación; modernizar industrias <c>2030</c>; investigación y gasto en I+D; <b>acceso universal a Internet en PMA</b> <c>2020</c>.</p>
+<p><b>10 Reducción de las desigualdades</b>: ingresos del <c>40 % más pobre</c> por encima de la media nacional <c>2030</c>; inclusión; igualdad de oportunidades; políticas fiscales, salariales y de protección social; mercados financieros; voz de países en desarrollo; migración ordenada; trato especial y diferenciado (OMC); <b>remesas</b>: costes <c>&lt; 3 %</c>, eliminar corredores <c>&gt; 5 %</c>.</p>
+<p><b>11 Ciudades y comunidades sostenibles</b>: vivienda y barrios marginales; transporte público; urbanización inclusiva; patrimonio cultural y natural; desastres (muertes y pérdidas); impacto ambiental per cápita (aire, residuos); zonas verdes (todo <c>2030</c>); planes de reducción de riesgos <c>2020</c> (Marco de Sendai 2015–2030); edificios sostenibles en PMA.</p>
+<p><b>12 Producción y consumo responsables</b>: Marco Decenal; recursos naturales <c>2030</c>; desperdicio de alimentos per cápita <c>a la mitad</c> <c>2030</c>; químicos y desechos <c>2020</c>; reciclado; informes de sostenibilidad de empresas; compras públicas sostenibles; turismo sostenible; subsidios a combustibles fósiles. Muy transversal.</p>
+<p><b>13 Acción por el clima</b>: resiliencia y adaptación; integrar en políticas nacionales; educación; países desarrollados (CMNUCC): <c>100.000 millones $/año</c> <c>2020</c> y <b>Fondo Verde para el Clima</b>; PMA y pequeños Estados insulares (mujeres, jóvenes, comunidades).</p>
+<p><b>14 Vida submarina</b>: contaminación marina <c>2025</c>; ecosistemas costeros <c>2020</c>; acidificación; pesca sostenible y fin de la pesca ilegal <c>2020</c>; <b>conservar ≥ 10 % de zonas costeras y marinas</b> <c>2020</c>; subvenciones pesqueras (OMC) <c>2020</c>; beneficios para pequeños Estados insulares y PMA <c>2030</c>; tecnología marina (COI); pesca artesanal; <b>Convención ONU del Derecho del Mar</b>.</p>
+<p><b>15 Vida de ecosistemas terrestres</b>: ecosistemas y bosques, deforestación <c>2020</c>; desertificación (degradación neutra del suelo) <c>2030</c>; montañas <c>2030</c>; biodiversidad y especies amenazadas <c>2020</c>; recursos genéticos; caza furtiva; especies invasoras <c>2020</c>. Atención especial: <b>bosques y montañas</b>.</p>
+<p><b>16 Paz, justicia e instituciones sólidas</b>: reducir la violencia; maltrato y trata infantil; Estado de derecho y acceso a la justicia; flujos financieros y armas ilícitas <c>2030</c>; corrupción y soborno; instituciones eficaces y transparentes; participación; identidad jurídica y registro de nacimientos <c>2030</c>; <b>acceso público a la información</b>; leyes no discriminatorias.</p>
+<p><b>17 Alianzas para lograr los objetivos</b> («fundamental para los otros 16»): <b>AOD 0,7 % del INB</b>; <c>0,15–0,20 %</c> a PMA; deuda; traspaso de tecnología (Norte-Sur, Sur-Sur, triangular); <b>banco de tecnología</b> <c>2017</c>; comercio multilateral en la OMC (Doha); <c>duplicar</c> exportaciones de PMA <c>2020</c>; coherencia de políticas; soberanía nacional; alianzas público-privadas; capacidades estadísticas <c>2020</c>; indicadores <b>más allá del PIB</b> <c>2030</c>.</p>
+</div>
+
+<div class="box">
+<h2>Incoherencias del material</h2>
+<ol style="margin:0;padding-left:13px">
+<li><b>Foro de GA.</b> Tema y repaso describen la Orden HFP/134/2018. Verificado: el <b>RD 371/2026</b> (BOE 7/5/2026, en vigor 8/5/2026) crea y regula el Foro y <b>deja sin efecto esa Orden</b>: preside la Sec. de Estado de Función Pública; VP 1ª = DG de Gobernanza Pública; VP 2ª = sociedad civil, rotatoria anual; Pleno de <b>64 vocales (32 + 32)</b>, <b>≥ 2 reuniones/año</b>; Comisión Permanente = VP 1ª, VP 2ª, un vocal por grupo de trabajo y secretaría (sin funciones decisorias); constitución del nuevo Foro en 3 meses. Para el examen manda el tema, salvo que la convocatoria lo actualice.</li>
+<li><b>V Plan.</b> Repaso: «2024–2028, en desarrollo». Tema: 2025–2029, aprobado el 6/10/2025 (su esquema de hoja de ruta rotula «2024–2028»). Verificado: <b>2025–2029</b>, aprobado el 6/10/2025 (218 medidas según fuentes oficiales).</li>
+<li><b>Copresidencia OGP</b>: tema/repaso 2024–25; el preámbulo del RD 371/2026 dice 2023–2025. Sin resolver; usar el tema.</li>
+<li><b>RD 1083/2009</b> (memoria de impacto normativo), citado por el tema y el art. 7: derogado por el <b>RD 931/2017</b>. La Ley 19/2013 consolidada: última modificación 9/7/2022 (coincide con el cambio de pymes). Ley 30/1992 (letra i): derogada por las Leyes 39/2015 y 40/2015.</li>
+<li><b>Denominaciones ministeriales</b> (Hacienda y Función Pública, Presidencia, ministros del esquema de la Agenda 2030) corresponden a estructuras anteriores; hoy Función Pública está en Transformación Digital y Función Pública. No contrastado el texto vigente de arts. 10, 31 y 37.</li>
+<li><b>No verificado</b>: «5 grupos de trabajo» del Foro (solo en el repaso); reparto de las letras a–l entre arts. 2–4 en el BOE; cifra 1,25 $/día del ODS 1 (literal del tema; el umbral internacional se ha actualizado).</li>
+</ol>
+<p style="margin:2px 0 0;color:var(--mut)">Fuentes: <a href="https://boe.es/buscar/pdf/2026/BOE-A-2026-9880-consolidado.pdf">BOE-A-2026-9880 (RD 371/2026)</a> · <a href="https://digital.gob.es/comunicacion/notas-prensa/secretaria-estado-funcion-publica/2025/10/2025-10-07">Min. Transformación Digital, 7/10/2025</a> · BOE-A-2013-12887 (Ley 19/2013 consolidada).</p>
+</div>
+</main>
+
+<!-- TAI Estudio: barra inyectada por build.py -->
+<script type="application/json" id="tai-barra-datos">{"codigo": "B1T4", "nombre": "Gobierno abierto", "indice": "../index.html#tema-B1T4", "anterior": {"codigo": "B1T3", "nombre": "Gobierno", "href": "b1t3.html"}, "siguiente": {"codigo": "B2T4", "nombre": "Sistemas operativos", "href": "b2t4.html"}, "temaManual": true, "ficha": [[["B1T1", 1], ["B1T2", 1], ["B1T3", 1], ["B1T4", 1], ["B1T5", 0], ["B1T6", 0], ["B1T7", 0], ["B1T8", 0], ["B1T9", 0], ["B1T10", 0], ["B1T11", 0]], [["B2T1", 0], ["B2T2", 0], ["B2T3", 0], ["B2T4", 1], ["B2T5", 1]], [["B3T1", 1], ["B3T2", 1], ["B3T3", 0], ["B3T4", 1], ["B3T5", 0], ["B3T6", 0], ["B3T7", 0], ["B3T8", 0], ["B3T9", 0], ["B3T10", 0]], [["B4T1", 0], ["B4T2", 0], ["B4T3", 0], ["B4T4", 0], ["B4T5", 0], ["B4T6", 0], ["B4T7", 0], ["B4T8", 0], ["B4T9", 0], ["B4T10", 0]]], "base": "../assets/"}</script>
+<tai-barra></tai-barra>
+<script src="../assets/barra.js"></script>
+</body>
+</html>
