@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TAI - B2T1 Informática básica</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light;
+--bg:#ffffff;--fg:#151a22;--mut:#566170;--line:#c4ccd8;--head:#edf0f5;
+--d:#1740b8;--dbg:#e0e9ff;--n:#8a3d05;--nbg:#fcefc9;--o:#0d6a3c;--obg:#d7f3e3;--r:#6224c4;--rbg:#ebe2ff;--t:#b01919;--tbg:#fde0e0;--e:#0b6f87;--ebg:#d6f0f6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+--bg:#11151c;--fg:#e4e8ee;--mut:#9aa5b4;--line:#2e3745;--head:#1a212e;
+--d:#a9c0ff;--dbg:#1c2a55;--n:#ffcb7d;--nbg:#463410;--o:#86e3b0;--obg:#123a2b;--r:#cdb4ff;--rbg:#33234f;--t:#ffa3a3;--tbg:#4b1e1e;--e:#82dbf0;--ebg:#10343f}}
+:root[data-theme="dark"]{color-scheme:dark;
+--bg:#11151c;--fg:#e4e8ee;--mut:#9aa5b4;--line:#2e3745;--head:#1a212e;
+--d:#a9c0ff;--dbg:#1c2a55;--n:#ffcb7d;--nbg:#463410;--o:#86e3b0;--obg:#123a2b;--r:#cdb4ff;--rbg:#33234f;--t:#ffa3a3;--tbg:#4b1e1e;--e:#82dbf0;--ebg:#10343f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:12.5px/1.34 "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+.page{max-width:1180px;margin:0 auto;padding:12px 14px 18px}
+h1{font-size:1.7em;margin:0;letter-spacing:-.01em}
+.sub{margin:1px 0 4px;color:var(--mut);font-size:.92em}
+.legend{display:flex;flex-wrap:wrap;gap:4px 5px;margin:4px 0;align-items:center}
+.legend span{padding:1px 6px;border-radius:9px;font-weight:600;font-size:.92em}
+.legend small{color:var(--mut)}
+.map{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:5px 0 6px}
+.map div{border:1px solid var(--line);border-top:3px solid var(--d);border-radius:3px;padding:2px 5px;background:var(--head);font-size:.92em}
+.map b{display:block}
+main{columns:2;column-gap:16px}
+h2{font-size:1.14em;margin:8px 0 2px;padding:1px 5px;background:var(--head);border-left:3px solid var(--d);break-after:avoid}
+main>h2:first-child{margin-top:0}
+h3{font-size:1.02em;margin:5px 0 1px;border-bottom:1px solid var(--line);break-after:avoid}
+h4{font-size:1em;margin:3px 0 0;color:var(--mut);break-after:avoid}
+p{margin:2px 0}
+ul{margin:2px 0;padding-left:13px}
+li{margin:0}
+table{width:100%;border-collapse:collapse;margin:3px 0;font-size:.95em;break-inside:avoid}
+th,td{border:1px solid var(--line);padding:1px 3px;vertical-align:top;text-align:left}
+th{background:var(--head)}
+td.c,th.c{text-align:center}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.93em}
+d,n,o,r,t,e{padding:0 1px;border-radius:2px}
+d{color:var(--d);background:var(--dbg)}
+n{color:var(--n);background:var(--nbg)}
+o{color:var(--o);background:var(--obg)}
+r{color:var(--r);background:var(--rbg)}
+t{color:var(--t);background:var(--tbg);font-weight:600}
+e{color:var(--e);background:var(--ebg)}
+.legend d,.legend n,.legend o,.legend r,.legend t,.legend e{padding:1px 6px}
+.nota{color:var(--mut)}
+.inc{margin-top:9px;border:1.5px solid var(--t);border-radius:3px;padding:4px 8px;background:var(--tbg);break-inside:avoid}
+.inc h2{background:none;border:0;margin:0 0 2px;padding:0;color:var(--t)}
+.inc ol{margin:2px 0;padding-left:16px;columns:2;column-gap:16px}
+.inc li{break-inside:avoid;margin-bottom:2px}
+@media (max-width:820px){main{columns:1}.map{grid-template-columns:1fr 1fr}.inc ol{columns:1}}
+@page{size:A4;margin:9mm}
+@media print{
+:root,:root[data-theme="dark"],:root:not([data-theme="light"]){padding:0;color-scheme:light;
+--bg:#ffffff;--fg:#151a22;--mut:#566170;--line:#c4ccd8;--head:#edf0f5;
+--d:#1740b8;--dbg:#e0e9ff;--n:#8a3d05;--nbg:#fcefc9;--o:#0d6a3c;--obg:#d7f3e3;--r:#6224c4;--rbg:#ebe2ff;--t:#b01919;--tbg:#fde0e0;--e:#0b6f87;--ebg:#d6f0f6}
+body{font-size:8.4pt;line-height:1.24}
+.page{max-width:none;padding:0}
+h1{font-size:14pt}
+main{columns:2;column-gap:5mm}
+.map{grid-template-columns:repeat(5,1fr)}
+.inc ol{columns:2}
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>B2T1 · Informática básica</h1>
+<p class="sub">Representación y comunicación de la información · Elementos constitutivos de un sistema de información · Arquitectura de ordenadores · Componentes internos de los equipos microinformáticos</p>
+
+<div class="legend">
+<span style="background:var(--dbg);color:var(--d)">Definición</span>
+<span style="background:var(--nbg);color:var(--n)">Cifra / fecha / tamaño</span>
+<span style="background:var(--obg);color:var(--o)">Componente / sujeto</span>
+<span style="background:var(--rbg);color:var(--r)">Norma / estándar</span>
+<span style="background:var(--tbg);color:var(--t)">⚠ Trampa / excepción</span>
+<span style="background:var(--ebg);color:var(--e)">Ejemplo</span>
+<small><b>Negrita</b> = lo que se pregunta · sin color = literal del tema · ✎ = nota mía (no literal)</small>
+</div>
+
+<div class="map">
+<div><b>1 Básica</b>5 generaciones · Von Neumann</div>
+<div><b>2 Representación</b>unidades · SI vs IEC · bases 2/8/10/16 · EBCDIC/ASCII/Unicode · lógicas</div>
+<div><b>3 Sist. información</b>6 componentes · 3 niveles (vertical) · horizontal</div>
+<div><b>4 Arquitectura</b>procesador (reg+ALU+UC) · ciclo 4 fases · pipeline · Von Neumann · Harvard · Flynn · CISC/RISC</div>
+<div><b>5 Microinformática</b>placa base · micros · memoria (caché/RAM/ROM) · arranque</div>
+</div>
+
+<main>
+
+<h2>1 Informática básica</h2>
+<p><d>Computador</d>: máquina que, siguiendo un <b>programa</b> (secuencia de instrucciones), procesa automáticamente <b>datos de entrada → datos de salida</b>.</p>
+<p>5 generaciones: sin límites temporales estrictos; clasifican por <b>tecnología de construcción</b> y forma de comunicación hombre-máquina.</p>
+<table>
+<tr><th>Gen.</th><th>Época</th><th>Rasgos</th></tr>
+<tr><td><b>1ª</b></td><td><n>hasta años 40</n> mecánica · <n>40–50</n></td><td><b>tubos de vacío</b> + relés electromagnéticos · binario · tarjetas perforadas · enormes y costosas · primeros comerciales</td></tr>
+<tr><td><b>2ª</b></td><td><n>fin 50 – med. 60</n></td><td><b>transistores</b> · más pequeñas · lenguajes de alto nivel</td></tr>
+<tr><td><b>3ª</b></td><td><n>med. 60 – princ. 70</n></td><td><b>circuito integrado</b> (transistores en 1 chip de silicio)</td></tr>
+<tr><td><b>4ª</b></td><td><n>med. 70</n></td><td><b>microprocesadores</b> → PCs domésticos</td></tr>
+<tr><td><b>5ª</b></td><td><n>desde med. 80</n> (actual)</td><td><b>Internet</b> · computación paralela y distribuida · IA · lenguaje natural · miniaturización</td></tr>
+</table>
+<p>Casi todas las computadoras digitales: <r>arquitectura Von Neumann</r> → datos y programas en memoria antes de usarse.</p>
+
+<h2>2 Representación y comunicación de la información</h2>
+<table>
+<tr><td><b>bit</b></td><td>unidad mínima, 0/1 · bi(nary) (digi)t</td></tr>
+<tr><td><b>byte</b></td><td><n>8 bits</n> = octeto · mínimo elemento de memoria <b>direccionable</b> · bi(nary) te(rm)</td></tr>
+<tr><td><b>palabra</b></td><td>bits = unidad de procesamiento · múltiplos enteros de byte</td></tr>
+<tr><td><b>nibble</b></td><td><n>4 bits</n> = ½ byte · 2⁴ valores · mínimo para 1 cifra decimal · = <b>1 dígito hex</b></td></tr>
+<tr><td><b>cúbit</b></td><td>bit cuántico · 2 estados propios · <b>superposición cuántica</b></td></tr>
+</table>
+
+<h4>Unidades de capacidad (unidad = byte)</h4>
+<p><r>SI</r> = potencias de <b>10</b>: p 10⁻¹² · n 10⁻⁹ · µ 10⁻⁶ · m 10⁻³ · K 10³ · M 10⁶ · G 10⁹ · T 10¹² · P 10¹⁵ · E 10¹⁸ · Z 10²¹ · Y 10²⁴ · <n>R ronna 10²⁷</n> · <n>Q quetta 10³⁰</n>.</p>
+<p><r>IEC · ISO/IEC 80000-13</r> = potencias de <b>2</b> (cada una = 2¹⁰ de la anterior): Ki <n>2¹⁰</n> · Mi 2²⁰ · Gi 2³⁰ · Ti 2⁴⁰ · Pi 2⁵⁰ · Ei 2⁶⁰ · Zi 2⁷⁰ · Yi 2⁸⁰ · <n>Ri robibyte 2⁹⁰</n> · <n>Qi quebibyte 2¹⁰⁰</n> (ya en la norma).</p>
+<ul>
+<li><t>⚠ SI ≠ IEC</t>: 1 kilobit = 1000 bits (no 1024). Prefijos IEC (kibi, mebi, gibi, tebi, pebi, exbi) publicados en <r>IEC 60027-2:2009</r>; se deben usar en TI para no usar mal los SI. 1 KiB = 2¹⁰ B = 1024 B. Ref.: <r>RD 2032/2009, 30 dic.</r> (unidades legales de medida).</li>
+<li>Industria usa SI; el SO muestra IEC. <e>Disco 1 TB = 10¹² B = 1.000 GB → SO: 976.562.500 KiB = 953.674 MiB = 931 GiB = 0,91 TiB.</e></li>
+</ul>
+
+<h3>2.1 Sistemas de numeración</h3>
+<p><d>Sistema de numeración</d>: conjunto de símbolos y reglas para representar cantidades. <b>Base</b> = nº de símbolos. Valor de cada cifra depende de la cifra y de su <b>posición</b>.</p>
+<p><code>N = aₙ₋₁·bⁿ⁻¹ + … + a₁·b¹ + a₀·b⁰</code></p>
+<table>
+<tr><th>Base</th><th>Alfabeto</th></tr>
+<tr><td>10 decimal</td><td>0–9</td></tr>
+<tr><td>2 binario</td><td>{0,1} · cada dígito = <b>bit</b></td></tr>
+<tr><td>8 octal</td><td>0–7</td></tr>
+<tr><td>16 hexadecimal</td><td>0–9, A–F · <b>2 dígitos hex = 1 byte</b></td></tr>
+</table>
+<table>
+<tr><th>Dec</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr>
+<tr><th>Bin</th><td>0000</td><td>0001</td><td>0010</td><td>0011</td><td>0100</td><td>0101</td><td>0110</td><td>0111</td><td>1000</td><td>1001</td><td>1010</td><td>1011</td><td>1100</td><td>1101</td><td>1110</td><td>1111</td></tr>
+<tr><th>Oct</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
+<tr><th>Hex</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td></tr>
+</table>
+<ul>
+<li><b>→ Decimal</b>: Σ dígito × base^posición. <e>1101₂=13 · 1011101₂=93 · 175₈=125 · 63₈=51 · C921₁₆=51489 · 3AB₁₆=939</e></li>
+<li><b>Decimal → binario</b>: divisiones enteras entre 2; <b>último cociente = bit más significativo</b>, primer resto = menos significativo (derecha).</li>
+<li><b>Decimal → octal / hex</b>: pasar a binario y agrupar de derecha a izquierda de <b>3</b> en 3 (octal) / de <b>4</b> en 4 (hex). <e>77₁₀ = 1001101₂ = 115₈ = 4D₁₆</e></li>
+<li><e>Examen: menor entre 2A0₁₆=672 · 1226₈=662 · 690₁₀ · 1010110100₂=692 → <b>1226₈</b></e></li>
+</ul>
+
+<h3>2.2 Representación de textos</h3>
+<p><d>Código de E/S</d> = correspondencia caracteres ↔ alfabeto binario. n bits → <b>m = 2ⁿ símbolos</b>.</p>
+<table>
+<tr><th>Código</th><th>Bits</th><th>Rasgos</th></tr>
+<tr><td><b>EBCDIC</b></td><td><n>8</n> · <n>256</n></td><td>IBM · mainframes</td></tr>
+<tr><td><b>ASCII</b></td><td><n>7</n> · <n>128</n> (2⁷)</td><td>ANSI · <n>33</n> no imprimibles (control) + <n>95</n> imprimibles · ASCII Art solo con imprimibles</td></tr>
+<tr><td><b>ASCII extendido</b></td><td><n>8</n> (1 byte)</td><td>se añade un 0 a la izquierda (00000000–01111111) · extensiones de fabricantes con el bit extra (128 símbolos más) <b>fracasaron</b>: secuencia no estándar</td></tr>
+<tr><td><b>Unicode</b></td><td>—</td><td>Consorcio Unicode (fabricantes HW/SW) · &gt; <n>100.000</n> caracteres · objetivos: <b>universalidad, uniformidad, unicidad</b>; principios de diseño: universalidad, <b>eficiencia</b>, no ambigüedad · cada carácter = nombre + identificador numérico (<b>code point</b>) · mantenido por <o>UTC</o> (Comité Técnico Unicode)</td></tr>
+</table>
+<table>
+<tr><th>Formato</th><th>Longitud</th></tr>
+<tr><td><b>UTF-8</b></td><td><n>1–4 bytes</n>, <b>variable</b>; &lt;128₁₀ en 1 byte = ASCII 7 bits</td></tr>
+<tr><td><b>UTF-16</b></td><td><n>1 o 2 palabras de 16 bits (2 o 4 bytes)</n>, <b>variable</b></td></tr>
+<tr><td><b>UTF-32</b></td><td><n>32 bits (4 bytes)</n>, <b>fija</b></td></tr>
+</table>
+
+<h3>2.3 Funciones lógicas básicas</h3>
+<table>
+<tr><th class="c">A</th><th class="c">B</th><th class="c">AND</th><th class="c">OR</th><th class="c">XOR</th><th class="c">NAND</th><th class="c">NOR</th><th class="c">XNOR</th></tr>
+<tr class="c"><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">1</td><td class="c">1</td><td class="c">1</td></tr>
+<tr><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c">1</td><td class="c">1</td><td class="c">1</td><td class="c">0</td><td class="c">0</td></tr>
+<tr><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c">1</td><td class="c">1</td><td class="c">1</td><td class="c">0</td><td class="c">0</td></tr>
+<tr><td class="c">1</td><td class="c">1</td><td class="c">1</td><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">1</td></tr>
+</table>
+<ul>
+<li><b>NOT</b>: negación (0→1, 1→0). <b>AND</b>: 1 si ambas 1. <b>OR</b>: 1 si alguna. <b>XOR</b>: 1 si <b>solo una</b> es 1 (suma con acarreo). <b>XNOR</b>: 1 si son <b>iguales</b>. <b>NAND</b> = ¬AND · <b>NOR</b> = ¬OR (1 solo si ambas 0).</li>
+<li><e>Examen a=0, b=1: XOR=1 · XNOR=0 · NAND=1 · </e><t>⚠ NOR=1 es la INCORRECTA</t> (NOR=0).</li>
+</ul>
+
+<h2>3 Elementos constitutivos de un sistema de información</h2>
+<p><d>Sistema de información</d>: conjunto de componentes interrelacionados que <b>recogen, procesan y distribuyen</b> datos e información, incluyendo los mecanismos de <b>retroalimentación</b>.</p>
+<p>Antes: ahorro de costes en actividades operativas. Hoy: base de nuevos productos/servicios, soporte de directivos, coordina trabajo dentro y entre organizaciones → «orientación a los procesos»; motor del cambio y ventaja competitiva si el proceso de mejora se gestiona bien.</p>
+<p>Estructura: <b>dimensión vertical</b> (niveles) y <b>horizontal</b> (subsistemas de cada nivel, sobre todo operativo y táctico, conectados entre sí → integración y eficiencia; datos compartidos entre usuarios y aplicaciones).</p>
+<table>
+<tr><th>Nivel</th><th>Decisiones</th><th>Rasgos</th></tr>
+<tr><td><o>Operacional</o></td><td>rutina</td><td>pedidos de clientes, documentos de embarque, facturación · recoge datos del mundo real y los guarda en un depósito de datos (fichas, BD)</td></tr>
+<tr><td><o>Táctico</o></td><td><n>corto plazo</n></td><td>interviene una persona · info de la BD + cálculo (resúmenes, previsiones)</td></tr>
+<tr><td><o>Estratégico</o></td><td><n>medio y largo plazo</n></td><td>como el táctico pero decisiones más amplias · más difíciles de formalizar · info más elaborada, visión integrada de la empresa</td></tr>
+</table>
+<p><b>6 componentes</b>: <o>hardware</o> (equipamiento) · <o>software</o> (sistema lógico) · <o>bases de datos</o> (info de la organización) · <o>comunicaciones</o> (interconexión e integración con otros sistemas) · <o>personas</o> (recurso más valioso: personal TIC + usuarios) · <o>procedimientos</o> (estrategias, políticas, métodos y reglas de uso y gestión).</p>
+
+<h2>4 Arquitectura de ordenadores</h2>
+<h3>4.1 Organización del procesador</h3>
+<ul>
+<li>Función: ejecutar instrucciones. <o>Señal de reloj</o>: onda cuadrada periódica; <b>ciclo de reloj</b> = unidad básica de tiempo (duración mínima de una operación). Una instrucción = ≥1 ciclos.</li>
+<li><t>⚠ Prestaciones ≠ solo frecuencia</t>: también diseño del juego de instrucciones y ejecución simultánea de varias instrucciones.</li>
+<li><b>3 componentes</b>: <o>registros</o> · <o>ALU</o> (operaciones aritméticas y lógicas) · <o>UC</o> (controla todo el procesador, movimiento de datos/instrucciones y la ALU). Interconexión: líneas de <b>control</b> + líneas de <b>datos</b>, con interfaz al bus del sistema.</li>
+<li>Procesador = microprocesador (1 chip), que integra además: <o>SIMD</o> (Single Instruction, Multiple Data; datos vectoriales, multimedia) · <o>caché</o> · <o>MMU</o> (traduce direcciones virtuales→físicas en ejecución; protege el espacio de un programa del de otros y separa el del SO del de usuario) · <o>FPU</o> (coma flotante; autónoma, registros propios).</li>
+</ul>
+
+<h4>Instrucciones</h4>
+<p><b>Autocontenidas</b>. Formato: <code>Codop | Op.fuente 1…N | Op.destino | Dir. instrucción siguiente</code>. Dirección siguiente casi siempre <b>implícita</b> (solo las de <b>ruptura de secuencia</b> indican otra). Operandos pueden ser implícitos; un fuente puede ser también destino.</p>
+<table>
+<tr><th>Arquitectura del juego de instrucciones (5 tipos)</th><th>Operandos</th></tr>
+<tr><td><b>Pila</b></td><td>implícitos, en la pila</td></tr>
+<tr><td><b>Acumulador</b></td><td>uno implícito en el registro acumulador</td></tr>
+<tr><td><b>Registro-registro</b> (load-store)</td><td>explícitos · solo <b>LOAD/STORE</b> acceden a memoria · + codificación simple, longitud fija, ciclos parecidos · − más instrucciones</td></tr>
+<tr><td><b>Registro-memoria</b></td><td>cualquier instrucción accede a memoria con <b>uno</b> de sus operandos</td></tr>
+<tr><td><b>Memoria-memoria</b></td><td>con <b>todos</b> sus operandos · (reg-mem y mem-mem: + no cargar en registros, facilitan programar; − cuellos de botella, ciclos muy variables)</td></tr>
+</table>
+<ul>
+<li>Operando = dato, dirección o referencia a dirección (registro o memoria; en memoria = <b>dirección efectiva</b>). <d>Modo de direccionamiento</d>: formas de expresar un operando + procedimiento para obtener la dirección y el dato.</li>
+<li>Modos: <b>inmediato</b> · <b>directo</b> (a registro / a memoria) · <b>indirecto</b> (a registro / a memoria) · <b>relativo</b> (a registro base, a registro índice = indexado, a PC) · <b>implícito</b> (a pila = indirecto a registro SP).</li>
+<li><d>Endian</d> (orden de bytes en memoria): <b>Big-endian</b> = byte más significativo en la dirección <b>más baja</b> · <b>Little-endian</b> = en la <b>más alta</b>. <e>12 34 56 78 en 184: big 184=12, 185=34, 186=56, 187=78 · little 184=78, 185=56, 186=34, 187=12</e></li>
+</ul>
+
+<h4>Ciclo de ejecución (4 fases)</h4>
+<p><b>F1</b> lectura de la instrucción · <b>F2</b> lectura de operandos fuente · <b>F3</b> ejecución + almacenamiento del destino · <b>F4</b> comprobación de interrupciones. Dos superfases: <b>búsqueda (fetch)</b> y <b>ejecución</b>. Cada operación = <d>microoperación</d> (gestión por la UC).</p>
+<ul>
+<li><b>F1</b>: leer (el <b>PC</b> da la dirección; si la instrucción &gt; palabra de memoria, varios accesos; se carga en <b>IR</b>) → descodificar (UC lee el IR) → actualizar PC (según nº de accesos). Común a todas las instrucciones.</li>
+<li><b>F2</b>: se repite por operando fuente. Inmediato y directo a registro: <b>nada</b>; indirectos/relativos: cálculos + accesos a memoria; implícito: lugar predeterminado. <e>ADD R3,3 → sin cálculo ni acceso · ADD [R1],[R2+16] → 1 suma + 2 accesos</e></li>
+<li><b>F3</b>: depende del codop y del modo del destino. Ejecutar (puede modificar bits de resultado de la palabra de estado) + guardar resultado (en lugar indicado o predeterminado).</li>
+<li><b>F4</b>: <d>interrupción</d> = mecanismo por el que un dispositivo externo interrumpe el programa para ejecutar una <b>rutina de servicio (RSI)</b>; se pide activando una línea de petición. Sin petición → siguiente instrucción. Con petición: guardar <b>PC + palabra de estado</b> (en la pila) → PC = dirección de la RSI → ejecutar RSI → recuperar PC y estado. Presente en todos los computadores (E/S por interrupciones y por DMA).</li>
+</ul>
+
+<h4>Segmentación (pipeline)</h4>
+<ul>
+<li>Dividir el ciclo en <b>etapas</b> y ejecutar a la vez etapas de instrucciones distintas → más rendimiento sin acelerar ni duplicar ALU/UC/buses. Etapas de igual duración (normalmente 1 ciclo) y <b>registros intermedios</b>. Analogía: cadena de montaje.</li>
+<li><e>3 instrucciones de 3 etapas: sin segmentación <n>9</n> etapas · con segmentación <n>5</n>.</e></li>
+<li><t>⚠ Se reduce el tiempo total de varias instrucciones, NO el de cada una.</t></li>
+</ul>
+
+<h4>Registros</h4>
+<p>Memoria rápida <b>dentro del procesador</b> (<b>SRAM</b>), espacio de trabajo temporal; la <b>ALU solo trabaja con registros internos</b>. Varían en nº, tipo y tamaño. Visibles: algunos para el programador, otros solo para instrucciones privilegiadas, otros solo internos.</p>
+<table>
+<tr><th>Tipo</th><th>Contenido</th></tr>
+<tr><td><b>Propósito general</b></td><td>operandos en ensamblador: de <b>datos</b> (enteros / punto flotante) y de <b>direccionamiento</b> (direcciones o índices; uso implícito: pila, segmentos, memoria virtual) · <b>acumulador</b>: datos temporales para la ALU</td></tr>
+<tr><td><b>Instrucción</b></td><td><o>PC</o> (Program Counter) = dirección de la <b>siguiente</b> instrucción · <o>IR</o> (Instruction Register) = instrucción <b>en curso</b></td></tr>
+<tr><td><b>Acceso a memoria</b></td><td><o>MAR</o> (Memory Address Register) = dirección · <o>MBR</o> (Memory Buffer Register) = dato leído/a escribir</td></tr>
+<tr><td><b>Estado y control</b></td><td>ver abajo</td></tr>
+</table>
+<ul>
+<li><b>Lectura</b>: MAR←dirección → MAR a líneas de direcciones + señal de lectura → MBR←dato. <b>Escritura</b>: MBR←palabra → MAR←dirección → MAR a direcciones + MBR a datos + señal de escritura.</li>
+<li><b>Registro de estado</b> (habitualmente uno; parcialmente visible): bit de <b>cero</b> (resultado 0) · <b>transporte</b> (acarreo del último bit; también desplazamiento) · <b>desbordamiento</b> (resultado no representable en el formato) · <b>signo</b> (negativo) · <b>interrupción</b> (habilitadas/inhibidas) · <b>modo de operación</b> (supervisor/usuario) · <b>nivel de ejecución</b> (privilegio; un programa de nivel superior puede desalojar al actual).</li>
+<li><b>Registros de control</b>: dependen de la organización; info de la UC y específica del SO; <b>nunca visibles</b> al programador de aplicaciones.</li>
+</ul>
+
+<h3>4.2 Arquitectura Von Neumann</h3>
+<table>
+<tr><td><code>CPU = UC + ALU</code> (+ registros) · <code>Ordenador central = CPU + MP</code> · <code>Periféricos = E/S + memoria secundaria</code></td></tr>
+</table>
+<ul>
+<li><o>CPU</o>: lee y ejecuta instrucciones de la MP, opera datos de la MP y guarda los nuevos datos en la MP. Compuesta por UC, ALU y registros.</li>
+<li><o>UC</o>: contiene la instrucción en ejecución y genera las <b>señales de control</b> (cerebro del computador; las señales = sistema nervioso). Su complejidad de diseño viene de la <b>sincronización</b>, no de las tareas.</li>
+<li>Microoperaciones F1: <code>MAR←PC</code> · <code>MBR←Memoria</code> · <code>PC←PC+Δ</code> · <code>IR←MBR</code>. F2 relativo a registro índice: <code>MAR←IR(dir.operando)+IR(reg.índice)</code>; <code>MBR←Memoria</code>. F4 (cambio de contexto, estado en la pila del sistema): <code>MBR←PC</code> · <code>MAR←dir. salvaguarda</code> · <code>Memoria←MBR</code> · <code>PC←dir. de la rutina</code>.</li>
+</ul>
+<table>
+<tr><th></th><th>UC <b>cableada</b></th><th>UC <b>microprogramada</b></th></tr>
+<tr><td>Qué es</td><td>circuito combinacional: señales de entrada → señales de control</td><td>cada instrucción = conjunto de microinstrucciones (<b>microprograma</b>)</td></tr>
+<tr><td>Típica de</td><td><b>RISC</b></td><td><b>CISC</b></td></tr>
+<tr><td>Ventajas</td><td>más rápida</td><td>simplifica diseño · más económica · flexible (nuevas instrucciones, cambios de organización/tecnología) · muchas instrucciones (memoria de control grande) · varios juegos de instrucciones (emulación) · compatibilidad con la familia · distintas organizaciones con el mismo juego</td></tr>
+<tr><td>Inconvenientes</td><td>—</td><td>más lenta (accede a memoria e interpreta microinstrucciones) · necesita entorno de desarrollo y compilador de microprogramas</td></tr>
+</table>
+<ul>
+<li><o>ALU</o>: circuito combinacional; aritméticas (suma, resta, multiplicación, división; incremento +1/−1) y lógicas (comparación, complementación, suma y producto lógico: AND, OR, NOT, XOR; desplazamiento izq./dcha.; rotación) con enteros y reales.</li>
+<li><b>Enteros</b>: signo-magnitud · complemento a 1 · <b>complemento a 2</b> (el más habitual) · <n>32 y 64 bits</n> habituales.</li>
+<li><b>Reales</b>: <b>punto fijo</b> (coma binaria en posición fija; nº fijo de bits para parte entera y decimal) · <b>punto flotante</b>: signo + mantisa + exponente, valor = ± mantisa · 2^exp.</li>
+<li><r>IEEE-754</r>: <b>simple</b> <n>32 b</n> = 1+8+23 · <b>doble</b> <n>64 b</n> = 1+11+52 · <b>cuádruple</b> <n>128 b</n> = 1+15+112 (signo + exponente + mantisa). Define también cero e infinito y <b>NaN</b>.</li>
+<li>Históricamente: ALU única con enteros; punto flotante en <b>FPU / coprocesador matemático</b> separado del procesador con registros propios. Hoy: unidades de enteros <b>replicadas</b> (varias operaciones en paralelo) y FPU como unidad separada pero <b>dentro</b> del procesador.</li>
+<li><b>Registros de la CPU</b>: PC · IR · estado · MAR · MBR.</li>
+<li><o>MP</o> (memoria principal): instrucciones, datos y resultados · celdas de 1 bit · organizada en palabras con <b>dirección única</b>. <o>E/S</o>: entrada para meter programas y datos en la MP; salida para presentar resultados.</li>
+<li><o>Buses</o>: canales de comunicación = líneas eléctricas (1 bit cada una) que transmiten direcciones, datos y control. El <b>ancho del bus</b> = tamaño con el que trabaja el computador. 3 tipos: <b>datos</b> (datos e instrucciones CPU↔memoria) · <b>dirección</b> (posición fuente/destino; <b>su anchura = máxima capacidad de memoria</b>) · <b>control</b> (acceso y uso de los otros).</li>
+</ul>
+
+<h3>4.3 Arquitectura Harvard</h3>
+<ul>
+<li>Memoria dividida en <b>memoria de instrucciones + memoria de datos</b>; el procesador accede a ambas <b>por separado y simultáneamente</b>, con conexiones independientes (cada memoria/conexión puede diferir en tamaño de palabra, tamaño y tecnología). Mapas de direcciones de instrucciones y de datos <b>separados</b>.</li>
+<li><t>⚠ No es de propósito general</t>: aplicaciones específicas → <o>microcontroladores</o> (móviles, IoT) y <o>DSP</o> (procesador de señales digitales: voz, imagen/audio en tiempo real).</li>
+</ul>
+
+<h3>4.4 Taxonomía de Flynn</h3>
+<p>Clasificación por flujo de <b>instrucciones</b> (secuenciales, ejecutadas por un único procesador) y de <b>datos</b>. Publicada en <n>1966</n> y <n>1970</n> (según el tema).</p>
+<table>
+<tr><th>Tipo</th><th>Rasgos</th></tr>
+<tr><td><b>SISD</b><br>1 instr / 1 dato</td><td><b>Arquitectura serie de Von Neumann</b>; una instrucción tras otra; sin concurrencia ni paralelización (solo simulada por <b>segmentación</b>).</td></tr>
+<tr><td><b>SIMD</b><br>1 instr / N datos</td><td><b>Máquinas vectoriales</b> (hardware escalar y vectorial); procesamiento síncrono; <b>concurrencia real</b>; origen de la máquina paralela.</td></tr>
+<tr><td><b>MISD</b><br>N instr / 1 dato</td><td>2 visiones: varias instrucciones sobre un mismo dato a la vez · o dato que pasa por etapas (segmentado). Inconveniente: <b>latencia</b>. Experimental: <b>arrays sistólicos</b>, arrays de procesadores, redes neuronales en máquinas masivamente paralelas.</td></tr>
+<tr><td><b>MIMD</b><br>N instr / N datos</td><td>Desde principios de los <n>80</n>; un único bus multiplexado de altas prestaciones. 2 categorías (abajo).</td></tr>
+</table>
+<ul>
+<li><o>SMP</o> o <o>MMC</o> (multiprocesador de <b>memoria compartida</b>): <b>una única memoria</b> con instrucciones y datos → <b>cuello de botella</b> de acceso. Gestión: <b>UMA</b> (acceso uniforme: mismo tiempo de acceso para todos; caché privada por procesador; periféricos compartidos; con n procesadores, a cada uno 1/n del tiempo) · <b>NUMA</b> (Not Uniform: criterios de preferencia, p. ej. disposición física o prioridades).</li>
+<li><o>MPP</o> o <o>MMD</o> (multiprocesador de <b>memoria distribuida</b>): no hay módulo compartido; memoria en <b>submódulos en cada procesador</b> + submódulo de E/S → menos accesos al bus, siempre que instrucciones y datos estén distribuidos por submódulos.</li>
+</ul>
+
+<h3>4.5 CISC vs RISC</h3>
+<table>
+<tr><th></th><th>CISC (Complex)</th><th>RISC (Reduced)</th></tr>
+<tr><td>Formato</td><td>longitud <b>variable</b>, largas → dificulta procesamiento simultáneo</td><td>tamaño <b>fijo y corto</b> → más fácil y rápido</td></tr>
+<tr><td>Juego</td><td>grande, habitualmente <n>&gt;100</n></td><td>básicas y simples; 1 CISC = varias RISC</td></tr>
+<tr><td>Modos direcc.</td><td>muy elevado</td><td>muy reducido</td></tr>
+<tr><td>Memoria</td><td>cualquier instrucción</td><td><b>load-store</b> / registro-registro: solo LOAD y STORE</td></tr>
+<tr><td>Registros</td><td>—</td><td>amplio banco de propósito general</td></tr>
+<tr><td>Ciclos</td><td>—</td><td>pocos ciclos · <b>facilita la segmentación</b></td></tr>
+<tr><td>UC</td><td><b>microprogramada</b></td><td><b>cableada</b></td></tr>
+<tr><td>Otros</td><td>familia anterior a RISC</td><td><o>ARM</o> (Advanced RISC Machine): bajo consumo; móviles y embebidos</td></tr>
+</table>
+<p><t>⚠</t> Los procesadores actuales <b>no son puros</b>: mezclan rasgos de ambos.</p>
+
+<h2>5 Componentes internos de los equipos microinformáticos</h2>
+<h3>5.1 Placa base</h3>
+<p><d>Placa base</d> (placa madre, motherboard): dispositivo donde se insertan microprocesador, tarjetas de expansión y memoria; vía de comunicación entre ellos (líneas eléctricas y señales de control). Tareas: conexión física · energía (administración, control y distribución) · comunicación de datos · temporización · sincronismo · control y monitorización.</p>
+<p>Software básico: <r>UEFI</r> (Unified Extensible Firmware Interface), <b>antes BIOS</b> (Basic Input Output System) · en chip <b>ROM</b>, normalmente <b>EPROM</b> · contenido inalterable al apagar; reprogramable · <b>primer software</b> que se ejecuta al arrancar.</p>
+<p><d>Factor de forma</d>: define y estandariza características físicas de las placas (forma, dimensiones, conexiones eléctricas de la fuente). Cronológico:</p>
+<table>
+<tr><th>Formato</th><th>mm (pulgadas) · rasgos</th></tr>
+<tr><td><b>XT</b></td><td>tamaño A4 · IBM · años 80</td></tr>
+<tr><td><b>AT</b></td><td><n>305×279-330</n> (12×11-13) · hasta mediados de los 90</td></tr>
+<tr><td><b>ATX</b></td><td><n>305×244</n> (12×9,6) · la más extendida · conector de energía <n>24 pines</n></td></tr>
+<tr><td>· eATX</td><td>305×330 (12×13) · servidores</td></tr>
+<tr><td>· MicroATX</td><td>máx. 244×244 (9,6×9,6) · oficina</td></tr>
+<tr><td>· FlexATX</td><td>229×191 (9,0×7,5)</td></tr>
+<tr><td>· Mini ATX</td><td>284×208 (11,2×8,2) · miniPCs</td></tr>
+<tr><td><b>ITX</b></td><td>evolución de MicroATX; más componentes integrados</td></tr>
+<tr><td>· Mini-ITX</td><td>170×170 (6,7×6,7)</td></tr>
+<tr><td>· Nano-ITX</td><td>120×120 (4,7×4,7)</td></tr>
+<tr><td>· Pico-ITX</td><td>100×72 (3,9×2,8)</td></tr>
+<tr><td><b>BTX</b></td><td>evolución de ATX · 325×266 (12,8×10,5)</td></tr>
+<tr><td>· Micro / Pico / Regular</td><td>264×267 (10,4×10,5) / 203×267 (8,0×10,5) / 325×267 (12,8×10,5)</td></tr>
+<tr><td><b>DTX</b></td><td>miniPCs · 24 pines · 248×203 (9,8×8,0)</td></tr>
+<tr><td>· Mini / Full DTX</td><td>170×203 (6,7×8,0) / 243×203 (9,6×8,0)</td></tr>
+</table>
+<p>Más comunes: <b>ATX, eATX, MicroATX, Mini-ITX</b>.</p>
+
+<h4>Chipset</h4>
+<ul>
+<li>Conjunto de circuitos integrados que <b>coordina la transferencia de datos</b> entre componentes; ajusta las velocidades de los distintos componentes.</li>
+<li>Clásico: <o>puente norte</o> (Northbridge: microprocesador ↔ RAM ↔ GPU; se conecta al sur) y <o>puente sur</o> (Southbridge: periféricos y almacenamiento).</li>
+<li>Hoy: el norte se <b>absorbió en la CPU</b> y se une punto a punto con el sur → arquitectura <r>PCH</r> (Platform Controller Hub, según Intel). El tema dice que el sur pasa a llamarse <r>ICH</r> (I/O Controller Hub).</li>
+</ul>
+<h4>UEFI (antes BIOS)</h4>
+<ul>
+<li>En módulo <b>ROM</b>; chequea el hardware usando los datos de la <b>pila CMOS</b> (configuración del hardware); tras el test carga un <b>gestor de arranque</b> o el SO.</li>
+<li><r>UEFI Boot Manager</r> (gestiona opciones de arranque) · <r>GPT</r> (GUID Partition Table; sustituye a <b>MBR</b>) · <r>Secure Boot</r> (comprueba la <b>firma digital</b> de firmware, cargador de arranque y controladores).</li>
+</ul>
+<h4>Zócalo del procesador</h4>
+<ul>
+<li><b>Slot</b>: inserción <b>vertical</b> · <b>Socket</b>: cuadrangular o rectangular.</li>
+<li><o>LGA</o> (Land Grid Array): pines en el <b>socket</b>; el nº = pines <e>(LGA 3647, 1151, 2066, 1200 [2020], 1700 [2021])</e> · <o>PGA</o> (Pin Grid Array): pines en el <b>procesador</b> <e>(AM4 = PGA 1331)</e> · <o>BGA</o> (Ball Grid Array): <b>bolas soldadas</b>, no se cambia el procesador; portátiles y móviles; mayor densidad de contactos, menos espacio, conduce mejor el calor.</li>
+<li><t>⚠ El tema cita «Socket TR4» como PGA; es LGA (4094 contactos).</t> Ver incoherencias.</li>
+<li><r>ZIF</r> (Fuerza de Inserción Nula): palanca que al levantarse permite insertar sin presión y al bajarse fija el procesador.</li>
+</ul>
+<h4>Ranuras y otros elementos</h4>
+<ul>
+<li><b>RAM</b>: SIMM, DIMM, SODIMM.</li>
+<li><b>Expansión</b>: <b>ISA</b> (obsoleto) · <b>PCI</b> (obsoleto) · <b>PCIe</b> (interfaz serie de alta velocidad, punto a punto) · <b>AGP</b> (gráficas; sustituido por PCIe; obsoleto) · <b>SATA</b> (discos de 2,5″ o 3,5″) · <b>M.2</b> (formato compacto de tarjeta, conecta SSD) · <b>U.2</b> (similar a M.2, SSD de 2,5″ → ocupa más espacio).</li>
+<li><o>RTC</o> (Reloj de Tiempo Real): sincronizar las señales del sistema. <o>Pila CMOS</o>: función <b>doble</b> → alimenta el RTC y guarda datos del sistema (hora, fecha, configuraciones esenciales).</li>
+<li><b>Conectores E/S</b>: serie · paralelo · USB · IDE, ATA, SATA, SCSI, SAS · RJ45 · VGA, DVI, HDMI · audio.</li>
+<li><o>FSB</o> (Front Side Bus): camino de intercambio microprocesador ↔ memoria ↔ subsistema de E/S. Su velocidad es <b>siempre inferior</b> a la interna del micro. 2 frecuencias: <b>interna</b> (ciclo del procesador) y <b>externa</b> (FSB); el <b>chipset</b> las ajusta.</li>
+<li><d>Overclocking</d>: técnica para aumentar la frecuencia de reloj de un componente.</li>
+<li><e>Examen: NO es componente de la placa base → <b>Chip EAC</b> (zócalo, chipset y reloj sí).</e></li>
+</ul>
+
+<h3>5.2 Microprocesadores</h3>
+<ul>
+<li><b>Proceso de fabricación</b>: tamaño de los transistores, en <b>nm</b>: <n>14, 10, 7, 5, 3, 2 (2026)</n>. <r>Ley de Moore</r>: transistores de un chip se duplican cada <n>2 años</n>.</li>
+<li><b>Núcleos (cores)</b>: cada uno es un procesador en sí → <b>paralelismo</b>; hoy de 4 a 32 o más. <r>Ley de Amdahl</r>: la mejora al cambiar un componente está limitada por la fracción de tiempo que se usa ese componente.</li>
+<li><b>Hilos (threads)</b>: <b>Hyper-Threading</b> (Intel) / <b>SMT</b> Simultaneous Multi-Threading (AMD) → cada núcleo físico ejecuta <n>2</n> hilos a la vez (<b>concurrencia</b>) = 2 núcleos lógicos. <e>4 núcleos físicos → 8 hilos.</e> <t>⚠ núcleos = paralelismo · hilos = concurrencia</t></li>
+<li><b>Híbridas</b> (núcleos distintos en un mismo procesador): <o>P-cores</o> (rendimiento) · <o>E-cores</o> (eficiencia y capacidad multinúcleo) · <o>LP E-cores</o> (eficientes, cargas de bajo consumo).</li>
+<li>Especializadas: <o>GPU</o> (paralela; gráfico y otras cargas paralelizables) · <o>NPU</o> (IA, redes neuronales). <o>SoC</o> (System on a Chip): CPU, GPU, controlador de memoria, NPU, interfaces y controladores en <b>un solo chip</b>; móviles y muchos ordenadores modernos.</li>
+</ul>
+<table>
+<tr><th>Intel (mayor → menor)</th><th>Detalle</th></tr>
+<tr><td><b>Xeon escalable</b></td><td>Bronze, Platinum, Gold, Silver (orden del tema; ver incoherencias) · servidores alto rendimiento</td></tr>
+<tr><td><b>Xeon</b></td><td>E, D, W, Max · servidores</td></tr>
+<tr><td><b>Core Ultra</b></td><td>5, 7, 9 · sobremesa y portátil · <b>NPU</b> + GPU <b>Intel Arc</b></td></tr>
+<tr><td><b>Core</b></td><td>i3, i5, i7, i9, X · sobremesa y portátil</td></tr>
+<tr><td><b>Celeron</b></td><td>G, J, N · pocas prestaciones y móviles</td></tr>
+<tr><td><b>Atom</b></td><td>C, P · móviles e IoT</td></tr>
+</table>
+<p><b>Generaciones Core</b>: 1ª Nehalem · 2ª Sandy Bridge · 3ª Ivy Bridge · 4ª Haswell · 5ª Broadwell · 6ª Skylake · 7ª Kaby Lake · 8ª Coffee Lake · 9ª Coffee Lake Refresh · 10ª Comet Lake · 11ª Tiger Lake · 12ª Alder Lake · 13ª Raptor Lake · 14ª Raptor Lake S <t>(⚠ real: Refresh)</t> · Ultra Series 1 Meteor Lake · Ultra 2 Lunar Lake / Arrow Lake · Ultra 3 Panther Lake. Nomenclatura: marca · modificador · generación · dígitos SKU · sufijo <e>(i7-1065G7 · i9-13900K · Core Ultra 9 185H)</e>.</p>
+<table>
+<tr><th>Apple</th><th>Datos</th></tr>
+<tr><td><b>M1</b> <n>mayo 2021</n></td><td>CPU <n>8</n> (4 rendimiento + 4 eficiencia) · GPU 8 · Neural Engine 16 · <n>16 billones</n> de transistores · <n>5 nm</n> · <n>2,6 TFLOPS</n></td></tr>
+<tr><td><b>M2</b> <n>jun 2022</n></td><td>evolución de M1, mayor rendimiento</td></tr>
+<tr><td><b>M3</b> <n>oct 2023</n></td><td>CPU y Neural Engine más rápidos · memoria unificada adicional · M3, M3 Pro, M3 Max</td></tr>
+<tr><td><b>M4</b> <n>mayo 2024</n></td><td>CPU <n>10</n> (4+6) · Thunderbolt 5 (según el tema) · <n>3 nm</n></td></tr>
+<tr><td><b>M4 Pro / Max</b> <n>oct 2024</n></td><td>Pro: 14 núcleos (10+4), GPU 20 · Max: 16 núcleos (12+4), GPU 40</td></tr>
+<tr><td><b>M5</b> <n>oct 2025</n></td><td>3 nm · mejora M4</td></tr>
+<tr><td><b>M6</b> <n>2026</n></td><td>primer chip de <n>2 nm</n> de Apple · CPU 12 · GPU 12 · Neural Engine dual de 16 núcleos</td></tr>
+</table>
+<h4>Rendimiento</h4>
+<ul>
+<li><b>MIPS</b> (millones de instrucciones/s): medida simplista, no valora la potencia de cada instrucción · <b>FLOPS</b> (operaciones en coma flotante/s): tampoco distingue instrucciones entre procesadores; fabricantes dan <b>picos</b> de MIPS y MFLOPS.</li>
+<li>FLOPS: <n>M 10⁶ · G 10⁹ · T 10¹² · P 10¹⁵ · E 10¹⁸</n>.</li>
+<li><b>SPEC</b>: conjunto de programas; combina medidas con media aritmética o geométrica · <b>Productividad (throughput)</b>: tareas por unidad de tiempo · <b>TOPS</b> (Tera Operations Per Second): capacidad de cálculo para tareas de <b>IA</b>.</li>
+</ul>
+
+<h3>5.3 Memoria interna</h3>
+<ul>
+<li>2 niveles: <b>caché</b> + <b>memoria principal</b> (la caché, a su vez, en niveles). Semiconductores, transistor como elemento básico. <b>Celda</b> = 1 bit (diferencia de potencial eléctrico). <b>Acceso aleatorio</b>: cualquier palabra por su dirección.</li>
+</ul>
+<table>
+<tr><th></th><th><b>SRAM</b> (estática)</th><th><b>DRAM</b> (dinámica)</th></tr>
+<tr><td>Celda</td><td>flip-flop · ~<n>6 transistores</n></td><td><n>1 transistor + 1 condensador</n></td></tr>
+<tr><td>Refresco</td><td>no (mientras haya alimentación)</td><td>sí (el condensador pierde carga)</td></tr>
+<tr><td>Velocidad / coste</td><td>la <b>más rápida</b> · cara · integración limitada</td><td>más lenta · gran densidad (más capacidad en menos espacio)</td></tr>
+<tr><td>Uso</td><td>caché, registros</td><td><b>memoria principal</b></td></tr>
+</table>
+<p><b>Volátil</b> (necesita corriente; RAM) vs <b>No volátil</b> (mantiene estado sin corriente).</p>
+<p><b>DRAM asíncrona</b>: FPM RAM · EDO RAM · BEDO RAM. <b>SDRAM</b> (síncrona):</p>
+<table>
+<tr><th>Tipo</th><th>Tasa</th><th>DIMM</th><th>SODIMM</th></tr>
+<tr><td>SDR</td><td>1 operación/ciclo</td><td><n>168</n></td><td><n>144</n></td></tr>
+<tr><td>DDR</td><td>2 operaciones/ciclo</td><td><n>184</n></td><td><n>200</n></td></tr>
+<tr><td>DDR2</td><td>DDR tipo 2</td><td><n>240</n> <t>⚠</t></td><td><n>200</n></td></tr>
+<tr><td>DDR3</td><td></td><td><n>240</n></td><td><n>204</n></td></tr>
+<tr><td>DDR4</td><td></td><td><n>288</n></td><td><n>260</n></td></tr>
+<tr><td>DDR5</td><td></td><td><n>288</n></td><td>(262 ✎)</td></tr>
+</table>
+<p class="nota">✎ El tema da 200 pines al DIMM de DDR2 (error) y no da SODIMM de DDR5 (ver incoherencias).</p>
+<p><d>DIMM</d> (Dual Inline Memory Module): contactos independientes por las <b>dos caras</b>; sobremesa. <d>SO-DIMM</d> (Small Outline): menor tamaño; <b>portátiles y miniPCs</b>.</p>
+<table>
+<tr><th>No volátil</th><th>Rasgos</th></tr>
+<tr><td><b>ROM</b></td><td>solo lectura; no se borra ni modifica · grabada en <b>fabricación</b> · costosa, solo rentable en gran volumen · guarda microprogramas de UC microprogramada</td></tr>
+<tr><td><b>PROM</b></td><td>el <b>usuario final</b> graba, <b>una sola vez</b></td></tr>
+<tr><td><b>EPROM</b></td><td>borrable con <b>luz ultravioleta</b>, <b>todo el contenido</b> (no por partes) · grabación eléctrica con hardware específico · hay que <b>sacar el chip</b></td></tr>
+<tr><td><b>EEPROM</b></td><td>borrado y grabado <b>eléctricos</b> · modifica uno o varios bytes <b>sin borrar antes</b> · escritura mucho más lenta que lectura</td></tr>
+<tr><td><b>Flash</b></td><td>como EEPROM, borrado eléctrico, borrar y grabar <b>muy rápido</b> · lectura &gt; escritura pero mismo orden de magnitud</td></tr>
+</table>
+
+<h4>Jerarquía de memorias</h4>
+<ul>
+<li>3 niveles: <b>procesador</b> (registros) · <b>interna</b> (caché, principal) · <b>externa</b> (secundaria). Más cerca del procesador → más velocidad y coste por bit, <b>menos capacidad</b>.</li>
+<li><b>Inclusión</b>: lo que está en Mᵢ está también en Mᵢ₊₁…Mₙ · <b>Coherencia</b>: si un bloque se modifica en Mᵢ, se actualizan Mᵢ₊₁…Mₙ.</li>
+</ul>
+<h4>Memoria caché</h4>
+<ul>
+<li>Entre la MP y el procesador · capacidad reducida, más rápida que la MP · <b>acceso asociativo</b> · dentro del chip o cerca · guarda lo que se prevé más usado → menos accesos a la MP · <b>no accesible por el programador</b> (la gestionan hardware y SO) · tecnología <b>SRAM</b>.</li>
+<li><b>L1</b>: primer sitio de búsqueda · la <b>más pequeña y rápida</b> · ligada a un core · dividida en <b>L1-I</b> (instrucciones) y <b>L1-D</b> (datos). <b>L2</b>: mayor que L1, algo más lenta, gran impacto en rendimiento. <b>L3</b>: mucho mayor, <b>compartida entre núcleos</b>, se consulta tras fallar L1 y L2 → mayor tiempo de acceso. Habitual: hasta <n>3</n> niveles.</li>
+<li><d>Localidad de referencia</d>: los programas reutilizan lo reciente · regla <n>90% / 10%</n> (90% del tiempo en el 10% del código). <b>Temporal</b>: lo accedido recientemente se repite (bucles) · <b>Espacial</b>: las palabras próximas se referencian juntas (secuencialidad de instrucciones, estructuras de datos regulares).</li>
+</ul>
+<table>
+<tr><th>Política de asignación</th><th>Dónde va un bloque de MP</th><th>Dirección de memoria</th></tr>
+<tr><td><b>Directa</b></td><td>en <b>una única</b> línea</td><td>etiqueta + <b>marco de bloque</b> + palabra</td></tr>
+<tr><td><b>Totalmente asociativa</b></td><td>en <b>cualquier</b> línea</td><td>etiqueta + palabra</td></tr>
+<tr><td><b>Asociativa por conjuntos</b></td><td>en un <b>subconjunto</b>, en cualquier posición dentro de él</td><td>etiqueta + <b>subconjunto (índice)</b> + palabra</td></tr>
+</table>
+<p>Por conjuntos = mezcla de directa y asociativa · <b>n-asociativa</b> (n elementos por subconjunto, habitual <n>4–64</n>). La <b>etiqueta</b> indica qué bloque de MP hay en cada línea (función de correspondencia). Líneas de caché ≪ bloques de MP.</p>
+<table>
+<tr><th>Algoritmo de reemplazo</th><th>Criterio</th></tr>
+<tr><td><b>FIFO</b></td><td>cola: se reemplaza la línea <b>más antigua</b> (puede no ser la menos usada); fácil con buffer circular / round robin</td></tr>
+<tr><td><b>LFU</b></td><td>la <b>menos frecuentemente</b> usada (contador de accesos por línea)</td></tr>
+<tr><td><b>LRU</b></td><td>la que lleva <b>más tiempo sin usarse</b> · el <b>más eficiente</b> pero el más difícil de implementar · conjuntos de 2–4 líneas · 2-asociativa: 1 bit por línea</td></tr>
+<tr><td><b>Aleatorio</b></td><td>al azar · simple · rendimiento solo ligeramente inferior</td></tr>
+</table>
+<p><t>⚠</t> <b>Directa: sin algoritmo de reemplazo</b> (1 sola línea posible). Totalmente asociativa: se elige entre todas las líneas. Por conjuntos: dentro del conjunto. Se implementan en hardware y deben ser simples.</p>
+<h4>Memoria principal</h4>
+<p>Programas y datos a ejecutar · <b>visible para el programador</b> mediante su espacio de direcciones · varios chips en la placa · capacidad muy superior a la caché (GB o TB) · tecnología <b>DRAM</b> (más lenta que SRAM, mucha más integración).</p>
+
+<h3>5.4 Proceso de arranque</h3>
+<table>
+<tr><td><b>1</b></td><td>Encendido (power on): la fuente da corriente a la placa y dispositivos</td></tr>
+<tr><td><b>2</b></td><td>El microprocesador ejecuta el firmware <b>UEFI</b>, que toma el control y lanza el POST</td></tr>
+<tr><td><b>3</b></td><td><b>POST</b> (Power On Self Test): chequeo e inicialización de todos los componentes</td></tr>
+<tr><td><b>4</b></td><td><b>UEFI Boot Manager</b> determina la opción/dispositivo de arranque según la configuración</td></tr>
+<tr><td><b>5</b></td><td>Carga del <b>gestor de arranque</b> (boot manager) y cede el control al <b>sistema operativo</b></td></tr>
+</table>
+
+</main>
+
+<section class="inc">
+<h2>⚠ Incoherencias del material</h2>
+<p class="nota">Manda el tema salvo error claro. Fuentes citadas solo aquí.</p>
+<ol>
+<li><b>DDR2 DIMM</b>: tema y repaso dicen 200 pines; real <b>240</b> (el SODIMM sí es 200). Usado 240. Falta en ambos el SODIMM de DDR5 (262). <i>Fuentes: tablas de módulos de memoria (Crucial), Wikipedia «DIMM».</i></li>
+<li><b>Robibyte/quebibyte</b>: tema «ya incorporados a la norma ISO»; repaso «aún no». <b>Correcto el tema</b>: IEC 80000-13:2025 (publicada feb. 2025) añade robi y quebi. <i>Fuente: IEC / catálogos de normas.</i></li>
+<li><b>Unicode</b>: tema «más de cien mil»; repaso «137.994 (cifra del tema)», que no aparece en el tema. Vigente: 159.801 (Unicode 17.0, sept. 2025). Para examen: «más de cien mil». <i>Fuente: unicode.org.</i></li>
+<li><b>Intel 14ª gen</b>: tema «Raptor Lake S»; es <b>Raptor Lake Refresh</b> (S = versión de sobremesa). El repaso da la 14ª como última, pero el tema llega a Ultra Series 3 (Panther Lake).</li>
+<li><b>Apple M1</b>: tema «mayo 2021»; se presentó el <b>10-nov-2020</b>. Tema «16 billones de transistores»: son 16 <i>billion</i> (inglés) = 16 mil millones; en español billón = 10¹². Para examen vale lo que dice el tema. <i>Fuente: Apple Newsroom.</i></li>
+<li><b>Apple M4 / Thunderbolt 5</b>: el M4 base lleva Thunderbolt 4; Thunderbolt 5 solo en M4 Pro/Max. <i>Fuentes: MacRumors, notas de Apple.</i> M6 (CPU 12 = 2 super + 4 rendimiento + 6 eficiencia, GPU 12, Neural Engine dual 16, 2 nm; presentado 25-ago-2026): coincide con el tema. <i>Fuente: Apple Newsroom.</i></li>
+<li><b>Socket TR4</b>: el tema lo pone como ejemplo de PGA; es <b>LGA 4094</b>. <i>Fuentes: Wikipedia, WikiChip.</i> AM4 PGA 1331 correcto.</li>
+<li><b>MAR</b>: tema p. 23 «Memory <b>Address</b> Register» (correcto) y p. 30 «Memory <b>Access</b> Register».</li>
+<li><b>Xeon escalable</b>: tema ordena «Bronze, Platinum, Gold, Silver» de mayor a menor; el orden de gamas es Platinum &gt; Gold &gt; Silver &gt; Bronze. <i>(Conocimiento propio; no buscado.)</i></li>
+<li><b>Chipset</b>: tema «el Southbridge cambia de nombre a ICH»; en Intel ICH es el nombre clásico del sur y PCH lo sustituye, no al revés. <i>(No verificado en búsqueda.)</i></li>
+<li><b>Flynn</b>: tema «1966 y 1970»; la referencia habitual es 1966 y 1972. <i>(No verificado.)</i></li>
+<li><b>Menores</b>: «1 iRB = 2¹⁰ YiB» es errata de «1 RiB». Caja Von Neumann: «CPU = UC + ALU» vs texto «UC, ALU y registros». SI oficial: «k» minúscula para kilo (el tema usa K).</li>
+</ol>
+</section>
+
+</div>
+</body>
+</html>

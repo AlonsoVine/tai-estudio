@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TAI - B1T5 TREBEP</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#17202a; --mut:#5b6773; --line:#cfd6dd; --head:#eef1f4; --card:#f7f9fb;
+  --d-fg:#1d4ed8; --d-bg:#dbeafe;
+  --f-fg:#92400e; --f-bg:#fde9b8;
+  --o-fg:#065f46; --o-bg:#cdf3e2;
+  --n-fg:#5b21b6; --n-bg:#e9defc;
+  --t-fg:#991b1b; --t-bg:#fdd9d9;
+  --e-fg:#0f5f6b; --e-bg:#d3f0f4;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161b; --fg:#e4e9ee; --mut:#9aa7b4; --line:#323b45; --head:#1c232b; --card:#171d24;
+    --d-fg:#9cc2ff; --d-bg:#1a2e55;
+    --f-fg:#ffd48a; --f-bg:#4a3510;
+    --o-fg:#8be8bf; --o-bg:#0f3d2e;
+    --n-fg:#cdb6ff; --n-bg:#33224f;
+    --t-fg:#ffb0b0; --t-bg:#53201f;
+    --e-fg:#8fdbe6; --e-bg:#0f3a41;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161b; --fg:#e4e9ee; --mut:#9aa7b4; --line:#323b45; --head:#1c232b; --card:#171d24;
+  --d-fg:#9cc2ff; --d-bg:#1a2e55;
+  --f-fg:#ffd48a; --f-bg:#4a3510;
+  --o-fg:#8be8bf; --o-bg:#0f3d2e;
+  --n-fg:#cdb6ff; --n-bg:#33224f;
+  --t-fg:#ffb0b0; --t-bg:#53201f;
+  --e-fg:#8fdbe6; --e-bg:#0f3a41;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:13px/1.38 "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;height:100%}
+.wrap{max-width:1240px;margin:0 auto;padding:14px 16px 28px}
+header h1{font-size:21px;line-height:1.15;margin:0 0 2px;letter-spacing:-.01em}
+header .sub{color:var(--mut);font-size:12px;margin:0 0 6px}
+.legend{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin:0 0 3px}
+.legend small{color:var(--mut);font-size:11.5px}
+.pre{color:var(--mut);font-size:11.5px;margin:2px 0 6px}
+d,f,o,n,t,e{padding:0 3px;border-radius:3px;font-weight:500;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+d{color:var(--d-fg);background:var(--d-bg)}
+f{color:var(--f-fg);background:var(--f-bg)}
+o{color:var(--o-fg);background:var(--o-bg)}
+n{color:var(--n-fg);background:var(--n-bg)}
+t{color:var(--t-fg);background:var(--t-bg)}
+e{color:var(--e-fg);background:var(--e-bg)}
+.legend d,.legend f,.legend o,.legend n,.legend t,.legend e{padding:1px 8px;border-radius:9px}
+b{font-weight:700}
+.map{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin:4px 0 10px}
+.map div{border:1px solid var(--line);border-top:3px solid var(--n-fg);background:var(--card);border-radius:4px;padding:3px 6px;font-size:11.5px;line-height:1.28}
+.map div:nth-child(2){border-top-color:var(--d-fg)}
+.map div:nth-child(3){border-top-color:var(--o-fg)}
+.map div:nth-child(4){border-top-color:var(--f-fg)}
+.map div:nth-child(5){border-top-color:var(--e-fg)}
+.map div:nth-child(6){border-top-color:var(--t-fg)}
+.map b{display:block}
+.map span{color:var(--mut)}
+main{column-count:2;column-gap:22px;column-rule:1px solid var(--line)}
+section{margin:0 0 7px}
+h2{font-size:13.5px;line-height:1.2;margin:8px 0 3px;padding:2px 0 2px 6px;border-left:4px solid var(--n-fg);background:var(--head);break-after:avoid;break-inside:avoid}
+h2 s{text-decoration:none;color:var(--n-fg);margin-right:5px;font-weight:800}
+ul{margin:0 0 3px;padding-left:12px}
+li{margin:0 0 2px}
+p{margin:0 0 3px}
+table{width:100%;border-collapse:collapse;margin:2px 0 5px;font-size:12px}
+tr{break-inside:avoid}
+th,td{border:1px solid var(--line);padding:1px 4px;vertical-align:top;text-align:left}
+th{background:var(--head);font-weight:700}
+td.c,th.c{text-align:center;white-space:nowrap}
+.box{border:1px solid var(--t-fg);background:var(--t-bg);border-radius:4px;padding:5px 8px;margin:8px 0 0;break-inside:avoid}
+.box h2{background:transparent;border-left-color:var(--t-fg);margin-top:0}
+.box h2 s{color:var(--t-fg)}
+.box ol{margin:0;padding-left:15px;columns:2;column-gap:20px}
+.box li{margin-bottom:2px;break-inside:avoid}
+@media (max-width:900px){
+  main{column-count:1}
+  .box ol{columns:1}
+  .map{grid-template-columns:repeat(2,1fr)}
+  .wrap{padding:10px 12px 24px}
+}
+@page{size:A4;margin:9mm}
+@media print{
+  :root{
+    --bg:#fff;--fg:#111;--mut:#555;--line:#b9c1c9;--head:#eceff2;--card:#f6f8fa;
+    --d-fg:#1d4ed8;--d-bg:#dbeafe;--f-fg:#92400e;--f-bg:#fde9b8;--o-fg:#065f46;--o-bg:#cdf3e2;
+    --n-fg:#5b21b6;--n-bg:#e9defc;--t-fg:#991b1b;--t-bg:#fdd9d9;--e-fg:#0f5f6b;--e-bg:#d3f0f4;
+  }
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{height:auto}
+  body{font-size:8.4pt;line-height:1.16}
+  .wrap{max-width:none;padding:0}
+  header h1{font-size:12.5pt}
+  header .sub,.pre,.legend small{font-size:7pt}
+  .legend d,.legend f,.legend o,.legend n,.legend t,.legend e{padding:0 6px}
+  .map{gap:3px;margin:2px 0 4px;grid-template-columns:repeat(6,1fr)}
+  .map div,.map b{font-size:6.8pt}
+  .map div{padding:1px 3px}
+  main{column-count:2;column-gap:4.5mm}
+  h2{font-size:8.8pt;margin:3px 0 1.5px;padding:0 0 0 4px}
+  table{font-size:7.6pt;margin:1px 0 2px}
+  th,td{padding:0 2px}
+  section{margin-bottom:1.5px}
+  ul{padding-left:9px}
+  li{margin-bottom:.4px}
+  .box{margin-top:3px;padding:2px 5px}
+  .box ol{padding-left:11px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>B1·T5 — TREBEP y demás normativa de aplicación</h1>
+<p class="sub">Derechos y deberes · provisión de puestos · promoción interna y carrera · situaciones administrativas · incompatibilidades · régimen sancionador</p>
+<div class="legend"><d>Definición</d><f>Plazo / cifra</f><o>Órgano / sujeto</o><n>Norma / artículo</n><t>⚠ Trampa / excepción</t><e>Ejemplo</e><small><b>Negrita</b> = lo que se pregunta</small></div>
+<p class="pre"><b>T·n</b> art. n TREBEP (RDLeg 5/2015, todas las AAPP) · <b>R·n</b> art. n RDLey 6/2023 Libro 2º (solo AE) · <b>L·n</b> Ley 53/1984 · <b>RD33</b> RD 33/1986 · <b>Res19</b> Res. SEFP 28-2-2019 · FC funcionario de carrera · FI interino · AE Admón. del Estado · MGN Mesa General de Negociación</p>
+<div class="map">
+<div><b>1-3 Marco</b><span>CE · TREBEP + RDLey 6/2023 · ámbito</span></div>
+<div><b>4 Personas</b><span>FC · FI · laboral · eventual</span></div>
+<div><b>5-8 Derechos y deberes</b><span>negociación · jornada y permisos · conducta</span></div>
+<div><b>9-12 Ingreso</b><span>acceso · condición · OEP · estructura</span></div>
+<div><b>13-15 Carrera</b><span>promoción · retribuciones · provisión</span></div>
+<div><b>16-18 Régimen</b><span>situaciones · disciplina · incompatibilidades</span></div>
+</div>
+</header>
+
+<main>
+
+<section>
+<h2><s>1</s>Admón. Pública: principios constitucionales</h2>
+<ul>
+<li><n>CE 103.1</n> La Admón. <b>sirve con objetividad los intereses generales</b>; actúa con <b>eficacia, jerarquía, descentralización, desconcentración, coordinación</b>; sometida a <b>ley y Derecho</b>. <n>103.3</n> ley regula: estatuto de funcionarios · acceso (<b>mérito y capacidad</b>) · sindicación · incompatibilidades · imparcialidad.</li>
+<li><d>Descentralización</d> territorial (competencias a entes territoriales) / funcional (entes que gestionan servicios por cuenta de una Admón.) · <d>Desconcentración</d> competencias repartidas entre órganos de una misma Admón. · <d>Coordinación</d> órganos coordinados por el superior jerárquico · <d>Objetividad</d> neutralidad · <d>Eficacia</d> logro de objetivos.</li>
+<li><n>Ley 40/2015 art. 3</n> añade: servicio efectivo · simplicidad, claridad, proximidad · participación, objetividad, transparencia · racionalización y agilidad · buena fe, confianza legítima, lealtad institucional · responsabilidad · dirección por objetivos · economía y suficiencia · eficiencia · cooperación · relación electrónica entre AAPP · <b>personalidad jurídica única</b>.</li>
+<li><n>CE 105</n> audiencia en disposiciones · acceso a archivos y registros (salvo seguridad y defensa, delitos, intimidad) · procedimiento de actos. <n>CE 106</n> Tribunales controlan reglamentos y legalidad; <b>indemnización</b> por servicios públicos salvo <t>⚠ fuerza mayor</t>.</li>
+</ul>
+</section>
+
+<section>
+<h2><s>2</s>Marco normativo de la función pública</h2>
+<ul>
+<li><n>CE 23.2</n> · <n>149.1.18ª</n> competencia <b>exclusiva del Estado</b>: bases del régimen jurídico de las AAPP y del régimen estatutario de funcionarios.</li>
+<li><n>RDLeg 5/2015, 30-oct</n> = <b>TREBEP</b> · <n>RDLey 6/2023, 19-dic</n> Libro 2º: medidas urgentes en función pública (Plan de Recuperación, Transformación y Resiliencia).</li>
+<li>Vigentes mientras no se oponga el TREBEP (<n>DF 4ª.2</n>): Ley 30/1984 · <b>RD 364/1995</b> ingreso y provisión · <b>RD 365/1995</b> situaciones · <b>RD 33/1986</b> disciplinario · RD 462/2002 indemnizaciones · <b>Ley 53/1984</b> incompatibilidades · Decreto 315/1964 · RD 2073/1999 Registro Central de Personal · Res19 jornada AGE <t>⚠ derogada en 2026</t>.</li>
+</ul>
+</section>
+
+<section>
+<h2><s>3</s>Ámbito de aplicación del TREBEP (T·1-7)</h2>
+<p><n>T·1</n> Fundamentos: servicio a ciudadanos · igualdad, mérito y capacidad · ley y Derecho · igualdad mujer-hombre · objetividad, profesionalidad e imparcialidad garantizadas por la <b>inamovilidad del FC</b> · RRHH eficaces · formación · transparencia · evaluación · jerarquía · negociación colectiva · cooperación.</p>
+<table>
+<tr><th>Aplicación</th><th>Quién → régimen</th></tr>
+<tr><td><b>Directa</b> (2.1)</td><td>FC (y laboral «en lo que proceda») de <o>AGE · CCAA y Ceuta/Melilla · EELL · organismos y entidades de derecho público dependientes · Universidades públicas</o> → TREBEP</td></tr>
+<tr><td>Singular (2.2)</td><td><o>Investigación</o> → TREBEP + normas singulares</td></tr>
+<tr><td><b>«Especial»</b> (2.3)</td><td><o>Docente y estatutario de Salud</o> → su legislación + TREBEP <t>excepto cap. II tít. III (salvo art. 20) y arts. 22.3, 24, 84</t></td></tr>
+<tr><td>EELL (3)</td><td>FC local → ley estatal + CCAA; <o>Policía Local</o> + LO 2/1986</td></tr>
+<tr><td><b>Específica</b> (4)</td><td>TREBEP <b>solo si su ley lo dispone</b>: <o>Cortes y asambleas CCAA · órganos constitucionales y estatutarios · Justicia (jueces, fiscales…) · militares · FCS · arancel · CNI · Banco de España y FGD</o></td></tr>
+<tr><td><b>Supletoria</b> (2.5, 5)</td><td>Resto de personal AAPP; <o>Correos</o> funcionarios (su laboral: legislación laboral)</td></tr>
+<tr><td>Laboral (7)</td><td>Legislación laboral + convenios + preceptos TREBEP. <t>⚠ Nacimiento, adopción, progenitor diferente, lactancia y parental: TREBEP, no ET</t></td></tr>
+</table>
+</section>
+
+<section>
+<h2><s>4</s>Tipos de empleados públicos (T·8-13; R·123-127)</h2>
+<table>
+<tr><th>Tipo</th><th>Claves</th></tr>
+<tr><td><b>FC</b> (9)</td><td><d>Nombramiento legal; relación estatutaria de Derecho Administrativo; servicios retribuidos permanentes.</d> <t>⚠ Potestades públicas o intereses generales: solo funcionarios.</t></td></tr>
+<tr><td><b>FI</b> (10)</td><td><d>Temporal, por necesidad y urgencia, funciones de FC.</d> Causas: <b>vacantes</b> máx. <f>3 años</f> · sustitución transitoria · <b>programas temporales</b> <f>3 años + 12 meses</f> · <b>acumulación de tareas</b> <f>9 meses en 18</f>. Selección pública (+ celeridad); no da condición de FC. Cese sin compensación: cobertura por FC · supresión del puesto · fin del plazo · fin de la causa. Vacante: a los <f>3 años</f> fin de la interinidad y solo FC (salvo proceso desierto); <t>excepción: convocatoria publicada dentro de los 3 años</t>.</td></tr>
+<tr><td><b>Laboral</b> (11)</td><td><d>Contrato escrito</d>: fijo, indefinido o temporal. Selección: igualdad, mérito, capacidad (+ celeridad si temporal).</td></tr>
+<tr><td><b>Eventual</b> (12)</td><td><d>Solo funciones de confianza o asesoramiento especial</d>, no permanente. Nombramiento y cese <b>libres</b> (cesa con la autoridad). Nº y retribuciones públicos. <t>⚠ No es mérito</t> para acceso ni promoción interna.</td></tr>
+<tr><td><b>DA 17ª</b></td><td>Incumplir plazos máx. de permanencia = <t>nulo</t>. Compensación FI: <f>20 días/año</f> de retribuciones fijas, máx. <f>12 mensualidades</f>; <t>no si cese disciplinario o renuncia</t>. Laboral temporal: diferencia con la indemnización por extinción.</td></tr>
+<tr><td><b>Directivo</b> (13)</td><td><t>⚠ No es tipo de empleado público.</t> Mérito, capacidad, idoneidad; condiciones <t>no negociables</t>; laboral → alta dirección.</td></tr>
+</table>
+<ul>
+<li><n>R·123-125</n> <d>Directivo público profesional</d> (AE): <o>subdirecciones generales</o>; las adjuntas = <b>predirectivos</b>. Relación de Derecho administrativo. <b>Repertorio de puestos</b> (independiente de las RPT) y <b>directorio</b> voluntario. <n>R·126</n> FC <b>subgrupo A1</b> (laboral: mismo nivel de titulación). <n>R·127</n> <b>Libre designación</b>, sin provisionalidad; solicitudes <f>10 días naturales</f>; máx. <f>5 años</f> renovable; cese motivado (fin de plazo, petición propia, evaluación negativa, supresión del puesto, separación o despido, pérdida de requisitos, excepcional: pérdida de confianza).</li>
+</ul>
+</section>
+
+<section>
+<h2><s>5</s>Derechos de los empleados públicos (T·14-15)</h2>
+<ul>
+<li><n>T·14</n> <b>Inamovilidad del FC</b> · desempeño efectivo · carrera y promoción interna · retribuciones e indemnizaciones · participar en objetivos · <b>defensa jurídica y protección de la Admón.</b> · formación continua · intimidad, imagen y dignidad (acoso sexual, por razón de sexo, moral, laboral) · no discriminación · conciliación · <b>j bis</b> intimidad en dispositivos digitales, videovigilancia y geolocalización + <b>desconexión digital</b> · libertad de expresión · PRL · vacaciones, permisos, licencias · jubilación · SS · asociación profesional.</li>
+<li><n>T·15 colectivos</n>: libertad sindical · negociación colectiva · <b>huelga</b> (servicios esenciales) · conflictos colectivos · reunión (art. 46).</li>
+</ul>
+</section>
+
+<section>
+<h2><s>6</s>Negociación colectiva y representación (T·31-46)</h2>
+<ul>
+<li><d>Negociación</d> derecho a negociar condiciones de trabajo · <d>Representación</d> elegir representantes y órganos unitarios · <d>Participación institucional</d> vía sindicatos en órganos de control y seguimiento. Laboral: legislación laboral (T·32). <n>T·33</n> principios: legalidad, cobertura presupuestaria, obligatoriedad, buena fe, publicidad y transparencia. Legitimados en Mesas: Admón. + sindicatos <b>estatales</b> más representativos (<f>10%</f>) · de <b>CCAA</b> (<f>15%</f>) · con <f>≥10%</f> de representantes en el ámbito.</li>
+<li><n>T·36</n> <b>MGN de las AAPP</b>: <t>única</t>; preside la <o>AGE</o> + CCAA, Ceuta/Melilla, <o>FEMP</o>; negocia el <b>incremento global de retribuciones</b> (PGE). <n>T·34</n> MGN en AGE, cada CCAA, Ceuta/Melilla y EELL; <b>Sectoriales</b> por acuerdo de las MGN (temas comunes del sector no decididos o delegados). <n>T·35</n> válida con <b>mayoría absoluta</b> sindical; máx. <f>15 por parte</f>.</li>
+<li><n>T·37 negociables</n>: retribuciones (incremento y complementarias) · criterios de acceso, carrera, provisión, clasificación y planes de RRHH · evaluación · previsión social · formación y promoción interna · clases pasivas · derechos sindicales · acción social · PRL · OEP · calendario, horarios, jornada, vacaciones, permisos, movilidad. <b>Excluidas</b>: potestades de organización (<t>⚠ salvo repercusión en esas condiciones</t>) · derechos de ciudadanos y procedimiento de actos · <b>condiciones del directivo</b> · poderes de dirección jerárquica · sistemas y órganos de acceso y promoción.</li>
+</ul>
+<table>
+<tr><th>Funcionarios (T·39)</th><th>Órgano</th><th class="c">Repres.</th></tr>
+<tr><td>0-5</td><td>Ninguno</td><td class="c">—</td></tr>
+<tr><td>6-30 · 31-49</td><td><o>Delegados</o>: mancomunados, listas abiertas, <b>mayoritario</b></td><td class="c"><f>1 · 3</f></td></tr>
+<tr><td>50-100 · 101-250 · 251-500 · 501-750 · 751-1.000</td><td rowspan="2"><o>Juntas</o> (≥50): colegiadas, listas cerradas, <b>proporcional corregido</b></td><td class="c"><f>5 · 9 · 13 · 17 · 21</f></td></tr>
+<tr><td>≥1.001</td><td class="c"><f>2/1.000 o fracc., máx. 75</f></td></tr>
+</table>
+<ul>
+<li><n>T·41</n> <b>Crédito horario/mes</b>: ≤100 <f>15</f> · 101-250 <f>20</f> · 251-500 <f>30</f> · 501-750 <f>35</f> · >751 <f>40</f> (acumulable). Garantías: libre circulación · publicaciones · audiencia en disciplinarios y no traslado ni sanción por su mandato, durante y <f>1 año</f> después (salvo revocación o dimisión) · sigilo profesional. <n>T·40</n> <b>Conocen las sanciones por faltas muy graves</b>; oídos en jornada, horario, vacaciones y permisos; vigilan PRL, SS y empleo.</li>
+<li><n>T·42</n> Mandato <f>4 años</f>, reelegibles; se prorroga si no hay elecciones. <n>T·43</n> Promueven elecciones: sindicatos más representativos o con <f>≥10%</f> · funcionarios por <b>acuerdo mayoritario</b>. <n>T·44</n> Sufragio personal, directo, libre y secreto; electores: FC en <b>servicio activo</b> (<t>no los nombrados por RD o decreto de consejo de gobierno</t>); candidaturas de sindicatos, coaliciones o electores ≥ <f>triple</f> de los puestos.</li>
+<li><n>T·46</n> <b>Reunión</b>: convocan sindicatos, Delegados, Juntas, Comités de Empresa o empleados ≥ <f>40%</f> del colectivo; fuera de horas de trabajo salvo acuerdo.</li>
+</ul>
+</section>
+
+<section>
+<h2><s>7</s>Jornada, permisos y vacaciones (T·47-51)</h2>
+<ul>
+<li><n>T·47</n> Jornada completa o parcial. Flexibilidad de conciliación: hijos <f><12 años</f> y cuidado de hijos >12, cónyuge/pareja, familiares hasta 2º grado, convivientes dependientes. <n>T·47 bis</n> <b>Teletrabajo</b>: <d>a distancia con TIC</d>; autorización expresa; <b>voluntario y reversible</b>; mismos derechos y deberes; la Admón. <b>proporciona los medios</b>.</li>
+<li><n>T·50</n> <b>Vacaciones</b> <f>22 días hábiles</f> (sábados no hábiles). Si IT, permiso o riesgo impiden disfrutarlas: hasta <f>18 meses</f> tras el año. <t>⚠ No sustituibles por dinero</t>, salvo cese ajeno a su voluntad (incapacidad, fallecimiento: ≤18 meses). <b>Res19 por antigüedad</b>: 15 años <f>23</f> · 20 <f>24</f> · 25 <f>25</f> · ≥30 <f>26</f>.</li>
+</ul>
+<table>
+<tr><th>T·48 Permiso</th><th>Sujeto</th><th class="c">Días hábiles</th></tr>
+<tr><td rowspan="2">Accidente, enfermedad grave, hospitalización o intervención sin hospitalización con reposo</td><td>Cónyuge, pareja, <b>1º grado</b>, <b>conviviente</b></td><td class="c"><f>5</f></td></tr>
+<tr><td><b>2º grado</b></td><td class="c"><f>4</f></td></tr>
+<tr><td rowspan="2">Fallecimiento (misma / distinta localidad)</td><td>Cónyuge, pareja, 1º <t>⚠ no conviviente</t></td><td class="c"><f>3 / 5</f></td></tr>
+<tr><td>2º grado</td><td class="c"><f>2 / 4</f></td></tr>
+<tr><td>Traslado de domicilio sin cambio de residencia · Matrimonio o pareja de hecho</td><td></td><td class="c"><f>1</f> · <f>15</f></td></tr>
+<tr><td>Asuntos particulares · Res19: <b>+2</b> al 6º trienio, <b>+1</b> por trienio desde el 8º</td><td></td><td class="c"><f>6</f></td></tr>
+</table>
+<ul>
+<li><b>Tiempo indispensable</b>: funciones sindicales · exámenes finales (días de celebración) · exámenes prenatales y preparación al parto (y sesiones/informes en adopción) · deber inexcusable y conciliación · donación de órganos. Esquema del tema: cursos de perfeccionamiento <f>40 h/año</f>; tras radio/quimio <f>25%</f>, <f>1+1 mes</f>.</li>
+<li><b>Lactancia</b> <f><12 meses</f>: <f>1 h</f> (2 fracciones) o ½ h al inicio y final o 1 h al inicio/final; <b>individual</b>; acumulable en jornadas completas tras el permiso de nacimiento. <b>Prematuros/hospitalizados</b>: <f>2 h/día</f> íntegras o reducción hasta 2 h proporcional. <b>Guarda legal</b> (reducción proporcional): menor <f><12</f>, mayor con dedicación, discapacitado, familiar ≤2º sin actividad retribuida. <b>Familiar 1º con enfermedad muy grave</b>: ≤ <f>50%</f> jornada retribuida, máx. <f>1 mes</f>.</li>
+</ul>
+<table>
+<tr><th>T·49 Permiso</th><th>Duración y claves</th></tr>
+<tr><td><b>a) Nacimiento</b> madre biológica</td><td><f>19 sem.</f> (<f>32</f> monoparental): <f>6</f> obligatorias, ininterrumpidas, jornada completa + <f>11</f> (22) hasta que el hijo cumpla <f>12 meses</f> + <f>2</f> (4) hasta los <f>8 años</f>. Neonato hospitalizado: + días, máx. <f>13 sem.</f> Ampliación: <b>+2 sem. discapacidad</b>; múltiple: <b>1 sem. por hijo desde el 2º</b> (cada progenitor). Individual, <b>intransferible</b>; interrumpido: preaviso <f>15 días</f>. Incluye personas trans gestantes.</td></tr>
+<tr><td><b>b) Adopción</b>, guarda, acogimiento</td><td>Igual (<f>19</f>/<f>32</f>; 6+11+2) por cada adoptante, guardador o acogedor; 6 sem. desde la resolución. Internacional con desplazamiento: hasta <f>2 meses</f> (solo retribuciones básicas); puede empezar <f>4 sem.</f> antes. Acogimiento temporal ≥ 1 año.</td></tr>
+<tr><td><b>c) Progenitor diferente</b></td><td>Igual que a). Si fallece, el otro progenitor disfruta el resto.</td></tr>
+<tr><td colspan="2">a-c: servicio efectivo, derechos económicos íntegros y <b>reintegro al puesto</b>. Las semanas «hasta 8 años»: la Admón. puede <b>aplazarlas</b> si ambos progenitores coinciden y afecta a la unidad (razonable, por escrito, con alternativa).</td></tr>
+<tr><td><b>d) Violencia de género/sexual</b></td><td>Ausencias justificadas; reducción de jornada (proporcional) o reordenación; <b>íntegras si reduce ≤ <f>1/3</f></b>.</td></tr>
+<tr><td><b>e) Hijo con cáncer</b> o enfermedad grave</td><td>≥ <f>½ jornada</f>, retribución íntegra (ambos progenitores trabajan), hasta <f>23 años</f> (<f>26</f> si discapacidad ≥ <f>65%</f>).</td></tr>
+<tr><td><b>f) Terrorismo</b></td><td>Reducción proporcional o reordenación del tiempo.</td></tr>
+<tr><td><b>g) Parental</b></td><td>Hijo o menor acogido >1 año, hasta <f>8 años</f>: <t>⚠ no retribuido</t>, ≤ <f>8 sem.</f> continuas o discontinuas; individual; aviso <f>15 días</f>.</td></tr>
+</table>
+<p><n>T·51</n> Laboral: este capítulo + legislación laboral.</p>
+</section>
+
+<section>
+<h2><s>8</s>Deberes. Código de conducta (T·52-54)</h2>
+<ul>
+<li><n>T·52</n> Principios: <b>objetividad, integridad, neutralidad, responsabilidad, imparcialidad, confidencialidad, dedicación al servicio público, transparencia, ejemplaridad, austeridad, accesibilidad, eficacia, honradez</b>, entorno cultural y medioambiental, igualdad mujer-hombre. <b>Informan el régimen disciplinario.</b></li>
+<li><n>T·53 éticos</n>: CE y ordenamiento · interés general e imparcialidad · lealtad y buena fe · no discriminación · <b>abstención</b> por interés personal y evitar conflictos de intereses · sin operaciones que generen conflicto · <b>no trato de favor</b> · eficacia, economía, eficiencia · no influir en agilizar trámites · resolver en plazo · dedicación y neutralidad · <b>secreto</b> y discreción (sin beneficio propio).</li>
+<li><n>T·54 conducta</n>: atención y respeto · jornada y horario · <b>obedecer salvo infracción manifiesta</b> (→ comunicar a inspección) · informar al ciudadano · austeridad y conservación de bienes · <b>rechazar regalos</b> fuera de usos de cortesía · conservar documentos · formación · seguridad y salud · proponer mejoras · atender en la <b>lengua oficial</b> solicitada.</li>
+</ul>
+</section>
+
+<section>
+<h2><s>9</s>Acceso al empleo público (T·55-57; R·112-115)</h2>
+<ul>
+<li><n>T·55</n> <b>Igualdad, mérito y capacidad</b> + publicidad · transparencia · imparcialidad y profesionalidad del órgano · independencia y <b>discrecionalidad técnica</b> · adecuación pruebas-funciones · agilidad. <n>R·112</n> AE: modelo <b>adaptable · mixto · conocimientos y competencias · social</b>; garantiza publicidad, adecuación, agilidad, accesibilidad e igualdad socioeconómica. <n>R·113</n> discapacidad: igualdad de oportunidades y accesibilidad universal; intelectual ≥ <f>33%</f>: pruebas <b>específicas e independientes</b>; ajustes razonables. <n>R·114</n> Sistemas <b>abiertos</b>, pruebas territorializadas, teóricas y prácticas; pueden añadir físicas, idiomas, TIC, psicotécnicas, entrevistas y reconocimiento médico.</li>
+</ul>
+<table>
+<tr><th>Sistema</th><th>Claves</th></tr>
+<tr><td><b>Oposición</b></td><td>Pruebas de conocimientos, competencias o habilidades; fija el orden de prelación.</td></tr>
+<tr><td><b>Concurso-oposición</b></td><td>Fases sucesivas; concurso proporcionado, <t>⚠ no decide por sí solo</t>; solo se valora si se <b>supera la oposición</b>.</td></tr>
+<tr><td><b>Concurso</b></td><td>Solo méritos con baremo; <t>⚠ excepcional, solo funcionarios y por ley</t>.</td></tr>
+<tr><td>Curso selectivo</td><td>Formación o prácticas evaluable; aspirante = <b>funcionario en prácticas</b>.</td></tr>
+</table>
+<ul>
+<li><n>R·114</n> Órgano de selección: <t>no más aprobados que plazas</t>; relación complementaria para renuncias <b>antes de la toma de posesión</b>; elabora <b>bolsas</b> de FI y laboral temporal. <b>Bases</b> (vinculan a convocante, órgano y participantes): nº de plazas y OEP · requisitos · sistema, pruebas, programa y baremo · composición del órgano · curso selectivo · % reservas (promoción interna y discapacidad); el dpto. de función pública elabora bases comunes.</li>
+<li><n>R·115</n> Órganos colegiados: imparcialidad, profesionalidad, especialización, paridad, discapacidad. <t>⚠ No pueden ser miembros: altos cargos, personal político, FI, laboral no fijo, eventual.</t> Título individual.</li>
+<li><n>T·56</n> Requisitos: <b>nacionalidad española</b> · capacidad funcional · <f>16 años</f> y no exceder la jubilación forzosa · <b>no separado por expediente disciplinario</b> ni inhabilitado · titulación. CCAA con 2 lenguas: personal capacitado. <n>T·57</n> <b>UE</b>: funcionarios en igualdad salvo poder público o salvaguardia de intereses del Estado; igual para cónyuge no separado, descendientes <f><21</f> o dependientes y Tratados de libre circulación. <b>Residentes legales</b>: <t>solo laboral</t>. Exención de nacionalidad: solo por ley.</li>
+</ul>
+</section>
+
+<section>
+<h2><s>10</s>Adquisición y pérdida de la condición de funcionario (T·62-68)</h2>
+<ul>
+<li><n>T·62</n> Requisitos <b>sucesivos</b>: superar el proceso · <b>nombramiento</b> publicado en diario oficial · <b>acatamiento</b> de la CE · <b>toma de posesión</b>. <n>R·114.12</n> FC: <f>15 días naturales</f> desde la publicación; <f>1 mes</f> si cambia de localidad; FI y eventual: <f>día siguiente</f>. <n>DT 4ª R</n>: aplicable a procesos en tramitación.</li>
+<li><n>T·63 pérdida</n>: renuncia · pérdida de nacionalidad · <b>jubilación total</b> · separación del servicio firme · inhabilitación absoluta o especial firme. <n>T·64</n> Renuncia por escrito y aceptada; <t>⚠ no si hay expediente disciplinario, procesamiento o juicio oral</t>; no inhabilita para reingresar. <n>T·65</n> Pierde la nacionalidad (española/UE/Tratados) → pierde la condición, salvo que adquiera otra de ellas.</li>
+<li><n>T·67 jubilación</n>: voluntaria · <b>forzosa a los <f>65 años</f></b> (prolongable hasta <f>70</f>, motivadamente) · incapacidad permanente; el tema anota clases pasivas: voluntaria 60 años y 30 de servicio; forzosa 65 y 15. <n>T·68</n> Rehabilitación: pérdida de nacionalidad o incapacidad permanente; excepcional si inhabilitación (<t>⚠ silencio = desestimación</t>). <t>Separación firme: no puede volver.</t></li>
+</ul>
+</section>
+
+<section>
+<h2><s>11</s>Planificación de efectivos y OEP (T·69-70; R·106-108)</h2>
+<ul>
+<li><n>T·69</n> Planes para ordenación de RRHH (<b>potestativos</b>): necesidades y perfiles · organización del trabajo · <b>movilidad</b> (suspender incorporaciones externas, concursos limitados) · promoción interna y formación · previsión de OEP. <n>R·106-107</n> <d>PERRHH</d> = <b>fundamento de actuación</b> de la AE; <b>escenario plurianual</b> de empleo, revisable; criterios para OEP, movilidad, provisión, promoción interna, formación y desempeño; <b>negociación colectiva previa</b> y evaluación posterior.</li>
+<li><n>T·70</n> <b>OEP</b>: plazas con asignación presupuestaria + hasta <f>10% adicional</f>; ejecución en <b>improrrogable <f>3 años</f></b>; aprobada <b>anualmente</b> y publicada en diario oficial. <n>R·108</n> Convocatorias en el <f>mismo año natural</f> de la OEP (BOE) · ejecutadas en <f>2 años</f> · oposición en <f>1 año</f>. Plazas no cubiertas: reconvocar si <f>≤3 años</f> desde la oferta, con informe. <b>Reservas</b>: <f>≥30%</f> del acceso libre para <b>promoción interna</b>; <f>≥10%</f> para <b>discapacidad</b> (meta <f>2%</f> de efectivos; <f>≥2%</f> de las plazas ofertadas para discapacidad intelectual).</li>
+</ul>
+</section>
+
+<section>
+<h2><s>12</s>Estructuración del empleo público (T·73-76; R·109-110)</h2>
+<ul>
+<li><n>T·73</n> Funciones distintas, adecuadas al grupo, <b>sin merma de retribuciones</b>. <n>T·74</n> <b>RPT</b>: denominación · grupos · cuerpos o escalas · sistemas de provisión · retribuciones complementarias; <b>públicas</b>. <n>R·109-110</n> RPT = instrumentos técnicos; incluyen puestos funcionariales, laborales y eventuales; estructura por <b>niveles</b>; áreas funcionales. <n>T·75</n> Cuerpos y escalas se crean <b>por ley</b>.</li>
+</ul>
+<table>
+<tr><th>Grupo (T·76)</th><th>Titulación</th><th class="c">Nivel mín.</th><th class="c">máx. (DT 6ª R)</th></tr>
+<tr><td><b>A1</b> (A)</td><td rowspan="2">Grado</td><td class="c"><f>24</f></td><td class="c"><f>30</f></td></tr>
+<tr><td><b>A2</b> (B)</td><td class="c"><f>20</f></td><td class="c"><f>26</f></td></tr>
+<tr><td><b>B</b></td><td>Técnico Superior</td><td class="c"><f>18</f></td><td class="c"><f>24</f></td></tr>
+<tr><td><b>C1</b> (C)</td><td>Bachiller o Técnico</td><td class="c"><f>16</f></td><td class="c"><f>22</f></td></tr>
+<tr><td><b>C2</b> (D)</td><td>Graduado en ESO</td><td class="c"><f>14</f></td><td class="c"><f>18</f></td></tr>
+</table>
+<p><t>⚠ No se pueden obtener puestos fuera del intervalo del grupo.</t> <n>DT 3ª</n> C1 con titulación pasa a A sin pasar por B. <n>DA 6ª</n> agrupaciones sin titulación.</p>
+</section>
+
+<section>
+<h2><s>13</s>Carrera profesional y promoción interna (T·16-20; R·116-122)</h2>
+<table>
+<tr><th>T·16 Modalidad</th><th>Qué es</th><th class="c">Puesto</th><th class="c">Cuerpo</th><th class="c">Subgr.</th></tr>
+<tr><td><b>Carrera horizontal</b></td><td>Progresión de grado o escalón <b>sin cambiar de puesto</b> (consolidación)</td><td class="c">=</td><td class="c">=</td><td class="c">=</td></tr>
+<tr><td><b>Carrera vertical</b></td><td>Ascenso en puestos por provisión</td><td class="c">≠</td><td class="c">=</td><td class="c">=</td></tr>
+<tr><td><b>Promoción interna horizontal</b></td><td>Otro cuerpo del <b>mismo subgrupo</b></td><td class="c">≠</td><td class="c">≠</td><td class="c">=</td></tr>
+<tr><td><b>Promoción interna vertical</b></td><td>Ascenso a subgrupo o grupo superior</td><td class="c">≠</td><td class="c">≠</td><td class="c">≠</td></tr>
+</table>
+<ul>
+<li><t>⚠ En la carrera NO se superan pruebas; en la promoción SÍ.</t> <n>T·17</n> Ascensos consecutivos; se valoran trayectoria, calidad, conocimientos y evaluación. <n>R·122</n> Carrera horizontal AE: <f>4 tramos</f> por grupo, <b>voluntaria</b>; permanencia <f>5 años</f> el 1º y <f>6</f> los siguientes. Computan: servicios especiales, excedencia por cuidado de familiares, violencia de género y terrorista. Convocatoria <b>anual</b>; efectos económicos desde el <f>1 de enero siguiente</f>; <b>complemento de carrera</b> igual por grupo y tramo.</li>
+<li><n>T·18</n> <b>Promoción interna</b>: proceso selectivo + requisitos de ingreso + <f>≥2 años</f> de servicio activo en el subgrupo inferior. <n>T·19</n> laboral: ET o convenios.</li>
+<li><n>T·20</n> <d>Evaluación del desempeño</d>: mide conducta profesional y rendimiento; efectos en carrera, formación, provisión y complementarias; <b>continuidad en puesto por concurso</b> vinculada a ella. <n>R·116-121</n> AE: <b>anual</b>, obligatoria en servicio activo; conducta <b>presumida POSITIVA</b> salvo valoración negativa motivada; cantidades del complemento de desempeño <b>públicas</b>; requiere planificación previa; <f>sin consecuencias en las 2 primeras anualidades</f> tras validar la <o>Comisión de Coordinación de la Evaluación del Desempeño</o>.</li>
+</ul>
+</section>
+
+<section>
+<h2><s>14</s>Derechos retributivos (T·21-30; DT 7ª R)</h2>
+<ul>
+<li><n>T·21</n> Cuantías en la <b>ley de presupuestos</b>. <n>T·22</n> FC: básicas y complementarias. <b>Pagas extra</b>: <f>2/año</f>, 1 mensualidad básica + complementarias <t>salvo art. 24 c) y d)</t>.</li>
+</ul>
+<table>
+<tr><th>Retribución</th><th>Concepto</th></tr>
+<tr><td><b>Básicas</b> (T·23) <t>«única y exclusivamente»</t></td><td><b>Sueldo</b> (por subgrupo) + <b>trienios</b> (<f>cada 3 años</f>)</td></tr>
+<tr><td rowspan="4"><b>Complementarias</b> (T·24)</td><td>a) Carrera administrativa → <b>complemento de destino</b> (y de carrera, R·122)</td></tr>
+<tr><td>b) Dificultad, responsabilidad, dedicación, incompatibilidad → <b>específico</b></td></tr>
+<tr><td>c) Interés, iniciativa, resultados → <b>productividad</b> → <b>desempeño</b> (DT 7ª: lo sustituye a todos los efectos al implantarse)</td></tr>
+<tr><td>d) <b>Servicios extraordinarios</b></td></tr>
+</table>
+<ul>
+<li><n>T·25 FI</n>: básicas, pagas extra y complementarias b), c), d) (<t>no a</t>). <n>T·26</n> en prácticas: mínimo el sueldo del subgrupo al que aspiran. <n>T·27</n> laboral: legislación, convenio y contrato. <n>T·29</n> <b>retribuciones diferidas</b>: planes de pensiones de empleo hasta % de la masa salarial de la Ley de PGE. <n>T·30</n> Jornada no realizada: <b>deducción proporcional, no sancionadora</b>; huelga: sin retribución del tiempo en huelga.</li>
+</ul>
+</section>
+
+<section>
+<h2><s>15</s>Provisión de puestos de trabajo (T·78-84; R·111)</h2>
+<ul>
+<li><t>⚠ El cap. III tít. V TREBEP produce efectos con las leyes de FP</t> (DF 4ª.1). <n>T·78</n> Principios: <b>igualdad, mérito, capacidad, publicidad</b>. <b>Concurso</b> (sistema <b>normal</b>) y <b>libre designación</b> (según RPT); convocatoria pública, publicación <b>al menos en el BOE</b>. Otros (leyes FP): traslados forzosos, permutas, salud, reingreso, cese o remoción, supresión.</li>
+<li><n>T·79</n> <b>Concurso</b>: méritos y capacidades por <o>órganos colegiados técnicos</o> (paridad). <n>T·80</n> <b>Libre designación</b>: apreciación <b>discrecional</b> de idoneidad; cese <b>discrecional</b> (se asigna puesto). <n>T·81</n> Traslado motivado; <b>provisional</b>: urgente e inaplazable. <n>R·111</n> <b>Concurso abierto y permanente</b> de la <o>SEFP</o>.</li>
+<li><n>T·84 entre AAPP</n> (convenio de Conferencia Sectorial): <b>servicio en otras AAPP</b>. Cese en libre designación: destino adscribe en <f>1 mes</f>; luego <f>1 mes</f> para pedir reingreso en origen; si no → <b>excedencia voluntaria por interés particular</b> de oficio.</li>
+<li><n>T·82</n> <b>Violencia de género/sexual</b>: traslado a puesto análogo <b>sin vacante de necesaria cobertura</b>; <b>traslado forzoso</b>. <b>Terrorismo</b>: vacante de necesaria cobertura o, si no, dentro de la CCAA. <n>T·83</n> laboral: convenios.</li>
+</ul>
+</section>
+
+<section>
+<h2><s>16</s>Situaciones administrativas (T·85-92)</h2>
+<p><n>T·85</n> FC: <b>servicio activo · servicios especiales · servicio en otras AAPP · excedencia · suspensión de funciones</b> (leyes FP pueden crear otras; reglamento RD 365/1995).</p>
+<table>
+<tr><th>Situación</th><th>Supuestos y efectos</th></tr>
+<tr><td><b>Servicios especiales</b> (87) «cargos políticos»</td><td>Gobierno y órganos de gobierno CCAA · UE y organismos internacionales · altos cargos · misión <f>>6 meses</f> en el extranjero · TC, Defensor del Pueblo, Tribunal de Cuentas · Diputado o Senador <b>con retribución periódica</b> · cargos electivos con dedicación exclusiva · CGPJ · eventual que no opte por activo · asesores parlamentarios · reservistas. <b>Perciben la retribución del cargo</b> (salvo <b>trienios</b>); computa <b>ascensos, trienios, promoción interna y SS</b>; reingreso en la misma localidad.</td></tr>
+<tr><td><b>Servicio en otras AAPP</b> (88) <e>cambio de destino sin exámenes</e></td><td>Transferencia o provisión. Se rigen por la Admón. de destino; <b>conservan la condición de origen</b> y derecho a concursar; cuenta como servicio activo en origen. Transferidos a CCAA: activo en la CCAA.</td></tr>
+<tr><td><b>Excedencia voluntaria por interés particular</b></td><td><f>≥5 años</f> de servicios previos; cada periodo <f>≥2 años</f>. <t>Sin retribución ni cómputo</t> (ascensos, trienios, SS).</td></tr>
+<tr><td>Agrupación familiar</td><td>Sin servicios previos; cónyuge con puesto <b>definitivo</b> en otra localidad. Sin retribución ni cómputo.</td></tr>
+<tr><td><b>Cuidado de familiares</b></td><td>≤ <f>3 años</f> por hijo (naturaleza, adopción, acogimiento permanente) o familiar ≤2º que no pueda valerse y no trabaje. <b>Computa</b> trienios, carrera y SS; <b>reserva del puesto ≥ <f>2 años</f></b>.</td></tr>
+<tr><td><b>Violencia de género/sexual</b> <t>solo mujeres</t></td><td>Sin servicios previos. <f>6 meses</f> de reserva y cómputo; prórroga <f>3 en 3</f>, máx. <f>18</f>. Primeros <f>2 meses</f>: <b>retribución íntegra</b>. Terrorismo: mismas condiciones (previo reconocimiento del Ministerio del Interior).</td></tr>
+<tr><td><b>Suspensión</b> (90)</td><td>Sin funciones ni derechos; <b>pierde el puesto si excede de <f>6 meses</f></b>. <b>Firme</b>: sentencia penal o sanción, <f>máx. 6 años</f>; no puede servir en ninguna AAPP. <b>Provisional cautelar</b> (98.3): <f>máx. 6 meses</f> (salvo paralización imputable al interesado); cobra <b>solo básicas</b> + prestaciones familiares; si es definitiva devuelve lo percibido; se abona a la firme.</td></tr>
+</table>
+<p><n>T·86</n> Servicio activo: todos los derechos y deberes. <n>T·92</n> Laboral: ET y convenios.</p>
+</section>
+
+<section>
+<h2><s>17</s>Régimen disciplinario (T·93-98; RD33)</h2>
+<ul>
+<li><n>T·93-94</n> Funcionarios y laboral. Quien <b>induce</b> responde igual; <b>encubrir</b> faltas muy graves o graves con daño grave. Principios: <b>legalidad y tipicidad · irretroactividad de lo desfavorable · proporcionalidad · culpabilidad · presunción de inocencia</b>. Indicios de delito → se suspende y se comunica al <o>Ministerio Fiscal</o>; hechos probados judiciales vinculan.</li>
+<li><n>T·95.2 MUY GRAVES</n>: incumplir el respeto a la CE · <b>discriminación y acoso</b> (sexual, moral…) · <b>abandono del servicio</b> · acuerdos manifiestamente ilegales con perjuicio grave · publicar o usar indebidamente información · negligencia con secretos oficiales · incumplir funciones esenciales · violar la imparcialidad electoral · <b>desobediencia abierta</b> · prevalerse del cargo · obstaculizar derechos sindicales o la huelga (y no atender servicios esenciales) · <b>incumplir incompatibilidades</b> · <b>acoso laboral</b>.</li>
+<li><n>RD33 art. 7 GRAVES</n>: falta de obediencia debida · abuso de autoridad · delito doloso con el servicio · tolerar faltas de subordinados · grave desconsideración · daños graves · intervenir con causa de abstención · informes ilegales con perjuicio · falta de rendimiento · violar sigilo con perjuicio · incumplir plazos de incompatibilidades · incumplimiento de jornada acumulado <f>≥10 h/mes</f> · <b>tercera falta injustificada en <f>3 meses</f></b> con 2 leves sancionadas · grave perturbación · atentado a la dignidad · falta de consideración con administrados · evadir el control horario. <n>T·95.3</n> atiende a legalidad, daño al interés público y descrédito.</li>
+<li><b>LEVES</b> (RD33): incumplir el horario · falta injustificada de <f>1 día</f> · incorrección con público, superiores, compañeros o subordinados · descuido o negligencia · incumplir deberes no grave.</li>
+</ul>
+<table>
+<tr><th>Sanciones (T·96)</th><th>Claves</th></tr>
+<tr><td><b>Separación del servicio</b></td><td>FC (FI: revoca el nombramiento); <t>solo muy graves</t></td></tr>
+<tr><td><b>Despido disciplinario</b></td><td>Laboral; <t>solo muy graves</t>; inhabilita para contratos similares; fijo: readmisión si improcedente</td></tr>
+<tr><td><b>Suspensión firme</b></td><td>De funciones (laboral: empleo y sueldo); <f>máx. 6 años</f></td></tr>
+<tr><td>Otras</td><td>Traslado forzoso · <b>demérito</b> (penaliza carrera, promoción, movilidad) · apercibimiento</td></tr>
+</table>
+<table>
+<tr><th>Prescripción (T·97)</th><th class="c">Muy graves</th><th class="c">Graves</th><th class="c">Leves</th></tr>
+<tr><td>Infracciones</td><td class="c"><f>3 años</f></td><td class="c"><f>2 años</f></td><td class="c"><f>6 meses</f></td></tr>
+<tr><td>Sanciones</td><td class="c"><f>3 años</f></td><td class="c"><f>2 años</f></td><td class="c"><f>1 año</f></td></tr>
+</table>
+<p><t>⚠ Cómputo</t>: infracciones desde que se cometen (o cese si continuadas); sanciones desde la <b>firmeza</b>. <n>T·98</n> Muy graves y graves: procedimiento previo; leves: <b>sumario con audiencia</b>; <b>instrucción y sanción por órganos distintos</b>.</p>
+</section>
+
+<section>
+<h2><s>18</s>Incompatibilidades (Ley 53/1984)</h2>
+<ul>
+<li><n>L·1 y 3</n> Incompatible un <b>2º puesto o actividad en el sector público</b> salvo ley; <b>una sola remuneración</b> pública (ni opción entre incompatibles). <d>Remuneración</d> = derecho económico por prestación o servicio personal, fijo o variable, periódico u ocasional. <b>Dedicación</b>: incompatible lo que impida o menoscabe deberes o comprometa imparcialidad.</li>
+</ul>
+<table>
+<tr><th>Caso</th><th>Régimen</th></tr>
+<tr><td>2 puestos públicos</td><td>Incompatible salvo ley → <b>autorización</b></td></tr>
+<tr><td>Público + privado</td><td>Posible → <b>reconocimiento</b></td></tr>
+<tr><td>Puesto + pensión de jubilación</td><td>Incompatible. <t>Excepciones</t>: profesor emérito (DA 9ª); laboral a tiempo parcial con jubilación parcial</td></tr>
+</table>
+<ul>
+<li><n>Ámbito</n>: personal civil y militar de AE, CCAA, EELL y sus organismos · arancel · SS · entidades, fundaciones y consorcios financiados <f>>50%</f> por AAPP · empresas con participación pública <f>>50%</f> · Banco de España · toda relación de empleo. Se inscriben en el Registro de Personal.</li>
+<li><b>PÚBLICAS</b>: 2º puesto solo en funciones <b>docente y sanitaria</b> o por interés público (<o>Consejo de Ministros</o> por RD / CCAA; <b>laboral, tiempo parcial, duración determinada</b>). Previa y expresa <b>autorización</b>, sin cambiar jornada ni horario. Puesto incompatible nuevo: opta en la toma de posesión; si no, nuevo puesto + excedencia voluntaria en el anterior. Competente: <o>Oficina de Conflicto de Intereses</o> (AE). Se pide en los <f>10 primeros días</f> de la toma de posesión. <b>Silencio positivo <f>4 meses</f></b>.</li>
+<li><b>Autorizables</b>: profesor asociado (<f>≤30 h/semana</f>) · PDI → sanitario o investigador público (tiempo parcial) · Enfermería → sanitario · conservatorios → cultural · cargos electivos con <b>una sola retribución</b>.</li>
+<li><n>L·7 límites</n>: ≤ retribución de <b>Director General</b> y ≤ principal + <b>A <f>30%</f> · B <f>35%</f> · C <f>40%</f> · D <f>45%</f> · E <f>50%</f></b>; superarlo: acuerdo expreso del Gobierno, CCAA o Pleno local.</li>
+<li><b>PRIVADAS</b>: previo <b>reconocimiento</b>; <b>silencio positivo <f>3 meses</f></b>. <t>No se reconoce</t> si: menoscaba funciones · se relaciona con las del dpto. · puesto con presencia ≥ <f>½ jornada</f> (solo si la actividad pública es a tiempo parcial) · suma de jornadas ≥ máxima de AAPP · <b>complemento específico >30%</b> de la retribución básica (sin antigüedad).</li>
+<li><b>Prohibido siempre</b>: asuntos en que intervenga, haya intervenido en los últimos <f>2 años</f> o deba intervenir · consejos de administración de empresas relacionadas con su dpto. · cargos en concesionarias, contratistas o con aval público · participación <f>>10%</f> del capital.</li>
+<li><n>L·19 exceptuadas</n>: patrimonio personal o familiar · seminarios y cursos en centros oficiales de formación, no habituales y <f>≤75 h/año</f> · tribunales de selección · docentes en exámenes distintos · Juntas de Mutualidades no retribuidas · creación literaria, artística, científica y técnica · colaboración ocasional en medios, congresos y cursos.</li>
+<li><n>L·20 sanciones</n>: incumplir con incompatibilidad → <b>muy grave</b>; incumplir plazos o procedimiento sin incompatibilidad → <b>grave</b>; bajo rendimiento grave o muy grave → <b>revocación automática</b> de la autorización o reconocimiento.</li>
+</ul>
+</section>
+
+</main>
+
+<div class="box">
+<h2><s>!</s>Incoherencias del material</h2>
+<ol>
+<li><b>Permiso por nacimiento (T·49 a-c)</b>. Tema: <f>19 semanas</f> (32 monoparental; 6+11+2). Repaso: <f>16</f>. <b>Vigente: 19</b> (RDLey 9/2025, BOE 30-jul-2025) → repaso desactualizado. Ampliaciones: repaso «+2 sem. por discapacidad o parto/adopción múltiple»; tema y BOE: +2 por discapacidad y, en múltiple, <b>1 sem. por hijo desde el 2º, una a cada progenitor</b> (el esquema final del tema también lo simplifica). El art. 49.c del tema aún cita «semana dieciséis» y «12 semanas restantes»: no verificado.</li>
+<li><b>Res19 (jornada AGE)</b>: tema y repaso la dan por vigente, pero <b>la derogó la Resolución de 14-4-2026</b> (BOE 15-abr-2026; 35 h semanales). Según fuente secundaria siguen 22 días de vacaciones (hasta 26 por antigüedad) y 6 de asuntos particulares + trienios; <b>no contrastado en el BOE</b>. Para el examen, cifras del tema.</li>
+<li><b>Cursos exceptuados (L·19)</b>. Repaso: «>75 h/año». Tema: exceptuados si <b>no superan</b> 75 h/año (≤75).</li>
+<li><b>Actividad privada y ½ jornada</b>. Repaso: «el horario privado es ≥ ½ jornada». Tema: se refiere a puestos <b>públicos</b> con presencia efectiva ≥ ½ jornada semanal ordinaria.</li>
+<li><b>Silencio (4 meses público / 3 privado)</b>. Tema y repaso coinciden, pero no lo confirmo: Ley 53/1984 art. 14 fija resolver en 2 meses y RD 598/1985 art. 5 en 3. Se mantiene el tema.</li>
+<li><b>No verificado</b>: permisos del esquema del tema ausentes del art. 48 (cursos 40 h/año, radio/quimio 25%); proceden de las instrucciones de jornada.</li>
+</ol>
+</div>
+
+</div>
+</body>
+</html>

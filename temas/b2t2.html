@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TAI - B2T2 Periféricos</title>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+  --bg:#ffffff; --fg:#1b1f24; --mut:#5a6572; --line:#c9d0d8; --card:#f4f6f8; --head:#16324f;
+  --d-bg:#e1ecfb; --d-fg:#0b3d7a;
+  --c-bg:#ffeecb; --c-fg:#7a4600;
+  --o-bg:#dcf2e2; --o-fg:#14532d;
+  --n-bg:#ebe3fa; --n-fg:#4c1d95;
+  --x-bg:#fde0e0; --x-fg:#9b1c1c;
+  --e-bg:#d6f1ee; --e-fg:#0f5f5a;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#14171b; --fg:#e4e8ec; --mut:#9aa5b1; --line:#333b44; --card:#1d2227; --head:#9cc4ee;
+    --d-bg:#17304f; --d-fg:#a9cdf7;
+    --c-bg:#4a3510; --c-fg:#ffd58a;
+    --o-bg:#183a25; --o-fg:#a5e0b7;
+    --n-bg:#33264f; --n-fg:#cdb8f5;
+    --x-bg:#4f1d1d; --x-fg:#ffaeae;
+    --e-bg:#11403d; --e-fg:#9ce3dc;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#14171b; --fg:#e4e8ec; --mut:#9aa5b1; --line:#333b44; --card:#1d2227; --head:#9cc4ee;
+  --d-bg:#17304f; --d-fg:#a9cdf7;
+  --c-bg:#4a3510; --c-fg:#ffd58a;
+  --o-bg:#183a25; --o-fg:#a5e0b7;
+  --n-bg:#33264f; --n-fg:#cdb8f5;
+  --x-bg:#4f1d1d; --x-fg:#ffaeae;
+  --e-bg:#11403d; --e-fg:#9ce3dc;
+}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--fg);font:12.5px/1.32 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.page{max-width:1180px;margin:0 auto;padding:10px 14px 18px}
+h1{font-size:1.55em;line-height:1.15;margin:0 0 2px;color:var(--head)}
+h1 small{display:block;font-size:.52em;font-weight:500;color:var(--mut);margin-top:2px}
+.leg{display:flex;flex-wrap:wrap;gap:3px 5px;margin:5px 0 6px;font-size:.88em}
+i.d,i.c,i.o,i.n,i.x,i.e{font-style:normal;padding:0 3px;border-radius:3px;white-space:normal}
+i.d{background:var(--d-bg);color:var(--d-fg)}
+i.c{background:var(--c-bg);color:var(--c-fg)}
+i.o{background:var(--o-bg);color:var(--o-fg)}
+i.n{background:var(--n-bg);color:var(--n-fg)}
+i.x{background:var(--x-bg);color:var(--x-fg)}
+i.e{background:var(--e-bg);color:var(--e-fg)}
+.m{color:var(--mut);font-style:italic}
+.map{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:0 0 7px;font-size:.88em}
+.map div{border:1px solid var(--line);background:var(--card);border-radius:4px;padding:2px 5px}
+.map b{color:var(--head)}
+.cols{column-count:2;column-gap:16px;column-rule:1px solid var(--line)}
+h2{font-size:1.08em;margin:7px 0 3px;padding:1px 5px;background:var(--head);color:var(--bg);border-radius:3px;break-after:avoid}
+h3{font-size:1em;margin:5px 0 1px;color:var(--head);break-after:avoid}
+p{margin:2px 0}
+ul{margin:1px 0 2px;padding-left:11px}
+li{margin:0}
+table{width:100%;border-collapse:collapse;margin:2px 0 4px;font-size:.93em}
+th,td{border:1px solid var(--line);padding:0 3px;text-align:left;vertical-align:top}
+th{background:var(--card);color:var(--head)}
+.nb{break-inside:avoid}
+.inc{margin-top:8px;border:1.5px solid var(--x-fg);border-radius:4px;padding:3px 6px;font-size:.93em}
+.inc h2{background:var(--x-fg);margin:0 0 3px}
+.inc table{font-size:.95em}
+.src{font-size:.88em;color:var(--mut);margin-top:3px}
+@media (max-width:860px){
+  .cols{column-count:1;column-rule:none}
+  .map{grid-template-columns:repeat(2,1fr)}
+}
+@media print{
+  :root:root:root{
+    color-scheme:light;
+    --bg:#ffffff; --fg:#000; --mut:#444; --line:#999; --card:#f1f1f1; --head:#16324f;
+    --d-bg:#e1ecfb; --d-fg:#0b3d7a; --c-bg:#ffeecb; --c-fg:#7a4600; --o-bg:#dcf2e2; --o-fg:#14532d;
+    --n-bg:#ebe3fa; --n-fg:#4c1d95; --x-bg:#fde0e0; --x-fg:#9b1c1c; --e-bg:#d6f1ee; --e-fg:#0f5f5a;
+  }
+  @page{size:A4;margin:9mm}
+  :root{padding:0}
+  body{font-size:8.4pt;line-height:1.16}
+  table{font-size:.9em}
+  h2{margin:5px 0 2px}
+  h3{margin:3px 0 1px}
+  .inc{margin-top:5px}
+  .page{max-width:none;padding:0}
+  .cols{column-count:2;column-gap:5mm}
+  .map{grid-template-columns:repeat(4,1fr)}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>B2T2 · Periféricos <small>Conectividad y administración · Impresión · Almacenamiento · Visualización · Entrada · Digitalización</small></h1>
+
+<div class="leg">
+  <i class="d">Definición</i><i class="c">Cifras / velocidades</i><i class="o">Estándares · organismos · fabricantes</i><i class="n">Normas · artículos</i><i class="x">⚠ Trampa / excepción</i><i class="e">Ejemplo</i><span><b>Negrita</b> = pregunta de examen</span><span class="m">ⓘ = nota mía (no literal)</span>
+</div>
+
+<div class="map">
+  <div><b>1 Periféricos</b> · def · mecánica + controlador E/S · 4 grupos</div>
+  <div><b>2 Conectividad</b> · serie · paralelo · USB · FireWire · Thunderbolt · DVI · HDMI · DP · SATA · AGP · PCI · PCIe · Ethernet · PnP ≠ hot plug</div>
+  <div><b>3 Impresión</b> · cps/ppm · ppp · buffer · interfaz · matricial · inyección · láser · multifunción · 3D</div>
+  <div><b>4 Almacenamiento</b> · HDD (pista/sector/cilindro · FM/MFM/RLL · IDE/SATA/SCSI/SAS) · SSD (NAND/NVMe/M.2)</div>
+  <div><b>5 Visualización</b> · monitor (CRT→AMOLED, paneles) · táctil (4 tipos)</div>
+  <div><b>6 Entrada</b> · teclado: QWERTY/QWERTZ/AZERTY/Dvorak</div>
+  <div><b>7 Digitalización</b> · escáner (CCD/CIS, TWAIN/ISIS/SANE/WIA) · OCR · modelos de color</div>
+  <div><b>7.1 NTI Digitalización</b> · ENI · 200 ppp · proceso 4 tareas · conformado / pendiente</div>
+</div>
+
+<div class="cols">
+
+<h2>1. Periféricos</h2>
+<p><i class="d">Periférico</i>: dispositivo conectado a los <b>buses</b> del ordenador que permite enviar info desde el exterior y/o captar info del interior para mostrarla al usuario o enviarla a otro sistema. Fuera del núcleo (<b>CPU + memoria central</b>); hace E/S complementaria al proceso de datos. ⚠ «adicional pero no esencial», pero muchos son fundamentales.</p>
+<p>2 partes: <b>mecánica</b> (relés, conmutadores, imanes, motores; controlada por la electrónica; determina la <i class="c">velocidad de transmisión</i>) · <b>electrónica</b> = <b>controlador de E/S</b> (circuitos; acciona la mecánica según órdenes de la CPU).</p>
+<table class="nb">
+<tr><th>Solo entrada</th><td>teclado, ratón, escáner</td></tr>
+<tr><th>Solo salida</th><td>monitor, impresora</td></tr>
+<tr><th>Entrada y salida</th><td>adaptador de red local, unidades de almacenamiento</td></tr>
+<tr><th>Almacenamiento</th><td>unidades de disco, CD/DVD</td></tr>
+<tr><th>Entrada</th><td>teclado, ratón, lápiz óptico, lector de tarjetas, lector de códigos de barras, tableta gráfica, escáner, lector biométrico</td></tr>
+<tr><th>Salida</th><td>impresora, monitor, plotter, proyector, sintetizador de voz, display</td></tr>
+<tr><th>Comunicación máquina-máquina</th><td>adaptador de red local, tarjeta wireless, adaptador bluetooth</td></tr>
+</table>
+
+<h2>2. Conectividad y administración</h2>
+<p>Subsistema E/S ↔ central mediante <b>procesadores de E/S</b>: gestionan el acceso a memoria central y la interacción con el controlador/procesador de periféricos. Conexión controlador↔procesador E/S = <b>canal</b> (datos, señales de control…). Intercambio y protocolos <b>estandarizados</b> (controladores distintos usan el mismo «interface»). La operación de E/S la inicia un <b>componente software</b>. El SO trae rutinas para gestionar periféricos (muy difícil desde lenguajes de alto nivel).</p>
+<table>
+<tr><th>Puerto</th><th>Norma · alias · destino</th></tr>
+<tr><td><b>SERIE</b></td><td><i class="n">RS-232</i> · COM</td></tr>
+<tr><td><b>PARALELO</b></td><td><i class="n">IEEE 1284</i> · LPT · impresoras</td></tr>
+<tr><td><b>USB</b></td><td>Universal Serial Bus · <i class="o">USB-IF</i> (USB Implementers Forum) · amplia gama de dispositivos</td></tr>
+<tr><td><b>FireWire</b></td><td><i class="n">IEEE 1394</i> · alta velocidad · cámaras/videocámaras · <i class="o">FireWire (Apple)</i> / <i class="o">i.Link (Sony)</i> · <i class="c">400 · 800 Mbps · s1600 = 1,6 Gbps · s3200 = 3,2 Gbps</i></td></tr>
+<tr><td><b>Thunderbolt</b></td><td><i class="o">Intel</i> · antes «Light Peak» · vídeo + datos + energía</td></tr>
+<tr><td><b>DVI</b></td><td>Digital Visual Interface · monitores/proyectores · <b>DVI-D</b> digital · <b>DVI-A</b> analógica · <b>DVI-I</b> ambas</td></tr>
+<tr><td><b>HDMI</b></td><td>High Definition Multimedia Interface · audio + vídeo <b>sin comprimir</b></td></tr>
+<tr><td><b>DisplayPort</b></td><td><i class="o">VESA</i> · <b>libre de licencias/canon</b> · vídeo (+ audio opcional) · competidor de HDMI</td></tr>
+<tr><td><b>SATA</b></td><td>bus serie <b>dedicado</b> a almacenamiento (→ §4)</td></tr>
+<tr><td><b>AGP</b></td><td>Accelerated Graphics Port · tarjeta gráfica · sustituido por PCIe · <i class="c">2133 MB/s</i> (última versión)</td></tr>
+<tr><td><b>PCI</b></td><td>periféricos directos a placa base (ranuras PCI) · sustituido por PCIe</td></tr>
+<tr><td><b>PCIe</b></td><td>bus serie, <b>carriles punto a punto</b>; ranura de 1, 2, 4, 8 o 16 carriles (x1–x16)</td></tr>
+<tr><td><b>Ethernet</b></td><td>red LAN · conector <b>RJ-45</b></td></tr>
+</table>
+
+<h3>USB</h3>
+<table class="nb">
+<tr><th>Versión</th><th>Velocidad</th><th>Nombre comercial / nota</th></tr>
+<tr><td>USB 1.0</td><td><i class="c">1,5 Mbps</i></td><td></td></tr>
+<tr><td>USB 1.1</td><td><i class="c">12 Mbps</i></td><td></td></tr>
+<tr><td>USB 2.0</td><td><i class="c">480 Mbps</i></td><td><b>USB OTG</b> (On-The-Go): extensión de 2.0; el dispositivo actúa como <b>host</b> (se le conectan periféricos; típico en móviles) o como <b>dispositivo</b></td></tr>
+<tr><td>USB 3.0</td><td><i class="c">4,8 Gbps</i></td><td>= USB 3.1 Gen 1 = USB 3.2 Gen 1x1</td></tr>
+<tr><td>USB 3.1</td><td><i class="c">10 Gbps</i></td><td>= USB 3.1 Gen 2 = USB 3.2 Gen 2x1 · SuperSpeed USB+</td></tr>
+<tr><td>USB 3.2</td><td><i class="c">máx. 20 Gbps</i></td><td>Gen 1x1 4,8 · Gen 1x2 10 · Gen 2x1 10 · <b>Gen 2x2 20</b> · puede usar Tipo C</td></tr>
+<tr><td>USB4 1.0</td><td><i class="c">40 Gbps</i></td><td>conector Tipo C</td></tr>
+<tr><td>USB4 2.0</td><td><i class="c">80 Gbps</i></td><td>hasta <i class="c">120 Gbps</i> en modo bidireccional (120 en un sentido + 40 en el otro; ej. discos, monitores) · Tipo C</td></tr>
+</table>
+<p><b>Conectores</b>: Tipo A · Tipo B · <b>Tipo C: 24 pines, reversible</b>, USB 3.2 y USB4, también Thunderbolt 3/4/5 · Mini A/B · Micro A/B.<br>
+Relación (figura): A y B 1.0–2.0 / 3.0–3.1 · <b>C solo 3.0–3.1</b> · Mini A/B 1.0–2.0 · Micro A/B 1.0–2.0 · Micro B también 3.0–3.1.</p>
+
+<h3>Thunderbolt</h3>
+<table class="nb">
+<tr><td>TB1</td><td><i class="c">10 Gbps</i></td><td>conector DisplayPort</td></tr>
+<tr><td>TB2</td><td><i class="c">20 Gbps</i> bidireccional</td><td>conector DisplayPort</td></tr>
+<tr><td>TB3</td><td><i class="c">40 Gbps</i> bidireccional</td><td>conector USB Tipo C</td></tr>
+<tr><td>TB4</td><td>= TB3</td><td>+ 2 monitores 4K · despertar desde reposo · <i class="c">100 W</i> carga</td></tr>
+<tr><td>TB5</td><td><i class="c">80 Gbps</i> bidir. (<i class="c">120</i> con Bandwidth Boost)</td><td>+ 2 monitores 8K · <i class="c">240 W</i> carga</td></tr>
+</table>
+
+<h3>HDMI</h3>
+<p>Conectores: <b>A</b> 19 pines · <b>B</b> 29 pines · <b>C</b> (mini) 19 · <b>D</b> (micro) 19 · <b>E</b> (automoción) 19. <b>miniHDMI</b> = portátiles.</p>
+<table class="nb">
+<tr><th>Ver.</th><th>Velocidad</th><th>Vídeo / novedad</th></tr>
+<tr><td>1.0</td><td><i class="c">4,9 Gb/s</i></td><td>Full HD 60 Hz</td></tr>
+<tr><td>1.1</td><td></td><td>soporte DVD Audio</td></tr>
+<tr><td>1.2</td><td></td><td>—</td></tr>
+<tr><td>1.3</td><td><i class="c">10,2 Gb/s</i></td><td>2560×1440 60 Hz</td></tr>
+<tr><td>1.4</td><td></td><td>4K a 24 Hz</td></tr>
+<tr><td>2.0</td><td><i class="c">18 Gb/s</i></td><td>4K 60 Hz</td></tr>
+<tr><td>2.0b</td><td></td><td>soporte <b>HDR</b></td></tr>
+<tr><td>2.1</td><td><i class="c">48 Gb/s</i></td><td>10K y 8K 60 Hz</td></tr>
+<tr><td>2.2</td><td><i class="c">96 Gb/s</i> (FRL, Fixed Rate Link)</td><td>16K 60 Hz · 12K 120 Hz</td></tr>
+</table>
+
+<h3>DisplayPort</h3>
+<table class="nb">
+<tr><th>Ver.</th><th>Bruto (efectivo)</th><th>Vídeo</th></tr>
+<tr><td>1.0 / 1.1</td><td><i class="c">10,8 (8,64)</i> Gb/s</td><td>1440p 60 Hz</td></tr>
+<tr><td>1.2 / 1.2a</td><td><i class="c">21,6 (17,28)</i></td><td>4K 60 Hz</td></tr>
+<tr><td>1.3</td><td><i class="c">32,4 (25,92)</i></td><td>4K 120 · 5K 60 · 8K 30 Hz</td></tr>
+<tr><td>1.4</td><td><i class="c">32,4 (25,92)</i></td><td>8K (7680×4320) 60 · 5K 60 · 4K 120 · 4K 60 HDR</td></tr>
+<tr><td>2.0</td><td><i class="c">80 (77,37)</i></td><td>16K 60 SDR · 8K 60 HDR</td></tr>
+<tr><td>Alt Mode 2.0</td><td><i class="c">80 (77,37)</i></td><td>DP 2.0 actualizado para <b>USB4</b>: 16K 60 SDR · 10K 60 · 8K 60 HDR</td></tr>
+<tr><td>2.1</td><td>= ancho de 2.0</td><td>foco: compatibilidad con <b>USB Tipo C</b></td></tr>
+</table>
+<p><b>Mini DisplayPort</b>: <i class="o">Apple</i>, portátiles y Mac; 2560×1600 y 4K.</p>
+
+<h3>PCIe x1</h3>
+<table class="nb">
+<tr><th>1.0</th><th>2.0</th><th>3.0</th><th>4.0</th><th>5.0</th><th>6.0</th><th>7.0</th></tr>
+<tr><td><i class="c">2,5</i></td><td><i class="c">5</i></td><td><i class="c">8</i></td><td><i class="c">16</i></td><td><i class="c">32</i></td><td><i class="c">64</i></td><td><i class="c">128</i> (2025)</td></tr>
+</table>
+<p class="m">Gb/s (también «GT» = Giga Transfer/s). ⓘ son tasas brutas de transferencia.</p>
+
+<h3>Administración</h3>
+<p><b>Plug and Play (PnP)</b>: el equipo <b>detecta y configura</b> el periférico automáticamente, sin intervención humana. <b>Hot plug</b>: conectar/desconectar <b>sin apagar</b>. <i class="x">⚠ No son lo mismo.</i></p>
+
+<h2>3. Elementos de impresión</h2>
+<p><i class="d">Impresora</i>: periférico de salida que presenta en papel texto, gráficos y fotografías; de los más antiguos.</p>
+<table>
+<tr><th>Concepto</th><th>Contenido</th></tr>
+<tr><td><b>Velocidad</b></td><td><b>cps</b> (caracteres/s): impresoras de <b>caracteres</b> (margarita, matriciales). <b>ppm</b> (páginas/min): impresoras de <b>página</b> (inyección, láser…), la más usada hoy. Cifra del fabricante: páginas con <i class="c">5 %</i> de superficie impresa, calidad más baja, sin gráficos y sin contar el tiempo de cálculo del ordenador</td></tr>
+<tr><td><b>Resolución</b></td><td>calidad de imagen; <b>ppp / dpi</b> (puntos por pulgada). Un solo valor ⇒ horizontal = vertical (ej. <i class="e">600 ppp</i>). ⚠ Mayor resolución no siempre = más nítido (depende de cómo se sitúan los puntos)</td></tr>
+<tr><td><b>Buffer</b></td><td>memoria que almacena lo que espera ser impreso («sala de espera»): el puerto entrega datos más rápido de lo que imprime la impresora. Mayor buffer ⇒ impresión más rápida y fluida</td></tr>
+<tr><td><b>Interfaz</b></td><td><b>USB</b> (la mayoría) · antes paralelo <b>LPT1</b> · Ethernet (LAN) · wifi · serie (COM) en impresora de <b>tickets</b></td></tr>
+</table>
+<p><b>Clasificación</b> (por tecnología): <b>impacto</b> = pieza mecánica golpea cinta entintada → papel (matriciales; margarita obsoleta; <b>ruidosas</b>) · <b>sin impacto</b> = inyección, láser, transferencia térmica; <b>silenciosas</b>.</p>
+
+<h3>Matricial (impacto; la más antigua, aún se usa)</h3>
+<ul>
+<li><b>Margarita</b>: bola metálica con letras en relieve; como máquina de escribir eléctrica sin teclado. En desuso: solo texto y hay que cambiar la bola para cambiar tipo/tamaño de letra.</li>
+<li><b>Agujas</b>: matriz de agujas golpea cinta → papel. Más agujas ⇒ más calidad: <i class="c">150–300 ppp</i>. Gráficos de calidad no muy alta, normalmente B/N. Ruidosas. Carro con <b>tractor</b> de papel continuo.</li>
+</ul>
+
+<h3>Inyección de tinta</h3>
+<ul>
+<li>La más extendida (bajo costo, excelente calidad). Sistema general: <b>DOD</b> (Drop On Demand): gotas solo cuando se necesitan.</li>
+<li><b>Térmico (bubble jet)</b>: calienta la tinta → burbuja → presión expulsa la gota; al colapsar, el vacío arrastra tinta nueva. <i class="o">Canon y HP</i>. Inconveniente: <b>vida corta de inyectores</b> ⇒ integrados en el cartucho ⇒ cartuchos más caros.</li>
+<li><b>Piezoeléctrico</b>: cristal que se deforma al aplicarle carga; <i class="o">Epson</i>. <b>No calienta</b> la tinta; más control del tamaño/forma de la gota.</li>
+<li>Contras: algo caras de mantener (cartuchos se agotan rápido y caros).</li>
+<li><b>Color</b>: monitores = <b>RGB</b> (mezcla <b>aditiva</b>: rojo, verde, azul) · inyección = <b>CMY</b> (mezcla <b>sustractiva</b>: cian, magenta, amarillo). <b>Matching</b> = concordancia de color monitor–impreso. Modelo <b>HSB</b>: <b>Tono</b> (matiz) · <b>Saturación</b> (0 % sin tono · 100 % saturado) · <b>Brillo</b> (0 % negro · 100 % blanco).</li>
+<li><b>Driver</b>: programa que gestiona la comunicación PC–impresora y cómo se imprime; responsable de capacidades extra (doble cara, varias páginas/hoja, gestión de color y grises, calidad, bandejas y tipos de papel). Utilidades del fabricante: limpieza y alineación de cabezales, administración de color.</li>
+</ul>
+
+<h3>Láser (gama más alta en calidad y rapidez)</h3>
+<ul>
+<li>Color: <b>4 depósitos de tóner</b> (negro, cian, magenta, amarillo) = tinta en polvo.</li>
+<li>Ventajas vs inyección: texto B/N de mayor calidad · mayor <b>ciclo de trabajo</b> (páginas/mes) · <b>menor coste por página</b>. Para cargas de trabajo importantes. Servicio a varios usuarios vía <b>LAN</b>.</li>
+<li>Proceso <b>electrográfico</b> por digitalización láser: imagen → líneas · haz + espejos hacen <b>4 pasadas</b> (una por color) sobre el <b>tambor</b> (cilindro cargado eléctricamente) · el tóner (partículas imantadas) se pega por diferencia de potencial · pasa al papel por <b>presión</b> · <b>fusión por calor</b> (+ aceite/silicona) ⇒ hoja caliente con brillo característico.</li>
+</ul>
+
+<h3>Multifunción</h3>
+<p>Impresión + escaneo + copia (+ a menudo fax). Mayor crecimiento del mercado. Como la láser: <b>Ethernet/LAN</b>. Color basado en <b>láser</b>. Extras: envío de mails, autenticación de usuarios, libretas de direcciones <b>LDAP</b>, envío a máquinas de la red. ✔ más pequeñas y baratas que unidades independientes · ✘ conjunto menos bueno que las partes y, si se avería, <b>se pierden varias funciones</b>.</p>
+
+<h3>3D (objeto tridimensional a partir de diseño digital)</h3>
+<table>
+<tr><td><b>SLA</b> Estereolitografía</td><td>la <b>primera</b>. Luz <b>UV</b> sobre resina líquida fotosensible (en cubo); solidifica capa a capa; la base baja</td></tr>
+<tr><td><b>LFS</b> Estereolitografía de Baja Fuerza</td><td>láser personalizado + espejo; polimeriza sólidos isotrópicos de resina líquida fotosensible; equilibrio detalle/velocidad</td></tr>
+<tr><td><b>SLS</b> Sinterización Selectiva por Láser</td><td>láser sobre <b>polvo</b> (cerámica, cristal, nylon, poliestireno): funde y solidifica; el material no usado queda en el sitio ⇒ <b>no se desperdicia nada</b>. Variantes para <b>metal</b>: <b>DMSL</b> (sinterización láser directa sobre metal) y <b>SLM</b> (fusión selectiva por láser)</td></tr>
+<tr><td><b>DLP</b> Procesamiento digital de luz</td><td>resina fotorreactiva; <b>proyector digital</b> proyecta una imagen por capa; píxeles cuadrados ⇒ capa de bloques rectangulares = <b>vóxeles</b></td></tr>
+<tr><td><b>Inyección</b></td><td>como una de tinta pero inyecta capas de <b>fotopolímero líquido</b> curado en la bandeja</td></tr>
+<tr><td><b>CFF</b> Fabricación continua de fibras</td><td><b>2 boquillas</b>: una extruye plástico (cubierta + matriz); otra aplica hilo continuo de fibra (carbono, vidrio, Kevlar, HSHT) ⇒ resistencia comparable a metal</td></tr>
+<tr><td><b>FDM</b> = <b>FFF</b></td><td>Deposición de material fundido / Fused Filament Fabrication: polímero fundido sobre base plana, capa a capa; bobina de filamento. <b>La más común en sobremesa/doméstico</b></td></tr>
+</table>
+<p>Materiales predominantes: <b>ABS</b> (acrilonitrilo butadieno estireno) y <b>PLA</b> (ácido poliláctico).<br>
+<i class="e">Pregunta de examen</i>: tecnología 3D = <b>SLA</b> (PMT, CIS y CCD son sensores de escáner).</p>
+
+<h2>4. Elementos de almacenamiento</h2>
+<p>Guardan los datos que usa la CPU una vez eliminados de la memoria principal (se borra al apagar). Internos (disco duro) o extraíbles (CD). Más comunes: disco duro · SSD · CD · DVD · Blu-ray · cintas magnéticas.</p>
+
+<h3>4.1 Disco duro (HD / HDD, Hard Disk Drive)</h3>
+<p><b>Memoria secundaria</b>. Datos permanentes; se leen/borran/graban infinidad de veces. Primeras unidades <i class="c">10–20 MB</i>; hoy varios TB (por la elevada <b>densidad de grabación</b>). Grabación <b>magnética digital</b>: platos apilados sobre un <b>eje (spindle)</b> que gira siempre en el mismo sentido. Cabezas L/E: proceso electromagnético. Cabeza a <i class="c">3–4 micropulgadas</i> del plato («casi vuela» sobre colchón de aire) ⇒ <b>cierre hermético</b> (el polvo daña). Normalmente <b>2 cabezas por plato</b> (una por cara).<br>
+Platos de <b>aluminio</b> con capa magnética en ambas caras: antes <b>óxido férrico</b>, ahora <b>cobalto</b>. Tamaño: <b>3,5"</b> (casi todos) · <b>2,5"</b> (portátiles).</p>
+<table>
+<tr><th>Característica</th><th>Def.</th></tr>
+<tr><td>Capacidad</td><td>información que puede almacenar</td></tr>
+<tr><td>Velocidad de rotación</td><td><b>RPM</b>. Mayor ⇒ más transferencia, <b>pero más ruido y más calor</b></td></tr>
+<tr><td>Latencia</td><td>tiempo medio que tarda la cabeza en situarse en el sector deseado</td></tr>
+<tr><td>Caché (buffer)</td><td>en la controladora interna; todo lo leído/escrito pasa primero por el buffer</td></tr>
+<tr><td>Tasa de transferencia</td><td>datos leídos/escritos en la parte <b>más exterior</b> del plato en <b>1 s</b>; Mbps</td></tr>
+</table>
+<table>
+<tr><th>Componente</th><th>Contenido</th></tr>
+<tr><td><b>Platos (platters)</b></td><td>vidrio, cerámica o aluminio pulidos + aleación metálica en ambos lados; eje + motor a velocidad constante <i class="c">5.400 · 7.200 · hasta 15.000 RPM</i>; varios platos sobre eje central; 2 caras, a veces una reservada a <b>información de control</b></td></tr>
+<tr><td><b>Cabezas</b></td><td>en pila; responsables de L/E; <b>no tocan</b> el disco: flotan sobre capa de aire de unos <i class="c">3 nm</i>; bobina que detecta el campo magnético; convierten señales eléctricas ↔ magnéticas. Alto rendimiento: 2+ cabezas por superficie (cada una atiende la mitad ⇒ menos desplazamiento radial). Factor fundamental de rendimiento y densidad</td></tr>
+<tr><td><b>Eje</b></td><td>soporte sobre el que giran los platos</td></tr>
+<tr><td><b>Pista</b></td><td>círculo concéntrico (trayectoria de la cabeza); <b>pista 0 = la más externa</b>; la cabeza va de la externa a la interna. Formada por uno o más sectores</td></tr>
+<tr><td><b>Sector</b></td><td><b>mínima unidad direccionable</b>; normalmente <i class="c">512 bytes</i>; <i class="c">100–300 sectores/pista</i>. Tamaño fijado por la controladora al formatear (algunos modelos permiten elegirlo)</td></tr>
+<tr><td><b>Cilindro</b></td><td>pistas alineadas verticalmente (una por cara). <i class="c">n discos ⇒ 2n pistas</i>. Se escribe en todas las pistas del cilindro sin mover el brazo ⇒ HD multidisco rinde más</td></tr>
+<tr><td><b>Tarjeta controladora</b></td><td>integrada en la unidad: motor y velocidad de giro · brazo actuador (pista correcta) · tiempos de L/E · gestión de energía (leer y amplificar señales de bajo voltaje de las cabezas) · <b>firmware</b> (rutinas ejecutadas por su microprocesador)</td></tr>
+</table>
+<p><b>Densidad de grabación</b>: <b>BPI</b> (bits por pulgada) × <b>TPI</b> (pistas por pulgada) = densidad de área <b>BPSI</b> (bits por pulgada cuadrada). Más densidad: bits más juntos o pistas más próximas.</p>
+
+<h3>Codificación (0/1 → pulsos magnéticos)</h3>
+<table class="nb">
+<tr><td><b>FM</b> Frequency Modulation</td><td>la <b>más sencilla</b>: cambio de flujo por cada 1, ninguno por cada 0; electrónica simple; <b>cada bit consume 2 cambios de flujo</b> ⇒ capacidad muy limitada</td></tr>
+<tr><td><b>MFM</b> Modified FM</td><td>menos cambios por bit ⇒ <b>más capacidad</b>; abandonada en discos duros; usada en disquetes</td></tr>
+<tr><td><b>RLL</b> Run Length Limited</td><td>trabaja con <b>grupos de bits</b>; 2 parámetros: <b>longitud del recorrido</b> (mínimo espacio entre 2 cambios de fase) y <b>límite del recorrido</b> (máxima longitud entre 2 cambios de fase). <b>La usa gran parte de los HDD actuales</b></td></tr>
+</table>
+
+<h3>Interfaces</h3>
+<table>
+<tr><td><b>IDE / PATA</b></td><td>Integrated Drive Electronics / Parallel ATA · <i class="c">166 MB/s</i> · <b>máx. 2 dispositivos por bus</b></td></tr>
+<tr><td><b>SATA</b></td><td>Serial ATA · bus serie dedicado · cable de <i class="c">7 pines</i> exclusivo placa↔HD · más rápido que IDE<br>
+<b>1.0</b> <i class="c">1,5 Gb/s (150 MB/s)</i> · <b>2.0</b> <i class="c">3 (300)</i> · <b>3.0</b> <i class="c">6 (600)</i><br>
+<b>mSATA</b>: portátiles, hasta 6 Gb/s<br>
+<b>SATA Express / SATAe / SATA 3.2</b>: admite PCIe y SATA; 2 líneas PCIe 2.0 = <i class="c">8 Gb/s</i> · 2 líneas PCIe 3.0 = <i class="c">16 Gb/s</i> · con SATA, lo anterior<br>
+Conectores: <b>eSATA</b> (externo, 150 MB/s) · <b>mini SATA</b> (móviles, 6 Gb/s) · <b>SATA Express</b> (placa base/PCIe, hasta 16 Gb/s)</td></tr>
+<tr><td><b>SCSI</b></td><td>Small Computer System Interface · discos de gran capacidad para <b>servidores</b> y alto rendimiento</td></tr>
+</table>
+<table class="nb">
+<tr><th>SCSI</th><th>Ancho</th><th>MB/s</th><th>Disp.</th></tr>
+<tr><td>SCSI 1</td><td>8 bits</td><td><i class="c">5</i></td><td>8</td></tr>
+<tr><td>Fast SCSI 2</td><td>8</td><td><i class="c">10</i></td><td>8</td></tr>
+<tr><td>Wide SCSI 2</td><td>16</td><td><i class="c">20</i></td><td>16</td></tr>
+<tr><td>Ultra SCSI 3</td><td>16</td><td><i class="c">20</i></td><td>16</td></tr>
+<tr><td>Ultra Wide SCSI 3</td><td>16</td><td><i class="c">40</i></td><td>16</td></tr>
+<tr><td>Ultra 2 SCSI 3</td><td>16</td><td><i class="c">80</i></td><td>16</td></tr>
+</table>
+<p><b>SAS</b> (Serial Attached SCSI): serie, <b>sucesor de SCSI</b>, ámbito <b>empresarial</b>; mucha más caché; <i class="c">15.000 rpm</i>. <b>SAS-1</b> <i class="c">3</i> · <b>SAS-2</b> <i class="c">6</i> · <b>SAS-3</b> <i class="c">12</i> · <b>SAS-4</b> <i class="c">22,5 Gb/s</i>.<br>
+<i class="x">⚠ SATA en conector SAS: SÍ · SAS en conector SATA: NUNCA</i> (para amortizar sistemas SATA ya existentes).</p>
+
+<h3>4.2 Unidad SSD (Solid State Drive)</h3>
+<ul>
+<li>Sin componentes mecánicos: <b>memorias flash NAND</b> interconectadas; <b>sin cabezas</b>, sustituidas por un <b>procesador integrado</b>.</li>
+<li>Vs HDD: <b>menor</b> capacidad, consumo, tiempo de búsqueda y latencia · <b>mayor</b> coste y velocidad de transferencia.</li>
+<li>Interfaces: <b>SATA</b> o <b>PCIe</b>. <b>NVMe</b> (Non Volatile Memory Express): especificación abierta de interfaz de dispositivo lógico para medios no volátiles sobre bus PCIe. <b>M.2</b>: SSD de formato reducido por PCIe con NVMe.</li>
+<li><i class="x">⚠ SSD con interfaz SATA también se puede conectar en conector SAS.</i></li>
+<li><i class="e">Pregunta de examen</i>: NO es interfaz de SSD = <b>DVI</b> (SAS, SATA y PCIe sí).</li>
+</ul>
+
+<h2>5. Elementos de visualización</h2>
+<h3>5.1 Monitor</h3>
+<ul>
+<li><b>Píxel</b> (picture element): unidad elemental; punto de luz sin forma definida; los píxeles forman una matriz.</li>
+<li><b>Tamaño de punto (dot pitch)</b>: espacio entre los 2 puntos más cercanos, medido desde su centro. <b>Menor ⇒ más nitidez.</b></li>
+<li><b>Resolución</b>: nº total de píxeles (horizontal × vertical), ej. <i class="e">2560×1600</i> = 2560 columnas × 1600 filas. Se abrevia por la vertical: <i class="e">1920×1080 = 1080p</i>.</li>
+<li><b>p = exploración progresiva</b>: barrido sucesivo línea tras línea. <b>i = entrelazada</b>: 2 campos (líneas pares / impares), primero el <b>impar</b> y luego el par.</li>
+<li><b>Tasa de refresco</b>: frecuencia con que el haz barre la pantalla; mayor ⇒ menos parpadeo; <i class="e">400 Hz = 400 barridos/s</i>.</li>
+<li><b>Dimensiones</b> en pulgadas (inch): <i class="c">1" = 2,54 cm</i> (13, 14, 15, 18, 20, 24"…).</li>
+<li><b>Mapeo</b>: identificar cada píxel con coordenadas, guardadas en memoria principal; según la tarjeta gráfica se guarda más o menos info de atributos (color, luminosidad…).</li>
+</ul>
+<table>
+<tr><th>Formato</th><th>Resolución</th><th>Desc.</th></tr>
+<tr><td>SD (Standard Definition)</td><td>640×480</td><td>VGA</td></tr>
+<tr><td>QHD (<b>Quarter</b> HD)</td><td>960×540</td><td></td></tr>
+<tr><td>HD</td><td>1280×720</td><td>720p</td></tr>
+<tr><td>FHD (Full HD)</td><td>1920×1080</td><td>1080p, 2K</td></tr>
+<tr><td>QHD (<b>Quad</b> HD)</td><td>2560×1440</td><td>1440p</td></tr>
+<tr><td>WQHD (Wide Quad HD)</td><td>2560×1440</td><td>1440p; aspecto 21:9 (según tema)</td></tr>
+<tr><td>UHD</td><td>3840×2160</td><td>2160p, 4K</td></tr>
+<tr><td>UHD 5K</td><td>5120×2880</td><td>2880p, 5K</td></tr>
+<tr><td>UHD 6K</td><td>6144×3160</td><td>3160p, 6K</td></tr>
+<tr><td>UHD 8K</td><td>8192×4320 / 7680×4320</td><td>4320p, 8K · 8K UHDV (Ultra High Definition Video)</td></tr>
+<tr><td>UHD 16K</td><td>15360×8640</td><td>8640p, 16K</td></tr>
+</table>
+<p><i class="x">⚠ QHD = dos formatos distintos (Quarter 960×540 / Quad 2560×1440).</i></p>
+
+<table>
+<tr><th>Tipo</th><th>Claves</th></tr>
+<tr><td><b>CRT</b> rayos catódicos</td><td>botella de cristal al vacío · <b>3 cañones de electrones</b> · máscara/rejilla · pantalla con película de <b>fósforo</b>. Se muestra la imagen <i class="c">50–80 veces/s</i> (evita parpadeo). Sustituidos: pesados, voluminosos, mucho consumo, parpadeo y fatiga visual, distorsión en extremos (superficie cilíndrica/esférica)</td></tr>
+<tr><td><b>LCD</b> cristal líquido</td><td>ni sólido ni líquido; sensible a temperatura y corriente. <b>2 filtros polarizantes</b> con cristales alineados <b>perpendicularmente</b>; la corriente deja pasar o no la luz. Color: <b>3 filtros</b> (R, V, A); tonalidades con <b>variaciones de voltaje</b></td></tr>
+<tr><td><b>TFT LCD</b></td><td>Thin Film Transistor; variante del LCD para aumentar la calidad</td></tr>
+<tr><td><b>Plasma</b></td><td>celdas entre 2 paneles de cristal con gases nobles (<b>neón, argón y xenón</b>) → plasma → sustancia fosforescente emite luz</td></tr>
+<tr><td><b>LED</b></td><td>conjunto de LEDs (semiconductor, luz incoherente y luminiscente, focalizada en una dirección). No se «funden» como los píxeles; pantallas extremadamente planas y de gran calidad</td></tr>
+<tr><td><b>QLED</b> Quantum dot LED</td><td>evolución de LCD y LED; competencia directa de OLED; <b>nanocristales</b> emisores de luz; según el tema activa el <b>píxel individualmente</b> (mejor contraste y energía)</td></tr>
+<tr><td><b>OLED</b></td><td>Organic Light-Emitting Diode; <b>cada píxel se ilumina por separado</b> ⇒ <b>sin retroiluminación</b>; mejor brillo, contraste y negros; pantallas flexibles y transparentes</td></tr>
+<tr><td><b>AMOLED</b></td><td>OLED con <b>matriz activa</b>; el píxel se ilumina al activarse electrónicamente; consumo muy reducido; negros reales</td></tr>
+</table>
+<p><b>Paneles</b> (proporcionan la imagen):</p>
+<table class="nb">
+<tr><td><b>TN</b> Twisted Nematic</td><td>primero en LCD · bajo consumo y bajo coste</td></tr>
+<tr><td><b>IPS</b> In-Plane Switching</td><td>evolución de TN · ángulo de visión <i class="c">178°</i> · mejor calidad y contraste</td></tr>
+<tr><td><b>VA</b> Vertical Alignment</td><td>«fusión de TN e IPS» (según tema)</td></tr>
+<tr><td><b>PLS</b> Plane to Line Switching</td><td>similar a IPS</td></tr>
+<tr><td><b>WLED</b> White LED</td><td><b>no es panel</b>: retroiluminación para LCD de gama alta</td></tr>
+<tr><td><b>IGZO</b> Indio-Galio-Óxido de Zinc</td><td>bajo consumo · coste elevado · menor tiempo de respuesta</td></tr>
+</table>
+
+<h3>5.2 Pantalla táctil (entrada directa por la superficie)</h3>
+<table>
+<tr><td><b>Resistiva</b></td><td>2 capas de película plástica conductora y transparente sobre la pantalla; mide el cambio de <b>resistencia</b> al unirse al presionar (dedo o lápiz óptico). Baratas. <i class="x">⚠ NO multitouch</i></td></tr>
+<tr><td><b>Capacitiva</b></td><td>panel de vidrio con material conductor transparente; usa la <b>capacidad del cuerpo humano</b> de conducir electricidad: al tocar se activa un campo eléctrico registrado por el hardware</td></tr>
+<tr><td><b>Infrarroja</b></td><td>emisores/receptores de <b>IR</b> en ejes X e Y ⇒ matriz de luz; el toque interrumpe el haz en ambos ejes. <b>Permite multitouch</b></td></tr>
+<tr><td><b>Onda acústica</b></td><td>2 ondas acústicas <b>inaudibles</b> (una horizontal, una vertical) que rebotan en reflectores; por trenes de impulsos; 2 detectores (uno por eje). El dedo <b>absorbe</b> potencia ⇒ onda atenuada ⇒ el controlador calcula las coordenadas</td></tr>
+</table>
+
+<h2>6. Elementos de entrada</h2>
+<p>Teclado = periférico de entrada por excelencia. <b>Distribución</b> = ubicación de las teclas (hay subtipos regionales/nacionales).</p>
+<table class="nb">
+<tr><td><b>QWERTY</b> (Scholes)</td><td>la <b>más utilizada</b>; separa las teclas que más se usan juntas (problemas mecánicos de las máquinas antiguas). España, Reino Unido, países nórdicos y América</td></tr>
+<tr><td><b>QWERTZ</b></td><td>cambia la <b>Z por la Y</b> respecto a QWERTY. Alemania y países del este de Europa</td></tr>
+<tr><td><b>AZERTY</b></td><td>Francia y regiones francófonas. <i class="x">⚠ Suiza y Quebec usan QWERTY (según tema)</i></td></tr>
+<tr><td><b>Dvorak</b></td><td>objetivos <b>ergonómicos</b> y mayor velocidad de escritura. <i class="n">Estándar ANSI</i></td></tr>
+</table>
+
+<h2>7. Elementos de digitalización</h2>
+<p><b>Escáner</b>: periférico de <b>captura</b>; papel → imagen digital.</p>
+<table>
+<tr><td><b>Cama plana</b> (mesa)</td><td>documento de cara al panel de vidrio; <b>el más común</b></td></tr>
+<tr><td><b>De mano</b></td><td>se desplaza manualmente</td></tr>
+<tr><td><b>Con alimentador</b></td><td>el documento pasa por una ranura iluminada (como un fax); cada vez más en oficinas</td></tr>
+<tr><td><b>De tambor</b></td><td>industria gráfica; gran calidad pero <b>muy costosos y lentos</b></td></tr>
+<tr><td><b>Cenital</b></td><td>copias digitales de libros/documentos antiguos o muy valiosos sin deteriorarlos</td></tr>
+</table>
+<table>
+<tr><th>Característica</th><th>Def.</th></tr>
+<tr><td>Resolución</td><td>dpi / ppp; calidad de escaneo</td></tr>
+<tr><td><b>Resolución interpolada</b></td><td>supera el límite de la <b>óptica</b> estimando matemáticamente valores intermedios: resolución <b>calculada</b>, genera puntos nuevos a partir de los reales más próximos</td></tr>
+<tr><td>Velocidad de captura</td><td>ppm</td></tr>
+<tr><td>Profundidad de color</td><td>nº de colores por píxel, según bits: <i class="e">8 bits = 256 colores</i></td></tr>
+<tr><td>Interfaces E/S</td><td>USB, SCSI, LPT, ethernet</td></tr>
+<tr><td>Controlador</td><td><b>TWAIN</b> (Technology Without An Interesting Name): obtención de imágenes del escáner · <b>ISIS</b> (Image and Scanner Interface Specification): estándar abierto, <i class="o">industrial de facto</i> · <b>SANE</b> (Scanner Access Now Easy): API de acceso · <b>WIA</b> (Windows Image Acquisition): controlador y API para Windows</td></tr>
+</table>
+<p><b>Funcionamiento</b>: proyecta luz y recorre la imagen línea a línea con sensores <b>CCD o CIS</b>, asignando un valor a cada píxel. Escáner plano: <b>ranura iluminada con motor</b> bajo vidrio; documento con la cara hacia abajo; luz → lentes y espejos → sensores → señal eléctrica → <b>conversor analógico-digital</b>.</p>
+<table class="nb">
+<tr><td><b>CCD</b> Charge-Coupled Device</td><td><b>luz de xenón</b> → rebota → espejo → <b>lentes</b> → sensor CCD. Mayor calidad: <b>entornos profesionales</b></td></tr>
+<tr><td><b>CIS</b> Contact Image Sensor</td><td>fila de sensores + <b>LED</b>; capta la luz rebotada directamente, <b>sin lentes ni espejos</b>. <b>Ámbito doméstico</b></td></tr>
+</table>
+<p>Los escáneres se integran en <b>impresoras multifunción</b> (especialmente adecuadas para oficinas).<br>
+<b>OCR</b> (Optical Character Recognition): software de <b>reconocimiento de texto</b>; extrae el texto de una imagen y lo convierte en cadenas de caracteres (<b>ASCII o Unicode</b>) para editarlo.</p>
+
+<h3>Modelos de color</h3>
+<table class="nb">
+<tr><td><b>RGB</b></td><td>rojo, verde, azul · <i class="c">0–255</i></td></tr>
+<tr><td><b>CMYK</b></td><td>cian, magenta, amarillo (Y), <b>negro (K)</b> · <i class="c">0–100 %</i></td></tr>
+<tr><td><b>HSL</b> (= <b>HSI</b>)</td><td>matiz (H), saturación (S), <b>luminosidad</b> (L) / intensidad (I) · matiz en <b>grados</b>; S y L en <b>%</b></td></tr>
+<tr><td><b>HSV</b> (= <b>HSB</b>)</td><td>matiz, saturación, <b>valor</b> (V) / <b>brillo</b> (B)</td></tr>
+<tr><td><b>Escala de grises</b></td><td>solo componente luminosidad · <i class="c">0–255</i></td></tr>
+</table>
+
+<h3>7.1 NTI de Digitalización de Documentos</h3>
+<ul>
+<li><i class="n">ENI</i> (Esquema Nacional de Interoperabilidad): definido en el <i class="n">art. 156 Ley 40/2015 (RJSP)</i>. Finalidad: condiciones para el adecuado nivel de interoperabilidad <b>técnica, semántica y organizativa</b> de sistemas y aplicaciones de las AAPP (ejercicio de derechos y cumplimiento de deberes por acceso electrónico; eficacia y eficiencia).</li>
+<li><i class="n">RD 4/2010, de 8 de enero</i> (RD 4/2010 ENI): su <b>Disposición adicional primera</b> prevé el desarrollo de las <b>NTI</b>.</li>
+<li><b>NTI de Digitalización de Documentos</b>: define <b>formatos y estándares, niveles de calidad, condiciones técnicas y metadatos</b> del proceso de digitalización. Desarrolla: requisitos del documento digitalizado (formatos, nivel de resolución, imagen fiel e íntegra, metadatos) · descripción del proceso · requisitos mínimos de conservación y disponibilidad.</li>
+<li><i class="d">Digitalización</i>: proceso tecnológico que convierte un documento en papel (u otro soporte no electrónico) en <b>uno o varios ficheros electrónicos</b> con la imagen codificada, <b>fiel e íntegra</b>.</li>
+<li><b>Componentes</b> del documento digitalizado: <b>imagen electrónica</b> · <b>metadatos mínimos obligatorios</b> (+ complementarios) · <b>firma electrónica</b> (si procede; avala la integridad del resultado) · opcional: <b>metadatos del proceso de digitalización</b> (características técnicas de la imagen).</li>
+<li>Formatos: los de la <b>NTI de Catálogo de Estándares</b>. <i class="c">Resolución mínima: 200 ppp</i> (blanco y negro, color o grises).</li>
+<li><b>Imagen fiel</b>: respeta la <b>geometría</b> (tamaños y proporciones) · <b>no contiene</b> caracteres o gráficos ausentes del original · generación según el proceso de digitalización. La fidelidad se avala con la firma electrónica del proceso.</li>
+</ul>
+<table class="nb">
+<tr><th colspan="2">Proceso de digitalización (esquema: digitalización por medios fotoeléctricos → optimización → conformación)</th></tr>
+<tr><td>a)</td><td><b>Digitalización</b> por medio <b>fotoeléctrico</b> ⇒ imagen en la memoria del sistema del dispositivo</td></tr>
+<tr><td>b)</td><td>Si procede, <b>optimización</b> automática (umbralización, reorientación, eliminación de bordes negros…) para garantizar legibilidad</td></tr>
+<tr><td>c)</td><td>Asignación de <b>metadatos</b>: <b>resolución, tamaño e idioma</b></td></tr>
+<tr><td>d)</td><td>Si procede, <b>firma</b> de la imagen (automatizada por el sistema o por otro sistema de firma)</td></tr>
+</table>
+<p>Resultado: <b>completamente conformado</b> = metadatos mínimos obligatorios (NTI de Documento Electrónico) + complementarios del proceso + <b>firma/s</b> · <b>pendiente de completar</b> = por criterio de la organización <b>no se ha asociado la firma</b>.</p>
+
+</div><!-- /cols -->
+
+<div class="inc">
+<h2>Incoherencias del material</h2>
+<table>
+<tr><th>Punto</th><th>Tema</th><th>Repaso</th><th>Dato correcto / qué usar</th></tr>
+<tr><td>FM</td><td>cambio de flujo por cada 1, ninguno por 0; «cada bit consume 2 cambios de flujo»</td><td>«un cambio de flujo por bit»</td><td>Contradicción interna. Examen: <b>manda el tema</b> (2 cambios/bit).</td></tr>
+<tr><td>Vuelo de la cabeza</td><td>«3 o 4 micropulgadas» (p. 16) y «unos 3 nm» (p. 18)</td><td>«3–4 micropulgadas ≈ 3 nm»</td><td>No equivalen (3–4 µin ≈ 76–100 nm). Dos cifras distintas en el propio tema; memorizar ambas y ver cuál da el enunciado.</td></tr>
+<tr><td>ppp / dpi</td><td>«puntos en una pulgada cuadrada» y luego «600 puntos en una pulgada»</td><td>—</td><td>Es lineal (puntos por pulgada). Usar «puntos por pulgada».</td></tr>
+<tr><td>UHD 6K</td><td>tabla 6144×<b>3160</b>; gráfico con 3456 líneas</td><td>—</td><td>Tema inconsistente. Para examen: tabla (3160).</td></tr>
+<tr><td>QHD</td><td>Quarter 960×540 y Quad 2560×1440</td><td>lo avisa</td><td>Misma sigla, dos formatos.</td></tr>
+<tr><td>WQHD</td><td>2560×1440, aspecto <b>21:9</b></td><td>—</td><td>WQHD es 16:9; el 21:9 sería UWQHD (3440×1440). Sin verificar en fuente. Examen: tema.</td></tr>
+<tr><td>USB 3.0</td><td>4,8 Gbps</td><td>4,8 Gbps</td><td>La especificación habla de 5 Gbps (tasa bruta). Sin verificar en esta sesión. Examen: 4,8.</td></tr>
+<tr><td>SCSI</td><td>Ultra SCSI 3 = 16 bits, 20 MB/s</td><td>solo rango 5→80</td><td>Ultra SCSI «a secas» es de 8 bits (20 MB/s). Sin verificar. Examen: tema.</td></tr>
+<tr><td>Teclado</td><td>Suiza usa QWERTY</td><td>—</td><td>Suiza usa QWERTZ; Quebec sí QWERTY. Sin verificar. Examen: tema.</td></tr>
+<tr><td>QLED / VA</td><td>QLED activa píxel individual; VA = «fusión TN+IPS»</td><td>QLED: nanocristales, sin lo del píxel</td><td>Comercialmente QLED es LCD con retroiluminación + puntos cuánticos; VA es tecnología propia. Sin verificar. Examen: tema.</td></tr>
+<tr><td>Ortografía</td><td>«Sisterización», DMSL, «Modify Frecuency»</td><td>—</td><td>Sinterización · DMLS · Modified Frequency Modulation.</td></tr>
+<tr><td>Otros matices</td><td>HDMI 1.4 «4K a 24 Hz» · 2.0b «HDR» · M.2 «por PCIe con NVMe» · sector 512 B</td><td>sector 512 B</td><td>Sin verificar: 1.4 llega a 4K 30 Hz; HDR llegó en 2.0a (2.0b añade HLG); M.2 también admite SATA; discos actuales usan sectores de 4 KiB. Examen: tema.</td></tr>
+<tr><td>Normativa y versiones</td><td>HDMI 2.2 (96 Gb/s, 16K60/12K120) · PCIe 7.0 (128 GT/s, 2025) · ENI = art. 156 Ley 40/2015 + RD 4/2010</td><td>ENI igual; no incluye HDMI 2.2</td><td><b>Verificado y coincide.</b> No he encontrado norma que sustituya al RD 4/2010. USB4 v2 / Thunderbolt 5: sin verificar en esta sesión.</td></tr>
+</table>
+<p class="src">Fuentes consultadas: hdmi.org/spec/hdmi2 · PCI-SIG (nota de prensa 11-06-2025, businesswire.com) · BOE-A-2010-1331 (boe.es/eli/es/rd/2010/01/08/4).</p>
+</div>
+
+</div>
+
+<!-- TAI Estudio: barra inyectada por build.py -->
+<script type="application/json" id="tai-barra-datos">{"codigo": "B2T2", "nombre": "Periféricos", "indice": "../index.html#tema-B2T2", "anterior": {"codigo": "B2T1", "nombre": "Informática básica", "href": "b2t1.html"}, "siguiente": {"codigo": "B2T4", "nombre": "Sistemas operativos", "href": "b2t4.html"}, "temaManual": true, "ficha": [[["B1T1", 1], ["B1T2", 1], ["B1T3", 1], ["B1T4", 1], ["B1T5", 1], ["B1T6", 0], ["B1T7", 0], ["B1T8", 0], ["B1T9", 0], ["B1T10", 0], ["B1T11", 0]], [["B2T1", 1], ["B2T2", 1], ["B2T3", 0], ["B2T4", 1], ["B2T5", 1]], [["B3T1", 1], ["B3T2", 1], ["B3T3", 1], ["B3T4", 1], ["B3T5", 1], ["B3T6", 0], ["B3T7", 0], ["B3T8", 0], ["B3T9", 0], ["B3T10", 0]], [["B4T1", 0], ["B4T2", 0], ["B4T3", 0], ["B4T4", 0], ["B4T5", 0], ["B4T6", 0], ["B4T7", 0], ["B4T8", 0], ["B4T9", 0], ["B4T10", 0]]], "base": "../assets/"}</script>
+<tai-barra></tai-barra>
+<script src="../assets/barra.js"></script>
+</body>
+</html>

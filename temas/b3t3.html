@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TAI - B3T3 Lenguajes de programación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfcfd;--fg:#1b2230;--mut:#5d6675;--line:#d3d9e2;--head:#e8edf4;--box:#f3f6fa;
+  --acc:#2c4a8c;
+  --d:#1f5fbf;--n:#a35400;--l:#1d7a46;--t:#c0262d;--p:#6b6f78;
+  --t-bg:#fdeeee;--p-bg:#f0f1f4;--inc-bg:#fff6e5;--inc-bd:#e3a33a;
+  --k:#8a2bb8;--y:#0b7a8a;--o:#c2410c;--v:#1f5fbf;--s:#4d7c0f;--cm:#7a8290;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171d;--fg:#dde3ec;--mut:#9aa3b2;--line:#353c48;--head:#232a35;--box:#1b2029;
+    --acc:#8fb0f0;
+    --d:#7eb1ff;--n:#f0a64a;--l:#5fd08e;--t:#ff7b7b;--p:#a7acb6;
+    --t-bg:#3a1f22;--p-bg:#22262e;--inc-bg:#33290f;--inc-bd:#c98a1f;
+    --k:#d08cf5;--y:#4fd0de;--o:#ff9a5c;--v:#7eb1ff;--s:#a8d65a;--cm:#8a93a3;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171d;--fg:#dde3ec;--mut:#9aa3b2;--line:#353c48;--head:#232a35;--box:#1b2029;
+  --acc:#8fb0f0;
+  --d:#7eb1ff;--n:#f0a64a;--l:#5fd08e;--t:#ff7b7b;--p:#a7acb6;
+  --t-bg:#3a1f22;--p-bg:#22262e;--inc-bg:#33290f;--inc-bd:#c98a1f;
+  --k:#d08cf5;--y:#4fd0de;--o:#ff9a5c;--v:#7eb1ff;--s:#a8d65a;--cm:#8a93a3;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:"IBM Plex Sans Condensed","Roboto Condensed","Arial Narrow",Arial,sans-serif;font-size:13px;line-height:1.32;padding:12px 14px 24px;max-width:1500px;margin:0 auto}
+h1{font-size:1.75em;margin:0;letter-spacing:-.01em;color:var(--acc)}
+.sub{margin:1px 0 5px;color:var(--mut)}
+h2{font-size:1.12em;margin:7px 0 3px;padding:1px 4px;background:var(--acc);color:var(--bg);break-after:avoid}
+h3{font-size:1em;margin:5px 0 2px;color:var(--acc);border-bottom:1px solid var(--line);break-after:avoid}
+p{margin:2px 0}
+ul{margin:1px 0;padding-left:13px}
+li{margin:0}
+table{border-collapse:collapse;width:100%;margin:2px 0 4px;font-size:.97em}
+th,td{border:1px solid var(--line);padding:1px 3px;vertical-align:top;text-align:left}
+th{background:var(--head);font-weight:600}
+td:first-child{font-weight:600}
+table.plain td:first-child{font-weight:400}
+code,pre{font-family:"IBM Plex Mono",Consolas,"Courier New",monospace;font-size:.9em}
+pre{background:var(--box);border:1px solid var(--line);padding:2px 4px;margin:2px 0;white-space:pre-wrap;line-height:1.25}
+.cols{column-gap:6mm}
+@media (min-width:980px){.cols{column-count:2;column-rule:1px solid var(--line)}}
+.cols>section{break-inside:auto}
+.keep{break-inside:avoid}
+/* teoría */
+.d{color:var(--d);font-weight:700}
+.n{color:var(--n);font-weight:700}
+.l{color:var(--l)}
+.t{color:var(--t);font-weight:600}
+.p{color:var(--p);font-style:italic}
+.tb{background:var(--t-bg);border-left:3px solid var(--t);padding:1px 4px;margin:2px 0}
+.pb{background:var(--p-bg);border-left:3px solid var(--p);padding:1px 4px;margin:2px 0}
+/* código */
+.k{color:var(--k);font-weight:600}.y{color:var(--y);font-weight:600}.o{color:var(--o);font-weight:600}.v{color:var(--v)}.s{color:var(--s)}.c{color:var(--cm);font-style:italic}
+.leg{display:flex;flex-wrap:wrap;gap:3px 5px;align-items:center;margin:2px 0 4px;font-size:.95em}
+.chip{border:1px solid var(--line);border-radius:3px;padding:0 4px;background:var(--box)}
+.map{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:3px 0 4px}
+.map div{border:1px solid var(--line);background:var(--box);padding:2px 4px;border-radius:3px}
+.map b{color:var(--acc)}
+@media (max-width:700px){.map{grid-template-columns:1fr 1fr}}
+.inc{background:var(--inc-bg);border:1.5px solid var(--inc-bd);padding:3px 6px;margin-top:6px;column-span:all}
+.inc h2{background:var(--inc-bd);color:#1b1305;margin-top:0}
+.inc ol{margin:1px 0;padding-left:15px}
+.prec{display:flex;flex-wrap:wrap;gap:2px}
+.prec span{border:1px solid var(--line);background:var(--box);padding:0 3px;border-radius:2px;font-family:"IBM Plex Mono",monospace;font-size:.88em}
+.prec span i{font-style:normal;color:var(--n);font-weight:700;margin-right:2px;font-family:"IBM Plex Sans Condensed",sans-serif}
+.tag{display:inline-block;min-width:1.3em;text-align:center;border-radius:2px;font-weight:700;font-size:.85em}
+.tI{background:var(--t-bg);color:var(--t)}
+.tC{background:var(--box);color:var(--acc);border:1px solid var(--line)}
+@page{size:A4;margin:9mm}
+@media print{
+  :root,:root:not([data-theme="light"]),:root[data-theme="dark"]{
+    --bg:#fff;--fg:#111;--mut:#555;--line:#c5ccd6;--head:#e8edf4;--box:#f3f6fa;--acc:#2c4a8c;
+    --d:#1f5fbf;--n:#a35400;--l:#1d7a46;--t:#c0262d;--p:#5f636c;--t-bg:#fdeeee;--p-bg:#f0f1f4;--inc-bg:#fff6e5;--inc-bd:#e3a33a;
+    --k:#8a2bb8;--y:#0b7a8a;--o:#c2410c;--v:#1f5fbf;--s:#4d7c0f;--cm:#6f7684;color-scheme:light}
+  :root{padding:0}
+  body{font-size:8.4pt;padding:0;max-width:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cols{column-count:2;column-rule:1px solid var(--line)}
+  h1{font-size:14pt}
+  table,pre,.tb,.pb{break-inside:avoid}
+  table.long{break-inside:auto}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>TAI - B3T3 Lenguajes de programación</h1>
+<p class="sub">Representación de tipos de datos · operadores · instrucciones condicionales · bucles y recursividad · procedimientos, funciones y parámetros · vectores y registros · estructura de un programa</p>
+<div class="leg">
+<b>Teoría:</b>
+<span class="chip"><span class="d">definición</span></span>
+<span class="chip"><span class="n">cifra / dato</span></span>
+<span class="chip"><span class="l">lenguaje / ejemplo</span></span>
+<span class="chip"><span class="t">⚠ trampa</span></span>
+<span class="chip"><span class="p">✎ explicación propia (no literal)</span></span>
+<b>Código:</b>
+<code class="chip"><span class="k">control</span> <span class="y">tipo</span> <span class="o">operador</span> <span class="v">variable</span> <span class="s">literal</span> <span class="c">// comentario</span></code>
+<span class="chip"><span class="tag tC">C</span> compilado <span class="tag tI">I</span> interpretado</span>
+</div>
+<div class="map">
+<div><b>Traductor</b> fuente→objeto<br>Compilador (análisis + síntesis; 4 etapas) · Intérprete · Mixto</div>
+<div><b>Clasificación (6)</b><br>abstracción · propósito · paradigma (11) · traducción · tipado · generación</div>
+<div><b>Datos y operadores</b><br>8 primitivos Java · casting · estático/dinámico · 10 niveles de precedencia</div>
+<div><b>Control y programa</b><br>if · switch · while · for · for-each · do-while · recursión · subprogramas · arrays · E→P→S</div>
+</div>
+</header>
+
+<main class="cols">
+
+<section>
+<h2>1 Lenguajes de programación</h2>
+<h3>1.1 Definiciones básicas</h3>
+<table class="plain">
+<tr><td><span class="d">Algoritmo</span></td><td>Conjunto de acciones / secuencia de operaciones que, ejecutadas en un orden, resuelven un problema concreto. Secuencia ordenada de pasos <b>sin ambigüedades</b>, repetible. Hay n algoritmos por problema → escoger el más eficiente.<br>Características: <b>preciso</b> (orden de cada paso) · <b>definido</b> (repetido n veces → mismo resultado) · <b>finito</b> · independiente del lenguaje · describe <b>3 partes: Entrada, Proceso, Salida</b> · programar = adaptar el algoritmo al ordenador · independiente de dónde se implemente (HW o SW).</td></tr>
+<tr><td><span class="d">Instrucción</span></td><td>Cada tarea elemental a realizar por un elemento de computación.</td></tr>
+<tr><td><span class="d">Programa</span></td><td>Conjunto de instrucciones que al ejecutarse resuelven un problema. <b>3 partes</b>: ① Entrada (instrucciones de lectura: usuario o almacenamiento secundario) ② Acciones del algoritmo → declaración de variables + instrucciones ③ Salida (acciones de escritura: dispositivo o almac. secundario).</td></tr>
+<tr><td><span class="d">Lenguaje de programación</span></td><td>Conjunto de normas «lingüísticas» que permiten escribir un programa entendible por el ordenador y trasladable a ordenadores «similares».</td></tr>
+<tr><td><span class="d">Subprograma</span></td><td>Fragmento que resuelve un subproblema con entidad propia. Permite reusabilidad y distribuye la programación (niveles de abstracción / equipo).</td></tr>
+<tr><td><span class="d">Función</span></td><td>Subprograma con «n» entradas y <b class="n">una única salida (siempre una)</b>.</td></tr>
+<tr><td><span class="d">Procedimiento</span></td><td>Subprograma con «n» entradas y <b class="n">«n» salidas</b> (n = {0, 2, … n} literal; ver incoherencias).</td></tr>
+<tr><td><span class="d">Traductor</span></td><td>Programa que procesa un texto fuente y genera un texto objeto. Según la forma: <b>compiladores</b> e <b>intérpretes</b>.</td></tr>
+</table>
+
+<h3>1.2 Compiladores</h3>
+<p><span class="d">Compilador</span>: traduce el código fuente a su equivalente en un lenguaje de <b>más bajo nivel</b> (código objeto) que la máquina pueda interpretar. Normalmente lenguaje máquina; también <span class="l">código intermedio (bytecode)</span> o texto. El proceso = <b>compilación</b>.</p>
+<table>
+<tr><th>Tarea</th><th>Fases</th></tr>
+<tr><td>Análisis<br><small>(corrección del fuente)</small></td><td><b>Léxico (scanner)</b>: fuente → <b>tokens</b> (secuencia de caracteres con significado propio) · <b>Sintáctico (parser)</b>: agrupa tokens jerárquicamente en frases gramaticales en un <b>árbol</b>; expresiones, sentencias y asignaciones según las reglas · <b>Semántico</b>: validez (operandos permitidos para un operador, variables usadas no definidas, llamadas con nº/tipo de parámetros incorrecto)</td></tr>
+<tr><td>Síntesis<br><small>(salida en lenguaje objeto)</small></td><td>Generación de código (intermedio u objeto) · Optimización de código</td></tr>
+</table>
+<p><b>Proceso de compilación = <span class="n">4 etapas</span></b>: ① <b>Preprocesado</b>: interpreta directivas (<code><span class="k">#define</span></code> → se sustituye por su valor) → ② <b>Compilación</b>: → <b>ensamblador</b> del procesador → ③ <b>Ensamblado</b>: ensamblador → <b>código objeto</b> (binario máquina) → ④ <b>Enlazado</b>: reúne módulos objeto + código de las bibliotecas.</p>
+<p class="tb">⚠ «Compilación» es el proceso entero y también la 2ª etapa. El ensamblador lo produce la etapa de compilación; el código objeto, la de ensamblado.</p>
+<table>
+<tr><th>Enlace</th><th>Qué hace</th><th>Pros / contras</th></tr>
+<tr><td>Estático</td><td>Binarios de las funciones se incorporan al ejecutable</td><td>Programa <b>autónomo</b> / ↑ tamaño</td></tr>
+<tr><td>Dinámico</td><td>Código sigue en la biblioteca; se carga en memoria al ejecutar</td><td>↓ tamaño / <b>requiere las bibliotecas en ejecución</b></td></tr>
+</table>
+<table class="plain">
+<tr><td><span class="d">Compilador cruzado</span> (cross compiler)</td><td>Crea ejecutable para <b>otra plataforma</b> distinta de aquella en la que se ejecuta.</td></tr>
+<tr><td><span class="d">Transpilador</span></td><td>Fuente → <b>otro lenguaje fuente</b> distinto, <b>mismo nivel</b> de abstracción. <span class="l">TypeScript → JavaScript</span>.</td></tr>
+</table>
+
+<h3>1.3 Intérpretes</h3>
+<p><span class="d">Intérprete</span>: ejecuta las instrucciones del código fuente <b>sin generar programa objeto</b>.</p>
+<table>
+<tr><th></th><th>Compilador</th><th>Intérprete</th></tr>
+<tr><td>Programa objeto</td><td>Lo genera</td><td>No; normalmente no guarda la traducción</td></tr>
+<tr><td>Cuándo traduce</td><td>Todo, una vez, antes de ejecutar</td><td>A medida que se necesita, típicamente <b>instrucción por instrucción</b></td></tr>
+<tr><td>Velocidad</td><td>Más rápido (contexto fijo por la compilación)</td><td>Más lento: analiza cada sentencia cada vez que se ejecuta = <b>«sobrecarga interpretativa»</b></td></tr>
+<tr><td>Ejemplo</td><td><span class="l">C</span></td><td><span class="l">JavaScript</span> · Mixto: <span class="l">Java</span> (bytecode + máquina virtual)</td></tr>
+</table>
+
+<h3>1.4 Clasificación</h3>
+<p class="tb">⚠ El tema enumera <b class="n">14 criterios</b> (abstracción, propósito, evolución histórica, manera de ejecutarse, manera de abordar la tarea, paradigma, lugar de ejecución, concurrencia, interactividad, realización visual, determinismo, grado de tipado, clase de tipado, utilidad) pero solo desarrolla <b class="n">6</b>. La mayoría de lenguajes no encajan puramente en una categoría.</p>
+<table>
+<tr><th colspan="2">(1) Abstracción (cercanía a la máquina)</th></tr>
+<tr><td>Máquina</td><td>Ceros y unos (binario); <b>directamente ejecutable</b> por el microprocesador.</td></tr>
+<tr><td>Bajo nivel</td><td>Nombre <b>nemotécnico</b> a cada instrucción máquina = <b>lenguajes simbólicos</b>; apenas abstracción. Propio: <span class="l">ensamblador</span>.</td></tr>
+<tr><td>Medio nivel</td><td>Rasgos de bajo nivel + cualidades de alto nivel.</td></tr>
+<tr><td>Alto nivel</td><td>Próximos al lenguaje natural; independientes del HW. <b>Ventajas</b>: transportabilidad, independencia del HW, facilidad de programación y mantenimiento. <b>Inconv.</b>: no aprovecha la arquitectura interna; ↑ tiempo de compilación y ejecución.</td></tr>
+</table>
+<table>
+<tr><th colspan="2">(2) Propósito</th></tr>
+<tr><td>General</td><td><span class="l">C, C++, C#, Java, Visual Basic</span></td></tr>
+<tr><td>Específico</td><td>Empresas: <span class="l">COBOL</span> · Científico: <span class="l">Fortran, M</span> · Educación: <span class="l">Scratch, Python, Processing, Java, Lua, JavaScript, Racket, Raptor, Pascal, Oz, Etoys, ABC, Grace, Logo</span> · BBDD: <span class="l">SQL, ABAP</span> · IA: <span class="l">Prolog, Lisp, Haskell, R, F#</span> · Web: <span class="l">PHP, Perl, Python, JavaScript, Java</span></td></tr>
+<tr><td>Sistemas</td><td>SO o drivers: <span class="l">C</span></td></tr>
+<tr><td>Script</td><td>Control y auxiliares; antes <b>batch</b> o <b>JCL</b> («Job Control Languages»): <span class="l">sh (Bourne), bash (Bourne-Again), dash (Debian Almquist), ksh (Korn), zsh (Z), csh (C Shell), tcsh (TENEX C)</span></td></tr>
+</table>
+
+<p><b>(3) Paradigma</b>: <span class="d">método de realizar cómputos</span> y de estructurar/organizar las tareas; basados en <b>modelos de cómputo</b>; = <b>estilo de programación</b>. <b>Multiparadigma</b>: <span class="l">C++</span> (OO puro o estructurado, decide el programador). Un solo paradigma: <span class="l">Smalltalk</span> (solo OO), <span class="l">Haskell</span> (solo funcional). Todos son de alto nivel; los ensambladores están «atados» a su procesador. <b class="n">11 paradigmas</b>:</p>
+<table>
+<tr><th>Paradigma</th><th>Clave</th><th>Lenguajes</th></tr>
+<tr><td>Imperativo / por procedimientos</td><td>Describe <b>cómo</b>, no el por qué. Sentencias con control de flujo <b>explícito</b> que <b>modifican el estado</b>; subprogramas que se llaman entre sí. Secuencial: diseño modular, dividir el problema, <b>3 estructuras de control: secuencia, selección, repetición</b>.</td><td><span class="l">C, Pascal, BASIC, ADA, COBOL, FORTRAN</span></td></tr>
+<tr><td>Orientado a objetos (POO)</td><td>Técnicas: herencia, cohesión, abstracción, polimorfismo, acoplamiento, encapsulamiento. <span class="d">Objeto</span> = variable equipada con operaciones propias. <span class="d">Clase</span> = «plantilla» para instanciar objetos (abstracción de lo común); componentes: <b>atributos</b> (estado) y <b>métodos</b> (mensaje para una acción). Objeto = <b>estado</b> (datos) + <b>comportamiento</b> (métodos/mensajes) + <b>identidad</b> (lo diferencia).</td><td><span class="l">Smalltalk, C++, C#, Java, Python, Eiffel, Ruby, Scala, Swift, VB.NET, PHP, D, R, Object Pascal, Gambas, JavaScript, Oz, Perl, Processing, ActionScript</span></td></tr>
+<tr><td>Funcional</td><td>Programación <b>declarativa</b>; funciones matemáticas, <b>sin datos mutables ni estado</b>. <span class="d">Transparencia referencial</span>: el significado de una expresión depende solo de sus subexpresiones → sin efectos colaterales = <b>funciones puras</b>. <span class="d">Orden superior</span>: toman/devuelven funciones. Sin asignación de variables ni secuencia/iteración → repetición por <b>recursividad</b>. Las funciones imperativas sí tienen efectos secundarios (carecen de transparencia referencial).</td><td><b>Puros</b>: <span class="l">Haskell, Miranda</span><br><b>Híbridos</b>: <span class="l">Lisp, Scheme, Scala, familia ML, F# (Microsoft)</span></td></tr>
+<tr><td>Lógico</td><td>Declarativa; gira en torno al <b>predicado</b> (relación); <b>lógica de predicados de 1<sup>er</sup> orden</b>. «Razona»: <b>deductivo</b> (general → específico) / <b>inductivo</b> (particular → general); puede incluir lógica difusa. <b>Resultados = reglas + hechos</b> (hechos = datos conocidos a priori o adquiridos; reglas = operaciones aplicables). IA: demostración de teoremas, sistemas expertos, lenguaje natural.</td><td><span class="l">Prolog</span></td></tr>
+<tr><td>Declarativo</td><td>Describe <b>qué</b> se quiere, no cómo.</td><td><span class="l">SQL</span></td></tr>
+<tr><td>Orientado a aspectos (AOP)</td><td>Modulariza lo <b>transversal</b> (ej.: control de permisos). <span class="d">Aspecto</span> (aspect) = elemento transversal modularizado · <span class="d">Consejo</span> (advice) = acción a ejecutar · <span class="d">Punto de corte</span> (pointcut) = conjunto de puntos donde se ejecuta el advice (⚠ en general no es un único punto).</td><td><span class="l">AspectJ (Java), AspectC++, Aspect (Perl), phpAspect (PHP)</span></td></tr>
+<tr><td>Dirigida por eventos</td><td>Ejecución <b>no determinista</b>; bucle sin fin; <span class="d">evento</span> = cambio significativo de estado; código de respuesta = <b>manejador</b>. Permite GUI.</td><td><span class="l">JavaScript, C#, VB.NET, Java, ASP.NET</span></td></tr>
+<tr><td>Por restricciones</td><td>Búsqueda compleja de soluciones: se especifica el problema y lo resuelve el <b>resolutor</b>. Modelo = variables (valores posibles) + restricciones. Surgió en el contexto de la programación <b>lógica</b>. <span class="l">Ej.: 8 reinas</span>.</td><td><span class="l">Basados en Prolog, Mozart</span></td></tr>
+<tr><td>Reactiva</td><td><b>Asíncrona</b>; propagación de cambios y flujos de datos; patrón <b>Observer</b>. <span class="l">ReactiveX</span> = Observer + Iterator.</td><td><span class="l">RxJava, RxPy, Rx.NET (C#), RxPHP</span></td></tr>
+<tr><td>Reflexiva</td><td>El programa examina y modifica su propia estructura y comportamiento <b>en tiempo de ejecución</b>.</td><td><span class="l">Ej. Python <code>getattr()</code></span></td></tr>
+<tr><td>Concurrente</td><td>Ejecución simultánea de procesos o hilos.</td><td><span class="l">Erlang, Go</span></td></tr>
+</table>
+<table class="plain">
+<tr><th colspan="2">POO: características</th></tr>
+<tr><td><b>Abstracción</b></td><td>Características esenciales de un objeto; captura su comportamiento.</td></tr>
+<tr><td><b>Encapsulamiento</b></td><td><b>Reunión</b> de los elementos de una misma entidad → ↑ <b>cohesión</b>.</td></tr>
+<tr><td><b>Ocultación</b></td><td>Estructura interna <b>oculta</b>; acceso solo vía métodos (interfaz).</td></tr>
+<tr><td><b>Polimorfismo</b></td><td>Comportamientos distintos con el mismo nombre; en ejecución = <b>«asignación tardía» o «dinámica»</b>; algunos lenguajes lo hacen en compilación.</td></tr>
+<tr><td><b>Herencia</b></td><td>Una clase asume atributos y métodos de otra. Hereda: <b>subclase / clase derivada</b>. Transmite: <b>superclase / clase base</b>.</td></tr>
+</table>
+<p class="tb">⚠ Encapsulamiento ≠ ocultación (el tema lo avisa). ⚠ POO vs estructurada: en la estructurada datos y procedimientos están separados; en POO se definen objetos y se les envían mensajes.</p>
+<table>
+<tr><th colspan="2">Funcional: 2 modelos de cómputo</th></tr>
+<tr><td>Cálculo lambda</td><td>s-expresiones, <b>tipado débil</b>, metaprogramación → <span class="l">familia Lisp, Scheme</span></td></tr>
+<tr><td>Lógica combinatoria</td><td>Tipos <b>estrictos</b>, transparencia referencial, <b>evaluación perezosa</b> → <span class="l">familia ML, Haskell</span></td></tr>
+</table>
+
+<table>
+<tr><th colspan="2">(4) Traducción · (5) Clase de tipado · (6) Generación</th></tr>
+<tr><td>Traducción</td><td><b>Compilados</b> <span class="l">C</span> · <b>Interpretados</b> <span class="l">JavaScript</span> · <b>Mixtos</b> <span class="l">Java</span>: compila a <b>bytecode</b> → interpretado en distintas arquitecturas por una <b>máquina virtual</b></td></tr>
+<tr><td>Fuertemente tipados</td><td>Apenas conversión implícita (solo «seguras»); resto con conversión explícita (<b>casting</b>). <span class="l">C, C++, Java, Python, Haskell, ML</span></td></tr>
+<tr><td>Débilmente tipados</td><td>Permisivos: conversiones implícitas (ej. string → float), incluso inseguras; errores detectados <b>más tarde, en ejecución</b>. <span class="l">PHP, JavaScript, Lisp, Prolog, Perl</span></td></tr>
+<tr><td>Generación</td><td><b class="n">1GL</b> máquina · <b class="n">2GL</b> simbólicos · <b class="n">3GL</b> medio y alto nivel · <b class="n">4GL</b> propósito específico, <b>qué</b> hacer y no cómo (<span class="l">NATURAL, SQL</span>) · <b class="n">5GL</b> inteligencia artificial</td></tr>
+</table>
+<p class="pb"><span class="p">✎ Seguro vs inseguro: int → double es segura (tipo más amplio); double (2,68) → int no (¿trunca? ¿redondea?). La frontera fuerte/débil es «controvertida».</span></p>
+
+<h3>1.5 Principales lenguajes</h3>
+<p><span class="p">✎ Abrev.: MP multiparadigma · Imp imperativo · Fun funcional · Ref reflexivo · Conc concurrente · Decl declarativo · Lóg lógico.</span> <b>Interpretados</b> en la tabla (12): <span class="l">ABAP, ASP.NET, Erlang, JavaScript, Lua, Miranda, Perl, PHP, Prolog, Python, R, Ruby</span>; sin tipo: <span class="l">Etoys, J#</span>; el resto, compilados.</p>
+<table class="long">
+<tr><th>Leng.</th><th></th><th>Paradigma</th><th>Uso</th></tr>
+<tr><td>ABAP</td><td><span class="tag tI">I</span></td><td>MP</td><td>Gestión empresarial</td></tr>
+<tr><td>AspectJ</td><td><span class="tag tC">C</span></td><td>Aspectos</td><td>General</td></tr>
+<tr><td>ASP.NET</td><td><span class="tag tI">I</span></td><td>MP</td><td>Web</td></tr>
+<tr><td>C</td><td><span class="tag tC">C</span></td><td>Imp</td><td>General</td></tr>
+<tr><td>C++</td><td><span class="tag tC">C</span></td><td>MP: Imp, OO</td><td>General</td></tr>
+<tr><td>C#</td><td><span class="tag tC">C</span></td><td>MP: Imp, OO, Fun, Ref</td><td>General</td></tr>
+<tr><td>Clojure</td><td><span class="tag tC">C</span></td><td>Fun</td><td>General</td></tr>
+<tr><td>D</td><td><span class="tag tC">C</span></td><td>MP (OO): Imp, OO, Fun</td><td>General</td></tr>
+<tr><td>Dart</td><td><span class="tag tC">C</span></td><td>MP</td><td>Web (Google)</td></tr>
+<tr><td>Eiffel</td><td><span class="tag tC">C</span></td><td>OO</td><td>General</td></tr>
+<tr><td>Erlang</td><td><span class="tag tI">I</span></td><td>MP: OO, Fun, Conc</td><td>Prog. concurrente</td></tr>
+<tr><td>Etoys</td><td>—</td><td>OO</td><td>Educación</td></tr>
+<tr><td>F#</td><td><span class="tag tC">C</span></td><td>MP: Imp, OO, Fun</td><td>General (.NET), orientado a funcional</td></tr>
+<tr><td>Gambas</td><td><span class="tag tC">C</span></td><td>MP</td><td>General</td></tr>
+<tr><td>Go</td><td><span class="tag tC">C</span></td><td>MP: Imp, OO, Conc</td><td>Web (Google)</td></tr>
+<tr><td>Groovy</td><td><span class="tag tC">C</span></td><td>MP: Imp, OO, Fun</td><td>General</td></tr>
+<tr><td>Haskell</td><td><span class="tag tC">C</span></td><td>Fun</td><td>IA</td></tr>
+<tr><td>Java</td><td><span class="tag tC">C</span>⚠</td><td>OO</td><td>General</td></tr>
+<tr><td>JavaScript</td><td><span class="tag tI">I</span></td><td>MP: Imp, OO (prototipos), Fun</td><td>Web</td></tr>
+<tr><td>J#</td><td>—</td><td>OO</td><td>Web</td></tr>
+<tr><td>Kotlin</td><td><span class="tag tC">C</span></td><td>OO</td><td>Android; código intermedio para JVM o intérprete JavaScript</td></tr>
+<tr><td>Lisp</td><td><span class="tag tC">C</span></td><td>Fun</td><td>IA</td></tr>
+<tr><td>Lua</td><td><span class="tag tI">I</span></td><td>Imp</td><td>Educación</td></tr>
+<tr><td>Miranda</td><td><span class="tag tI">I</span></td><td>Fun</td><td>IA</td></tr>
+<tr><td>ML</td><td><span class="tag tC">C</span></td><td>Fun</td><td>IA</td></tr>
+<tr><td>Objective-C</td><td><span class="tag tC">C</span></td><td>OO</td><td>General</td></tr>
+<tr><td>Oz</td><td><span class="tag tC">C</span></td><td>MP</td><td>Prog. distribuida y por restricciones</td></tr>
+<tr><td>P#</td><td><span class="tag tC">C</span></td><td>Lóg</td><td>General (.NET)</td></tr>
+<tr><td>Perl</td><td><span class="tag tI">I</span></td><td>MP: Imp, OO, Fun</td><td>General</td></tr>
+<tr><td>PHP</td><td><span class="tag tI">I</span></td><td>MP: Imp, OO, Fun, Ref</td><td>Web</td></tr>
+<tr><td>Processing</td><td><span class="tag tC">C</span></td><td>OO</td><td>Educación</td></tr>
+<tr><td>Prolog</td><td><span class="tag tI">I</span></td><td>Lóg</td><td>IA</td></tr>
+<tr><td>Python</td><td><span class="tag tI">I</span></td><td>MP: Imp, OO, Fun, Ref</td><td>General</td></tr>
+<tr><td>R</td><td><span class="tag tI">I</span></td><td>MP: Imp, OO, Fun</td><td>Estadística</td></tr>
+<tr><td>Racket</td><td><span class="tag tC">C</span></td><td>MP: Imp, OO, Fun, Lóg</td><td>Educación</td></tr>
+<tr><td>Ruby</td><td><span class="tag tI">I</span></td><td>MP (OO): Imp, OO, Fun, Ref</td><td>General</td></tr>
+<tr><td>Scala</td><td><span class="tag tC">C</span></td><td>MP: Imp, OO, Fun</td><td>General (WS)</td></tr>
+<tr><td>Scheme</td><td><span class="tag tC">C</span></td><td>Fun</td><td>IA</td></tr>
+<tr><td>Scratch</td><td><span class="tag tC">C</span></td><td>Imp</td><td>Educación; programación visual</td></tr>
+<tr><td>Smalltalk</td><td><span class="tag tC">C</span></td><td>OO</td><td>General</td></tr>
+<tr><td>Swift</td><td><span class="tag tC">C</span></td><td>MP: Imp, OO, Fun, Decl, Conc</td><td>General (Apple)</td></tr>
+<tr><td>TypeScript</td><td><span class="tag tC">C</span></td><td>MP: Imp, OO, Fun, Decl</td><td>Web (Microsoft); compila a JavaScript</td></tr>
+<tr><td>Vala</td><td><span class="tag tC">C</span></td><td>MP: Imp, OO, Fun</td><td>General</td></tr>
+<tr><td>VB.NET</td><td><span class="tag tC">C</span></td><td>OO</td><td>Web</td></tr>
+</table>
+<p class="tb">⚠ Reflexivos en la tabla: C#, PHP, Python, Ruby. Concurrentes: Erlang, Go, Swift. Declarativos: Swift, TypeScript. Lógicos: Prolog, P#, Racket (MP). Google: Dart, Go. Microsoft: F#, TypeScript.</p>
+</section>
+
+<section>
+<h2>2 Representación de tipos de datos</h2>
+<p><span class="d">Tipos de datos</span>: definen el modo en que se usa el espacio (memoria); indican al compilador cómo crear y manipular el almacenamiento. <b>Predefinidos</b> (el compilador los comprende intrínsecamente) vs <b>abstractos</b> (definidos por el usuario como <b>clase</b>; el compilador lee la definición de la clase). Otros: <code><span class="k">struct</span></code>, clases, tipos complejos en jerarquía.</p>
+<table>
+<tr><th>Tipo Java</th><th>Descripción</th><th>Default</th><th>Tamaño</th><th>Rango</th></tr>
+<tr><td><code class="y">boolean</code></td><td>true / false</td><td>false</td><td class="n">8 bits</td><td>true, false</td></tr>
+<tr><td><code class="y">byte</code></td><td>entero compl. a dos</td><td>0</td><td class="n">8 bits</td><td class="n">-128 a 127</td></tr>
+<tr><td><code class="y">char</code></td><td>carácter Unicode</td><td>\u0000</td><td class="n">16 bits</td><td>—</td></tr>
+<tr><td><code class="y">short</code></td><td>entero compl. a dos</td><td>0</td><td class="n">16 bits</td><td class="n">-32768 a 32767</td></tr>
+<tr><td><code class="y">int</code></td><td>entero compl. a dos</td><td>0</td><td class="n">32 bits</td><td class="n">-2<sup>31</sup> a 2<sup>31</sup>-1</td></tr>
+<tr><td><code class="y">long</code></td><td>entero compl. a dos</td><td>0</td><td class="n">64 bits</td><td class="n">-2<sup>63</sup> a 2<sup>63</sup>-1</td></tr>
+<tr><td><code class="y">float</code></td><td>coma flotante IEEE 754</td><td>0.0</td><td class="n">32 bits</td><td>—</td></tr>
+<tr><td><code class="y">double</code></td><td>coma flotante IEEE 754</td><td>0.0</td><td class="n">64 bits</td><td>—</td></tr>
+</table>
+<p><b>4 grupos</b>: enteros con signo (byte, short, int, long) · carácter (char, Unicode) · decimal (float, double) · lógico (boolean; <code class="s">true</code>/<code class="s">false</code> son palabras reservadas).</p>
+<p class="tb">⚠ char y short: ambos 16 bits. boolean y byte: ambos 8 bits. float = int = 32; double = long = 64.</p>
+<p><span class="d">Casting</span>: transformar un valor de un tipo a otro. Normalmente: <b>fuertemente tipados → implícitas y explícitas</b>; <b>débilmente tipados → solo implícitas</b>.</p>
+<table>
+<tr><td>Implícita</td><td>Sin notación, de tipo <b>pequeño → grande</b> (byte → short). Esquema del tema (se asigna a cualquiera a su izquierda):<br><code><span class="y">double</span> <span class="o">←</span> <span class="y">float</span></code> · <code><span class="y">long</span> <span class="o">←</span> <span class="y">int</span> <span class="o">←</span> <span class="y">short</span> <span class="o">←</span> <span class="y">byte</span></code></td></tr>
+<tr><td>Explícita</td><td>Indica al compilador que es intencional y acepta la pérdida de precisión: <code><span class="o">(</span><span class="y">tipo</span><span class="o">)</span> <span class="v">valor_a_convertir</span></code> → ej. <code>(<span class="y">float</span>)</code></td></tr>
+</table>
+<table>
+<tr><th></th><th>Tipado ESTÁTICO</th><th>Tipado DINÁMICO</th></tr>
+<tr><td>Típico de</td><td><b>Compilados</b>; <span class="l">C#, Java</span></td><td><b>Interpretados</b>; <span class="l">PHP, Python</span></td></tr>
+<tr><td>Declaración</td><td>Cada variable se declara con un tipo</td><td>No suele declararse; la variable existe al darle valor</td></tr>
+<tr><td>El tipo es de…</td><td>La <b>variable</b>; no cambia hasta que se extingue (locales, parámetros, instancia, clase <code class="k">static</code>, globales)</td><td>El <b>contenido</b>: una variable puede tener tipos distintos en distintos instantes</td></tr>
+<tr><td>Comprobaciones</td><td>Compilación; <b>ninguna en ejecución</b></td><td>En ejecución; operaciones más costosas</td></tr>
+</table>
+<pre><span class="y">int</span> <span class="v">i</span>; <span class="v">i</span><span class="o">=</span><span class="s">3</span>;  <span class="v">i</span><span class="o">=</span><span class="s">"hola"</span>; <span class="c">// estático: error</span>
+<span class="v">i</span><span class="o">=</span><span class="s">3</span>  <span class="v">i</span><span class="o">=</span><span class="s">"hola"</span>  <span class="c"># Python: válido</span></pre>
+<p class="tb">⚠ Fuerte/débil (cuántas conversiones implícitas) ≠ estático/dinámico (cuándo se fija el tipo). <span class="l">Python</span> = <b>dinámico y fuertemente tipado</b>.</p>
+</section>
+
+<section>
+<h2>3 Operadores</h2>
+<p>Símbolos que operan sobre datos generando un resultado: <b>unarios</b> (1 operando), <b>binarios</b>, <b>ternarios</b>.</p>
+<table>
+<tr><th>Tipo</th><th>Operadores</th></tr>
+<tr><td>Aritméticos</td><td><code class="o">+ - * /</code> · <code class="o">%</code> módulo (resto división entera) · <code><span class="o">++</span><span class="v">var</span></code> pre-incremento · <code><span class="v">var</span><span class="o">++</span></code> post-incremento · <code><span class="o">--</span><span class="v">var</span></code> / <code><span class="v">var</span><span class="o">--</span></code></td></tr>
+<tr><td>Relacionales</td><td><code class="o">&lt; &lt;= == &gt; &gt;= !=</code></td></tr>
+<tr><td>Lógicos</td><td><code class="o">&amp;&amp;</code> AND · <code class="o">||</code> OR · <code class="o">!</code> NOT</td></tr>
+<tr><td>Ternario</td><td><code><span class="v">condición</span> <span class="o">?</span> <span class="v">si_true</span> <span class="o">:</span> <span class="v">si_false</span></code></td></tr>
+<tr><td>A nivel de bits</td><td><code class="o">|</code> OR · <code class="o">&amp;</code> AND · <code class="o">&gt;&gt;</code> despl. dcha · <code class="o">&lt;&lt;</code> despl. izq · <code class="o">^</code> XOR · <code class="o">~</code> NOT</td></tr>
+<tr><td>Asignación</td><td><code class="o">= += -= %= *= /= ^= &gt;&gt;= &lt;&lt;= &amp;= |=</code></td></tr>
+<tr><td>Escape</td><td><code class="s">\n</code> nueva línea · <code class="s">\t</code> tabulador · <code class="s">\\</code> barra invertida · <code class="s">\'</code> comilla simple · <code class="s">\"</code> comilla doble</td></tr>
+</table>
+<p class="tb">⚠ <code>++a</code>: incrementa y luego usa · <code>a++</code>: usa y luego incrementa. ⚠ <code>&amp;&amp; ||</code> lógicos ≠ <code>&amp; |</code> de bits. ⚠ <code>^</code> es XOR, no potencia.</p>
+<p><b>Precedencia (<span class="n">10 niveles</span>, de mayor a menor)</b>:</p>
+<div class="prec">
+<span><i>1</i>( ) [ ] .</span><span><i>2</i>-- ++ !</span><span><i>3</i>* / %</span><span><i>4</i>+ -</span><span><i>5</i>&gt; &gt;= &lt; &lt;=</span><span><i>6</i>== !=</span><span><i>7</i>&amp;&amp;</span><span><i>8</i>||</span><span><i>9</i>?:</span><span><i>10</i>= += -= *= /= %=</span>
+</div>
+<p class="tb">⚠ Relacionales (5) antes que igualdad (6); <code>&amp;&amp;</code> (7) antes que <code>||</code> (8); asignación la última.</p>
+<p class="pb"><span class="p">✎ Ejercicios del tema resueltos por mí (Java):</span><br>
+<code>a=20,b=10,c=0,e=40</code>: a+b=<b>30</b> · a-b=<b>10</b> · <code>"x + y = "+x+y</code> → <b>x + y = ThankYou</b> (concatena de izquierda a derecha) · a*b=<b>200</b> · a/b=<b>2</b> · a%b=<b>0</b> · <code>c=++a</code> → <b>21</b> · <code>c=b++</code> → <b>10</b> (b queda 11) · <code>c=--e</code> → <b>39</b><br>
+<code>!condition</code> (true) → <b>false</b> · Ternario anidado a=20,b=10,c=30 → a&gt;b sí → a&gt;c no → <b>30</b><br>
+Bits a=5 (0101), b=7 (0111): &amp; <b>5</b> · | <b>7</b> · ^ <b>2</b> · ~a <b>-6</b> · a&lt;&lt;2 <b>20</b> · a&gt;&gt;2 <b>1</b><br>
+Asignación: a+=1, b-=1, e*=2, f/=2 (a=20,b=10,e=10,f=4) → <b>21, 9, 20, 2</b> · a&amp;=b (5, 7) → <b>5</b></p>
+</section>
+
+<section>
+<h2>4 Instrucciones condicionales</h2>
+<table>
+<tr><td><code class="k">if</code></td><td>Decisión más simple: ejecuta el bloque si la condición (booleana) es true.</td></tr>
+<tr><td><code class="k">if-else</code></td><td>Bloque alternativo si la condición es false.</td></tr>
+<tr><td>if anidado (nested-if)</td><td><code class="k">if</code> dentro de otro <code class="k">if</code> o <code class="k">else</code>; cadena <code class="k">else if</code>.</td></tr>
+<tr><td><code class="k">switch-case</code></td><td>Bifurcación de <b>múltiples vías (selección múltiple)</b> según el valor de la expresión; <code class="k">break</code> por caso; <code class="k">default</code> si no coincide ninguno.</td></tr>
+</table>
+<pre><span class="k">switch</span> (<span class="v">expr</span>) { <span class="k">case</span> <span class="s">valor1</span>: <span class="v">decl1</span>; <span class="k">break</span>; … <span class="k">default</span>: <span class="v">declDefault</span>; }</pre>
+<p class="tb">⚠ <b>Sin llaves</b>, el <code>if</code> solo incluye la <b>instrucción inmediatamente siguiente</b>: en <code>if(c) decl1; decl2;</code> decl2 se ejecuta siempre.</p>
+<p class="pb"><span class="p">✎ Ejemplo del tema: <code>i=9</code> → no casa con 0, 1, 2 → <code>default</code>: «i es mayor que 2.»</span></p>
+</section>
+
+<section>
+<h2>5 Bucles y recursividad</h2>
+<p><span class="d">Bucle</span>: ejecuta un conjunto de instrucciones repetidamente mientras la condición sea verdadera.</p>
+<table>
+<tr><th>Bucle</th><th>Clave</th><th>Mín.</th></tr>
+<tr><td><code class="k">while</code></td><td>«<code>if</code> repetitivo». Comprueba <b>antes</b> = <b>control de entrada</b>. Pasos: condición → si false, fin → cuerpo → volver.</td><td class="n">0</td></tr>
+<tr><td><code class="k">for</code></td><td>Inicialización, condición e incremento/decremento <b>en una línea</b> (más corto y fácil de depurar). Variable ya declarada o local al bucle. Control de entrada. Pasos: init → condición → cuerpo → incremento → condición…</td><td class="n">0</td></tr>
+<tr><td>for-each</td><td>Recorre colección o array de forma <b>secuencial sin conocer el índice</b>; <b>inflexible</b>. <code><span class="k">for</span> (<span class="y">T</span> <span class="v">e</span> <span class="o">:</span> <span class="v">coleccion</span>)</code></td><td>—</td></tr>
+<tr><td><code class="k">do-while</code></td><td>Comprueba <b>después</b> = <b>control de salida</b> (<i>Exit Control Loop</i>); primera vez sin verificar condición.</td><td class="n">1</td></tr>
+</table>
+<pre><span class="k">for</span> (<span class="v">init</span>; <span class="v">condición</span>; <span class="v">inc/dec</span>) { … }      <span class="k">do</span> { … } <span class="k">while</span> (<span class="v">condicion</span>);</pre>
+<p class="pb"><span class="p">✎ Ejercicios del tema: <code>x=2; x&lt;=4; x++</code> → <b>3</b> · <code>x=20; x&lt;=30; ++x</code> → <b>11</b> · <code>x=10; x&gt;1; --x</code> → <b>9</b> · <code>i=5; i!=0; i-=2</code> → 5, 3, 1, -1… <b>nunca vale 0 → bucle infinito</b> ⚠. «¿Mínimo de un while?» → <b>0</b>.</span></p>
+<p><span class="d">Recursividad</span>: definir el problema en base a su propia definición. Subproblemas de la <b>misma naturaleza y menor tamaño</b> → técnica <b>divide y vencerás</b>. Obligatorio un <b>caso base o de parada</b> (solución inmediata).</p>
+<pre><span class="y">int</span> <span class="v">facR</span>(<span class="y">int</span> <span class="v">n</span>){ <span class="k">if</span>(<span class="v">n</span><span class="o">==</span><span class="s">0</span>) <span class="k">return</span> <span class="s">1</span>; <span class="k">return</span> <span class="v">facR</span>(<span class="v">n</span><span class="o">-</span><span class="s">1</span>)<span class="o">*</span><span class="v">n</span>; }
+<span class="y">int</span> <span class="v">potencia</span>(<span class="y">int</span> <span class="v">x</span>,<span class="y">int</span> <span class="v">n</span>){ <span class="k">if</span>(<span class="v">n</span><span class="o">==</span><span class="s">0</span>) <span class="k">return</span> <span class="s">1</span>; <span class="k">else return</span> <span class="v">x</span><span class="o">*</span><span class="v">potencia</span>(<span class="v">x</span>,<span class="v">n</span><span class="o">-</span><span class="s">1</span>); }</pre>
+<p>Otros ejemplos del tema: <span class="l">facI</span> (factorial iterativo con <code>for</code>), <span class="l">cuentaNodos</span> (árbol binario: 1 + nodos izq + nodos dcha).<br><b>Inconvenientes</b>: más lenta que la iterativa (sobrecarga de llamadas) · demasiadas llamadas → <b>desbordamiento de pila (stack overflow)</b>.</p>
+</section>
+
+<section>
+<h2>6 Procedimientos, funciones y parámetros</h2>
+<p>Bloques de código <b>reutilizables</b> invocados mediante expresiones. Conjunto = <b>rutinas o subrutinas</b>. <span class="d">Argumento o parámetro</span>: entrada al invocar (ej. <code><span class="v">Sqrt</span>(<span class="v">x</span>)</code>). En algunos lenguajes los parámetros pueden ser de entrada, <b>salida</b> o <b>entrada/salida</b>.</p>
+<table>
+<tr><th></th><th>Función</th><th>Procedimiento</th></tr>
+<tr><td>Valor</td><td>Devuelve un valor</td><td>No devuelve valor; realiza una acción (puede «devolver» por parámetro de salida o E/S)</td></tr>
+<tr><td>Uso</td><td>Su nombre aparece <b>dentro de una expresión</b></td><td>Aparece como <b>instrucción independiente</b></td></tr>
+<tr><td>Sintaxis</td><td><code><span class="y">TipoDatoDev</span> <span class="v">nombreFuncion</span>(<span class="y">TipoDato1</span> <span class="v">p1</span>, …)</code></td><td><code><span class="y">void</span> <span class="v">nombreProcedimiento</span>(<span class="y">TipoDato1</span> <span class="v">p1</span>, …)</code></td></tr>
+</table>
+<table class="plain">
+<tr><td><b>Formales</b></td><td>Los de la <b>definición</b>: <code><span class="y">int</span> <span class="v">calculaDato</span>(<span class="y">int</span> <span class="v">x</span>, <span class="y">int</span> <span class="v">y</span>)</code></td></tr>
+<tr><td><b>Actuales</b></td><td>Valores concretos al <b>invocar</b>: <code><span class="v">valor</span> <span class="o">=</span> <span class="v">calculaDato</span>(<span class="s">50</span>, <span class="s">70</span>)</code></td></tr>
+<tr><td><b>Ámbito</b></td><td>Porción de código en que la variable es <b>visible</b>. <b>Global</b>: fuera de toda subrutina; ámbito = todo el código posterior a su declaración. <b>Local</b>: dentro de la subrutina; código posterior a su declaración dentro del cuerpo. <b>Parámetros</b>: ámbito = cuerpo de la subrutina.</td></tr>
+<tr><td><b>Por valor</b></td><td>El formal recibe una <b>copia</b> → imposible alterar la variable real.</td></tr>
+<tr><td><b>Por referencia</b></td><td>El formal recibe la <b>dirección de memoria</b> → puede alterar la variable real.</td></tr>
+<tr><td><code class="k">return</code></td><td>Regresa explícitamente de un método (control vuelve al llamador); en funciones, devuelve el resultado.</td></tr>
+</table>
+<p class="pb"><span class="p">✎ Ejercicios del tema: (a) <code>t=true; println("Antes de return."); if(t) return; println("Salida.");</code> → se ejecutan 4 instrucciones (declaración, println, if, return); «Salida.» nunca se imprime. (b) <code>for(i=1;i&lt;=20;i+=2){int j=++i; if(j%2&gt;0) return i;}</code> → 1.ª vuelta i=2, j=2 (par); i pasa a 4; 2.ª vuelta i=5, j=5 (impar) → <b>2 iteraciones, devuelve 5</b>. (c) La misma versión <b>sin llaves</b> tiene como cuerpo solo <code>int j=++i;</code> → ver incoherencias.</span></p>
+</section>
+
+<section>
+<h2>7 Vectores y registros</h2>
+<p><span class="d">Array o vector</span>: colección de variables del <b>mismo tipo</b> referenciadas por un <b>nombre común</b>; 1 o más dimensiones (el <b>unidimensional</b> es el más común = lista de variables relacionadas). Ventajas: manipulación y ordenación fáciles. En Java <b>se implementan como objetos</b> → los no utilizados pueden ser <b>recolectados</b>.</p>
+<table>
+<tr><td>Declarar</td><td><code><span class="y">tipo</span> <span class="v">nombre</span>[];</code> o <code><span class="y">tipo</span>[] <span class="v">nombre</span>;</code> → 2 componentes: <b>tipo</b> (de los elementos; primitivo o clase) y <b>nombre</b>. Solo crea la <b>referencia</b>.</td></tr>
+<tr><td>Crear</td><td><code><span class="v">nombre</span> <span class="o">=</span> <span class="k">new</span> <span class="y">tipo</span>[<span class="v">tamaño</span>];</code> · combinado: <code><span class="y">int</span>[] <span class="v">a</span> <span class="o">=</span> <span class="k">new</span> <span class="y">int</span>[<span class="s">20</span>];</code> · 2 pasos (declarar + <code>new</code>) → <b>todos los arrays se asignan dinámicamente</b>.</td></tr>
+<tr><td>Valores iniciales</td><td><b>0</b> numéricos · <b>false</b> boolean · <b>null</b> referencias.</td></tr>
+<tr><td>Acceso</td><td>Por índice: de <b class="n">0</b> a <b class="n">tamaño − 1</b>; recorrido con <code><span class="k">for</span>(<span class="y">int</span> <span class="v">i</span><span class="o">=</span><span class="s">0</span>; <span class="v">i</span><span class="o">&lt;</span><span class="v">arr</span>.<span class="v">length</span>; <span class="v">i</span><span class="o">++</span>)</code></td></tr>
+<tr><td>Multidimensional</td><td>Matrices = <b>arrays de arrays</b>; un <code>[]</code> por dimensión: <code><span class="y">int</span>[][] <span class="v">m</span> <span class="o">=</span> <span class="k">new</span> <span class="y">int</span>[<span class="s">10</span>][<span class="s">20</span>];</code> (2D) · <code><span class="k">new</span> <span class="y">int</span>[<span class="s">10</span>][<span class="s">20</span>][<span class="s">10</span>]</code> (3D)</td></tr>
+<tr><td>Registros</td><td>El tema se remite a temas anteriores (sin contenido aquí).</td></tr>
+</table>
+</section>
+
+<section>
+<h2>8 Estructura de un programa</h2>
+<table>
+<tr><td>Entrada de datos</td><td>Suministra los datos necesarios: usuario, periférico, BBDD u otras fuentes, otras aplicaciones, sensores…</td></tr>
+<tr><td>Procesamiento</td><td>El <b>corazón</b> del programa: el código que procesa los datos (incluidos los de entrada).</td></tr>
+<tr><td>Salida de datos</td><td>Resultado guardado en BBDD, enviado a periférico de salida, a un actuador, a otro programa o mostrado por pantalla.</td></tr>
+</table>
+<p class="tb">⚠ Tres tríadas parecidas: algoritmo (Entrada · Proceso · Salida) · programa en 1.1 (Entrada · Acciones del algoritmo · Salida) · apartado 8 (Entrada · Procesamiento · Salida).</p>
+</section>
+
+<section class="inc">
+<h2>Incoherencias del material</h2>
+<ol>
+<li><b>Procedimiento «n = {0, 2, … n}»</b> (tema, 1.1): omite el 1; error evidente → n = {0, 1, 2, … n}. El repaso solo dice «n entradas y n salidas».</li>
+<li><b>Java</b>: la tabla de lenguajes del tema lo marca «Compilado»; el apartado (4) Traducción y el repaso lo dan como <b>mixto</b> (bytecode + máquina virtual). Si preguntan por tipo de traducción: <b>mixto</b>.</li>
+<li><b>Conversión implícita</b> (tema y repaso): el esquema <code>double ← float</code> · <code>long ← int ← short ← byte</code> es incompleto para Java. La especificación define 19 ampliaciones, entre ellas long → float/double, int → float/double y char → int/long/float/double (JLS §5.1.2, docs.oracle.com/javase/specs). Para el examen, el esquema del tema; no descartar opciones que incluyan esas otras.</li>
+<li><b>boolean = 8 bits</b>: así lo dan tema y repaso. <span class="p">✎ Aviso propio no verificado con búsqueda: la especificación de Java no fija el tamaño de boolean.</span> Para el examen, 8 bits.</li>
+<li><b>Ejercicio <code>for</code> sin llaves</b> (tema, p. de return): en Java no compila (una declaración no puede ser el cuerpo único del bucle y <code>j</code> queda fuera de ámbito en el <code>if</code>). Si se ignora eso: 7 iteraciones (i = 1, 4, 7, 10, 13, 16, 19) y el <code>if</code> final ve j = 20 (par) → no retorna. El material no da la solución.</li>
+<li><b>Lisp «débilmente tipado»</b> (tema, tipado y cálculo lambda): <span class="p">✎ discutible; Lisp se suele describir como dinámico y fuerte.</span> Para el examen, manda el tema.</li>
+<li><b>Ejemplo de asignación</b>: redeclara <code>int a, b</code> en el mismo fragmento (no compilaría junto); tratar como dos ejemplos separados.</li>
+<li><b>Erratas menores</b>: F# «Compilador» → Compilado; Etoys y J# sin tipo; «Objetive-C»; repaso nivel 10 de precedencia «*= = %=» (falta <code>/=</code>); el tema cita 14 criterios de clasificación y desarrolla 6 (el repaso dice «6 criterios»).</li>
+</ol>
+</section>
+
+</main>
+
+<!-- TAI Estudio: barra inyectada por build.py -->
+<script type="application/json" id="tai-barra-datos">{"codigo": "B3T3", "nombre": "Lenguajes programación", "indice": "../index.html#tema-B3T3", "anterior": {"codigo": "B3T2", "nombre": "Diseño BD", "href": "b3t2.html"}, "siguiente": {"codigo": "B3T4", "nombre": "SQL", "href": "b3t4.html"}, "temaManual": true, "ficha": [[["B1T1", 1], ["B1T2", 1], ["B1T3", 1], ["B1T4", 1], ["B1T5", 1], ["B1T6", 0], ["B1T7", 0], ["B1T8", 0], ["B1T9", 0], ["B1T10", 0], ["B1T11", 0]], [["B2T1", 1], ["B2T2", 1], ["B2T3", 0], ["B2T4", 1], ["B2T5", 1]], [["B3T1", 1], ["B3T2", 1], ["B3T3", 1], ["B3T4", 1], ["B3T5", 1], ["B3T6", 0], ["B3T7", 0], ["B3T8", 0], ["B3T9", 0], ["B3T10", 0]], [["B4T1", 0], ["B4T2", 0], ["B4T3", 0], ["B4T4", 0], ["B4T5", 0], ["B4T6", 0], ["B4T7", 0], ["B4T8", 0], ["B4T9", 0], ["B4T10", 0]]], "base": "../assets/"}</script>
+<tai-barra></tai-barra>
+<script src="../assets/barra.js"></script>
+</body>
+</html>

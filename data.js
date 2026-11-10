@@ -37,9 +37,9 @@ window.TAI_DATA = {
     {
      "codigo": "B1T5",
      "nombre": "TREBEP",
-     "disponible": false,
-     "href": null,
-     "epigrafe": null
+     "disponible": true,
+     "href": "temas/b1t5.html",
+     "epigrafe": "TREBEP y demás normativa de aplicación"
     },
     {
      "codigo": "B1T6",
@@ -92,16 +92,16 @@ window.TAI_DATA = {
     {
      "codigo": "B2T1",
      "nombre": "Informática básica",
-     "disponible": false,
-     "href": null,
-     "epigrafe": null
+     "disponible": true,
+     "href": "temas/b2t1.html",
+     "epigrafe": "Informática básica"
     },
     {
      "codigo": "B2T2",
      "nombre": "Periféricos",
-     "disponible": false,
-     "href": null,
-     "epigrafe": null
+     "disponible": true,
+     "href": "temas/b2t2.html",
+     "epigrafe": "Periféricos"
     },
     {
      "codigo": "B2T3",
@@ -147,9 +147,9 @@ window.TAI_DATA = {
     {
      "codigo": "B3T3",
      "nombre": "Lenguajes programación",
-     "disponible": false,
-     "href": null,
-     "epigrafe": null
+     "disponible": true,
+     "href": "temas/b3t3.html",
+     "epigrafe": "Lenguajes de programación"
     },
     {
      "codigo": "B3T4",
@@ -161,9 +161,9 @@ window.TAI_DATA = {
     {
      "codigo": "B3T5",
      "nombre": "POO",
-     "disponible": false,
-     "href": null,
-     "epigrafe": null
+     "disponible": true,
+     "href": "temas/b3t5.html",
+     "epigrafe": "Programación orientada a objetos"
     },
     {
      "codigo": "B3T6",

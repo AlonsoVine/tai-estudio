@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TAI - B3T5 Programación Orientada a Objetos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#fbfbf9; --fg:#1c1f24; --mute:#5d636c; --rule:#cfd3d8; --head:#eef0f3; --sec:#23303f;
+  --d:#1d4ed8; --d-bg:#e8eefc;
+  --n:#b45309; --n-bg:#fdf1e2;
+  --s:#7c3aed; --s-bg:#f1eafd;
+  --r:#15803d; --r-bg:#e6f4ea;
+  --t:#b91c1c; --t-bg:#fde8e8;
+  --e:#0e7490; --e-bg:#e3f3f6;
+  --x:#334155; --x-bg:#eceff3;
+  --m:#6b7280;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#16181c; --fg:#e4e6ea; --mute:#9aa1ab; --rule:#3a3f47; --head:#22262c; --sec:#c9d6e6;
+    --d:#7da2ff; --d-bg:#1d2740;
+    --n:#f0a35a; --n-bg:#33261a;
+    --s:#b99bff; --s-bg:#2a2240;
+    --r:#5fcf86; --r-bg:#18301f;
+    --t:#ff7b7b; --t-bg:#3a1c1c;
+    --e:#5cc8de; --e-bg:#14303a;
+    --x:#c3ccd8; --x-bg:#262b33;
+    --m:#9aa1ab;
+  }
+}
+:root[data-theme="dark"]{
+    color-scheme: dark;
+    --bg:#16181c; --fg:#e4e6ea; --mute:#9aa1ab; --rule:#3a3f47; --head:#22262c; --sec:#c9d6e6;
+    --d:#7da2ff; --d-bg:#1d2740;
+    --n:#f0a35a; --n-bg:#33261a;
+    --s:#b99bff; --s-bg:#2a2240;
+    --r:#5fcf86; --r-bg:#18301f;
+    --t:#ff7b7b; --t-bg:#3a1c1c;
+    --e:#5cc8de; --e-bg:#14303a;
+    --x:#c3ccd8; --x-bg:#262b33;
+    --m:#9aa1ab;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font-family:"IBM Plex Sans Condensed","Arial Narrow","Roboto Condensed",Arial,sans-serif;
+  font-size:13.5px;line-height:1.32}
+.wrap{max-width:1280px;margin:0 auto;padding:14px 16px 30px}
+header{border-bottom:2px solid var(--sec);padding-bottom:4px;margin-bottom:6px}
+h1{font-size:1.55em;margin:0;line-height:1.1;color:var(--sec)}
+.sub{color:var(--mute);font-size:.86em;margin-top:2px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 6px;margin:6px 0 6px;font-size:.82em}
+.chip{padding:0 6px;border-radius:3px;white-space:nowrap}
+.cols{columns:2;column-gap:16px;column-rule:1px solid var(--rule)}
+@media (max-width:860px){.cols{columns:1}}
+section{margin:0 0 6px}
+h2{font-size:1.05em;margin:6px 0 3px;padding:1px 5px;background:var(--sec);color:var(--bg);break-after:avoid;border-radius:2px}
+h3{font-size:.95em;margin:5px 0 2px;color:var(--sec);break-after:avoid;border-bottom:1px solid var(--rule)}
+p{margin:2px 0}
+ul{margin:1px 0 3px;padding-left:13px}
+li{margin:0}
+table{width:100%;border-collapse:collapse;margin:2px 0 4px;font-size:.93em}
+th,td{border:1px solid var(--rule);padding:1px 3px;vertical-align:top;text-align:left}
+th{background:var(--head);font-weight:600}
+tr{break-inside:avoid}
+td:first-child{white-space:normal}
+.map{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:4px 0 6px;font-size:.82em;column-span:all}
+.map div{border:1px solid var(--rule);border-top:3px solid var(--sec);padding:2px 4px;border-radius:2px;background:var(--head)}
+.map b{display:block;color:var(--sec)}
+@media (max-width:860px){.map{grid-template-columns:repeat(2,1fr)}}
+/* tipos de información */
+.d{color:var(--d);font-weight:600}
+.n{color:var(--n);font-weight:600}
+.s{color:var(--s);font-weight:600}
+.r{color:var(--r);font-weight:600}
+.t{color:var(--t);font-weight:600}
+.e{color:var(--e);font-style:italic}
+code,.x{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:var(--x-bg);color:var(--x);padding:0 2px;border-radius:2px}
+.m{color:var(--m);font-style:italic}
+.m::before{content:"ⓘ ";font-style:normal}
+.chip.d{background:var(--d-bg)} .chip.n{background:var(--n-bg)} .chip.s{background:var(--s-bg)}
+.chip.r{background:var(--r-bg)} .chip.t{background:var(--t-bg)} .chip.e{background:var(--e-bg);font-style:normal}
+.chip.x{font-size:1em} .chip.m{background:var(--head)}
+.warn{background:var(--t-bg);border-left:3px solid var(--t);padding:2px 5px;margin:3px 0;break-inside:avoid}
+.box{border:1.5px solid var(--t);border-radius:3px;padding:3px 6px;margin-top:8px;column-span:all;break-inside:avoid}
+.box h2{background:var(--t)}
+.box ol{margin:2px 0;padding-left:16px;columns:2;column-gap:12px;font-size:.82em}
+.box li{break-inside:avoid}
+.box li{margin-bottom:1px}
+.small{font-size:.88em}
+.k{font-weight:700}
+.pt{font-size:.86em}
+.vi tr{break-inside:auto}
+.pt .small{font-size:1em}
+@page{size:A4;margin:9mm}
+@media print{
+  :root,:root[data-theme="dark"]{color-scheme:light;
+    --bg:#fff; --fg:#111; --mute:#555; --rule:#bbb; --head:#eef0f3; --sec:#23303f;
+    --d:#1d4ed8; --d-bg:#e8eefc; --n:#b45309; --n-bg:#fdf1e2; --s:#7c3aed; --s-bg:#f1eafd;
+    --r:#15803d; --r-bg:#e6f4ea; --t:#b91c1c; --t-bg:#fde8e8; --e:#0e7490; --e-bg:#e3f3f6;
+    --x:#334155; --x-bg:#eceff3; --m:#6b7280; padding:0}
+  body{font-size:8.4pt;line-height:1.12;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  th,td{padding:0 2px}
+  table{margin:1px 0 3px}
+  section{margin:0 0 3px}
+  h3{margin:3px 0 1px}
+  .legend{margin:3px 0}
+  .map{margin:2px 0 4px}
+  .wrap{max-width:none;padding:0}
+  .cols{columns:2;column-gap:4mm}
+  .map{grid-template-columns:repeat(6,1fr)}
+  h2{margin:3px 0 2px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>TAI – B3T5 · Programación orientada a objetos</h1>
+<div class="sub">Diseño y programación OO. Elementos y componentes software: objetos, clases, herencia, métodos, sobrecarga. Ventajas e inconvenientes. Patrones de diseño y UML.</div>
+</header>
+
+<div class="legend">
+<span class="chip d">Definición</span><span class="chip n">Cifra / fecha</span><span class="chip s">Autor / organismo</span><span class="chip r">Norma / versión</span><span class="chip t">⚠ Trampa / excepción</span><span class="chip e">Ejemplo del tema</span><span class="chip x">notación UML</span><span class="chip m">explicación propia (no es temario)</span><span class="chip">* = ver «Incoherencias del material»</span>
+</div>
+
+<div class="map">
+<div><b>1 · POO</b>5 fases · 5 características</div>
+<div><b>2 · Principios</b>SOLID · DRY · IoC · YAGNI · KISS · LoD</div>
+<div><b>3 · Elementos</b>clase, objeto, método, atributo, mensaje, herencia, composición, polimorfismo, sobrecarga</div>
+<div><b>4 · Ventajas / inconv.</b>bajo acoplamiento + alta cohesión</div>
+<div><b>5 · Patrones</b>GoF: 6 creac.* · 7 estruct. · 11 comport. · GRASP 9</div>
+<div><b>6 · UML</b>13 diagramas*: 6 estructura (estática) + 7 comportamiento (dinámica)</div>
+</div>
+
+<div class="cols">
+
+<section>
+<h2>1. Diseño y programación orientada a objetos</h2>
+<p class="k">Fases del desarrollo OO (5, en orden):</p>
+<table>
+<tr><td class="k">1 Especificación</td><td><span class="d">qué</span> va a hacer el programa: funcionalidad, casos de uso.</td></tr>
+<tr><td class="k">2 Diseño</td><td>qué <b>clases</b>, qué <b>comportamiento</b> (operaciones) y cómo se <b>relacionan</b>. Uso frecuente de diagramas.</td></tr>
+<tr><td class="k">3 Codificación</td><td>(= implementación). Principios: <span class="d">Claridad</span> (reglas de estilo, nombrado, indentación, documentación) y <span class="d">Eficiencia</span> (mínimos recursos: memoria y tiempo de CPU).</td></tr>
+<tr><td class="k">4 Prueba</td><td>compilar y ejecutar vs especificación; si falla → volver atrás. Diseñar/codificar pruebas <b>a la vez</b> que el programa; máximo nº de casos; de menor a mayor: operación → clase completa → integración de clases.</td></tr>
+<tr><td class="k">5 Mantenimiento</td><td>nuevos errores, cambios/ampliaciones ⇒ programa claro, legible y <b>modular</b> (quien mantiene no suele ser quien programó).</td></tr>
+</table>
+<p class="k">Características de la POO:</p>
+<table>
+<tr><td class="k">Abstracción</td><td>características esenciales de un objeto; captura su comportamiento.</td></tr>
+<tr><td class="k">Encapsulamiento</td><td>reunir todos los elementos de una misma entidad → <b>↑ cohesión</b>.</td></tr>
+<tr><td class="k">Ocultación</td><td>estructura interna oculta (a usuario y a otros objetos); acceso solo mediante métodos → interfaz con el exterior.</td></tr>
+<tr><td class="k">Polimorfismo</td><td>comportamientos distintos con el mismo nombre; se ejecuta el del tipo <b>real</b> del objeto. En ejecución = <span class="d">asignación tardía / dinámica</span>; algunos lenguajes: estático (compilación).</td></tr>
+<tr><td class="k">Herencia</td><td>una clase asume como propios los atributos y métodos de otra. Hereda: <span class="d">subclase / clase derivada</span>; transmite: <span class="d">superclase / clase base</span>.</td></tr>
+</table>
+<div class="warn"><span class="t">⚠ Encapsulamiento ≠ ocultación</span> (el tema lo advierte): reunir en una entidad vs esconder la estructura interna.</div>
+</section>
+
+<section>
+<h2>2. Principios generales de programación</h2>
+<p><span class="k">SOLID</span>: <span class="n">5</span> principios de <span class="s">Robert C. Martin</span> para diseños comprensibles, flexibles y mantenibles; cualquier diseño OO; base de ágil / desarrollo adaptativo. Ventajas: facilita mantenimiento, ↓ complejidad al añadir funcionalidades, ↑ reusabilidad, ↑ calidad y comprensión.</p>
+<table>
+<tr><th></th><th>Principio</th><th>Idea</th></tr>
+<tr><td class="k">S</td><td>Single responsibility · Responsabilidad única</td><td>un módulo = <b>una sola razón para cambiar</b> (= responsabilidad). ↑ cohesión de lo que cambia por las mismas razones, ↓ acoplamiento de lo que cambia por distintas; limita el impacto de un cambio. <span class="e">Employee trabaja + persiste su estado → 2 clases.</span></td></tr>
+<tr><td class="k">O</td><td>Open/closed · Abierto/cerrado</td><td><b>abierto a extensión</b> (comportamiento extensible), <b>cerrado a modificación</b> (interfaz estable y bien definida). Minimiza el efecto cascada sobre clientes. Une ambos conceptos: <b>polimorfismo</b>. <span class="e">CafeteraSencilla se cierra + interfaz para extender.</span></td></tr>
+<tr><td class="k">L</td><td>Liskov substitution · Sustitución de Liskov</td><td>objetos reemplazables por instancias de sus <b>subtipos</b> sin alterar el programa; la hija se usa como el padre sin conocer diferencias → uso correcto de la herencia.</td></tr>
+<tr><td class="k">I</td><td>Interface segregation · Segregación de interfaz</td><td>muchas interfaces cliente <b>específicas</b> &gt; una general; ninguna clase debe depender de métodos que no usa (evita acoplamiento innecesario). <span class="e">Tuna con fly() → dividir Animal en 2.</span></td></tr>
+<tr><td class="k">D</td><td>Dependency inversion · Inversión de dependencia</td><td>depender de <b>abstracciones, no de implementaciones</b>; alto nivel no depende de bajo nivel: ambos de abstracciones → ↓ acoplamiento. <span class="e">ClassA→ClassC: se interpone una capa de abstracción.</span></td></tr>
+</table>
+<table>
+<tr><td class="k">DRY</td><td>Don’t Repeat Yourself, «No te repitas»: sin duplicación lógica; cada pieza de funcionalidad con identidad única, no ambigua y representativa. <span class="t">⚠ pieza = función lógica, no código.</span> <span class="e">3 métodos distintos para abrir conexión a BD ✗.</span> Ventajas: mantenibilidad, ↓ tamaño, ahorro de tiempo.</td></tr>
+<tr><td class="k">IoC</td><td>Inversion of Control: <b>delegar en un tercero</b> flujos de control (flujo de la aplicación; creación de objetos y vinculación de dependientes) → bajo acoplamiento, modularidad, testeabilidad, mantenibilidad, extensibilidad. <span class="e">Dependencias entre clases → inyecciones.</span></td></tr>
+<tr><td class="k">YAGNI</td><td>You Aren’t Gonna Need It, «No vas a necesitar eso»: no añadir funcionalidad extra <b>hasta que sea necesaria</b>.</td></tr>
+<tr><td class="k">KISS</td><td>Keep It Simple, Stupid: simplicidad, mínima complejidad para minimizar errores (efectivo y eficiente).</td></tr>
+<tr><td class="k">LoD</td><td>Ley de Demeter: un objeto no tiene por qué conocer la estructura interna de sus colaboradores. Evita <code>object.getX().getY().getZ().doSomething()</code> (alto acoplamiento). Un método solo interactúa con: métodos del <b>propio objeto</b> · <b>argumentos</b> recibidos · objetos <b>creados dentro</b> del método · <b>campos directos</b> del objeto.</td></tr>
+</table>
+</section>
+
+<section>
+<h2>3. Elementos y componentes software</h2>
+<table>
+<tr><th></th><th>Clase</th><th>Objeto</th></tr>
+<tr><td class="k">Qué</td><td>conjunto de métodos y datos que resumen las características comunes de sus objetos; «plantilla» para instanciar; ≈ <b>tipo de datos</b></td><td>módulo con datos + instrucciones que los manipulan; cada objeto de una clase = <span class="d">instancia</span></td></tr>
+<tr><td class="k">Existe en</td><td><span class="t">tiempo de compilación</span></td><td><span class="t">tiempo de ejecución</span></td></tr>
+<tr><td class="k">Componentes</td><td>atributos (estado; suelen <b>privados</b>) + métodos (suelen <b>públicos</b>; modifican atributos de forma controlada)</td><td><b>estado</b> (datos) · <b>comportamiento</b> (métodos/mensajes a los que responde) · <b>identidad</b> (lo diferencia del resto)</td></tr>
+</table>
+<p><span class="d">Clase abstracta</span>: ≥ 1 método declarado sin implementar → <b>no instanciable</b>; declara lo común que no se puede concretar a ese nivel. <span class="e">obtener_area() se declara en Figura y se define en Elipse, Circunferencia, Rectángulo.</span></p>
+<p><span class="k">Métodos</span>: procedimientos compartidos que manipulan los datos; solo se invocan con el <b>mensaje adecuado</b> y actúan solo sobre los datos de ese objeto (no de otros de su clase). <span class="d">Interfaz de la clase</span> = métodos que soporta + mensajes que trata.</p>
+<ul class="small">
+<li><b>Constructor</b>: crea e inicializa atributos; puede haber varios; <span class="t">⚠ sin tipo de retorno</span>.</li>
+<li><b>Destructor</b>: invocación implícita; según el lenguaje no hace falta definirlo. · <b>Getter</b>: devuelve valor · <b>Setter</b>: modifica valor.</li>
+</ul>
+<p><span class="k">Atributos</span>: propiedades que definen el estado; tipo básico o clase. Acceso: <code>+</code> público (cualquier clase) · <code>−</code> privado (solo métodos de su clase) · <code>#</code> protegido (clase + hijas).</p>
+<p><span class="k">Mensajes</span>: solicitud a un objeto para que se comporte de cierta forma. Contiene: <b>objeto destino + operación + (a veces) parámetros</b>. <span class="d">Protocolo del objeto</span> = conjunto de mensajes a los que responde.</p>
+<p><span class="k">Herencia</span> (relación <b>«es-un»</b>): la subclase adquiere las propiedades de la superclase y añade las suyas; comparte automáticamente métodos y datos; ↓ repetición (principal ventaja OO).</p>
+<ul class="small">
+<li>De <b>implementación</b>: hereda la implementación (reescribir el método heredado = <span class="d">redefinición</span>) · de <b>interfaz</b>: solo la interfaz, no la implementación · de <b>clase</b>: ambas.</li>
+<li><b>Simple</b>: 1 superclase (<span class="e">Java</span>) · <b>Múltiple</b>: varias (<span class="e">C++</span>) → <span class="t">ambigüedad / colisiones por métodos con la misma signatura</span>.</li>
+</ul>
+<p><span class="k">Composición</span>: clases complejas agregando objetos de clases existentes; relación <b>«tiene-un»</b>; reutiliza código.</p>
+<p><span class="k">Polimorfismo</span>: el mismo mensaje origina conductas distintas según el objeto receptor; <b>consecuencia de la herencia</b>; requiere <b>enlace dinámico</b> (método correcto en ejecución). <span class="e">área() abstracto en Figura → Grupo, Círculo, Polígono.</span></p>
+<table>
+<tr><th></th><th>Sobrecarga</th><th>Sobreescritura (@Override)</th></tr>
+<tr><td class="k">Qué</td><td>métodos nuevos con mismo nombre y distinta signatura <b>en la misma clase</b></td><td>redefinir en la <b>clase hija</b> un método heredado (oculta el del padre)</td></tr>
+<tr><td class="k">Herencia</td><td><span class="t">no implica</span></td><td><span class="t">sí implica</span></td></tr>
+</table>
+<p><span class="d">Signatura</span> = nombre + <b>nº y tipo</b> de argumentos. <span class="t">⚠ El tipo de retorno NO forma parte → no distingue métodos.</span> <span class="e">Punto3D: constructor sobrecargado 3 veces; el lenguaje elige por signatura.</span> Sobrecarga de <b>operadores</b> (=, +, −…): <span class="e">C++</span>.</p>
+</section>
+
+<section>
+<h2>4. Ventajas e inconvenientes de la OO</h2>
+<table class="vi">
+<tr><td><b class="r">✓ Ventajas</b>
+<ul>
+<li><b>Reusabilidad</b> de código y diseños → ↑ productividad; sistemas más pequeños.</li>
+<li><b>Interoperabilidad</b>: aísla dependencias de plataforma.</li>
+<li><b>Mantenimiento y extensibilidad</b>.</li>
+<li>Modelos similares al mundo real; diseño/análisis más natural que el estructurado.</li>
+<li>Sistemas complejos y preparados al cambio; válido para apps pequeñas y grandes.</li>
+<li>Encapsulación y modularidad → <b>bajo acoplamiento + alta cohesión</b>.</li>
+</ul></td><td><b class="t">✗ Inconvenientes</b>
+<ul>
+<li>No evita malos análisis, diseños o programas.</li>
+<li>Equipo con preparación específica (paradigma, lenguaje, herramientas).</li>
+<li>Mayor <b>curva de aprendizaje</b> (librerías, herramientas, técnicas de IS).</li>
+<li>Lenguajes OO <b>puros poco eficientes</b> (hardware potente); <b>híbridos</b> (<span class="e">C++</span>) más eficientes pero pueden comprometer los principios OO.</li>
+<li>Reusabilidad comprometida sin calidad de componentes: externa (funcionalidad) e interna (cómo se programan), en todo el ciclo de vida.</li>
+</ul></td></tr>
+</table>
+<p><span class="d">Acoplamiento</span>: medida <b>externa</b>, interdependencia entre módulos → <b>bajo</b>. <span class="d">Cohesión</span>: medida <b>interna</b>, relación entre elementos de un módulo → <b>alta</b> (tarea concreta y sencilla).</p>
+</section>
+
+<section>
+<h2>5. Patrones de diseño</h2>
+<p><span class="d">Patrón de diseño</span>: solución a un problema de diseño cuya efectividad está comprobada por haberse usado en problemas similares. Según <span class="s">GoF (Gang of Four)</span>: soluciones simples y elegantes a problemas específicos del diseño OO. Característica fundamental: <b>reusables</b>. Pretenden: catálogos de elementos reusables · evitar reiterar la búsqueda de soluciones · vocabulario común · estandarizar el diseño y facilitar el aprendizaje.</p>
+<table>
+<tr><th>Familia GoF</th><th>Qué tratan</th></tr>
+<tr><td class="k">Creacionales <span class="n">(6*)</span></td><td>cómo crear objetos aislando los detalles de creación → el código no depende de los tipos ni cambia al añadir uno nuevo.</td></tr>
+<tr><td class="k">Estructurales <span class="n">(7)</span></td><td>cómo se conectan y combinan objetos en estructuras mayores; conexiones estables ante cambios.</td></tr>
+<tr><td class="k">Comportamiento <span class="n">(11)</span></td><td>acciones y llamadas entre objetos; encapsulan procesos: interpretar un lenguaje, completar una petición, recorrer una secuencia, implementar un algoritmo.</td></tr>
+</table>
+
+<h3>Creacionales</h3>
+<table class="pt">
+<colgroup><col style="width:19%"><col><col style="width:30%"></colgroup><tr><th>Patrón</th><th>Qué hace</th><th>Participantes</th></tr>
+<tr><td class="k">Abstract Factory<br><span class="small">Factoría abstracta</span></td><td>interfaz para crear <b>familias</b> de objetos relacionados/dependientes sin especificar clases concretas. <span class="e">IU multiplataforma (Windows, Linux, + Mac).</span></td><td>Cliente, FactoríaAbstracta (crearProductoA/B), FactoríaConcreta (= una familia), ProductoAbstracto, ProductoConcreto</td></tr>
+<tr><td class="k">Builder<br><span class="small">Constructor</span></td><td>objetos complejos <b>paso a paso</b> desde un objeto fuente; algoritmo independiente de las partes y su ensamblaje; distintas representaciones. <span class="e">Lector/conversor de textos.</span></td><td>Constructor, ConstructorConcreto, <b>Director</b>, Producto</td></tr>
+<tr><td class="k">Factory Method<br><span class="small">Factoría</span></td><td>centraliza en una clase constructora la creación de un <b>subtipo</b>, ocultando cómo se elige; <b>las subclases deciden</b> qué instanciar. <span class="e">Framework de documentos.</span></td><td>Producto, ProductoConcreto, Creador (declara el método factoría), CreadorConcreto (lo sobrescribe)</td></tr>
+<tr><td class="k">Prototype<br><span class="small">Prototipo</span></td><td>nuevos objetos <b>clonando</b> una instancia previa (copia exacta, mismo estado); instancias en ejecución, ↓ nº de clases, estados limitados.</td><td>Prototipo (interfaz clonar), PrototipoConcreto, Cliente</td></tr>
+<tr><td class="k">Singleton<br><span class="small">Instancia única</span></td><td>garantiza <b>una sola instancia</b> + punto de acceso global; restringe la creación. <span class="e">Pool de impresión; sistemas concurrentes.</span></td><td>Singleton: <code>getInstance()</code> (operación de clase), responsable de crear la instancia</td></tr>
+<tr><td class="k">MVC*<br><span class="small">Modelo-Vista-Controlador</span></td><td>separa datos, IU y lógica de negocio; habitual en web. <b>Modelo</b>: datos + lógica de negocio + persistencia · <b>Vista</b>: IU · <b>Controlador</b>: intermediario (flujo y transformaciones).</td><td><span class="t">⚠ ver incoherencias</span></td></tr>
+</table>
+
+<h3>Estructurales</h3>
+<table class="pt">
+<colgroup><col style="width:19%"><col><col style="width:30%"></colgroup><tr><th>Patrón</th><th>Qué hace</th><th>Participantes</th></tr>
+<tr><td class="k">Adapter / Wrapper<br><span class="small">Adaptador / Envoltorio</span></td><td><b>convierte la interfaz</b> de una clase en la que espera el cliente → incompatibles colaboran; componentes de caja negra. Clase adaptadora (hereda) u objeto adaptador (contiene).</td><td>Target, Cliente, Adaptee, Adapter</td></tr>
+<tr><td class="k">Bridge<br><span class="small">Puente</span></td><td><b>desacopla abstracción de implementación</b> → varían independientemente; implementación elegible en ejecución; cambios sin recompilar clientes.</td><td>Abstracción (ref. a Implementador), AbstracciónRefinada, Implementador (op. primitivas), ImplementadorConcreto</td></tr>
+<tr><td class="k">Composite<br><span class="small">Objeto compuesto</span></td><td>composición recursiva en <b>árbol</b>, jerarquías <b>todo-parte</b>; trata igual simples y compuestos. <span class="e">Gráfico → Figura / GrupoDeImágenes.</span></td><td>Componente, Hoja (sin hijos), Composite (con hijos), Cliente</td></tr>
+<tr><td class="k">Decorator<br><span class="small">Decorador</span></td><td><b>añade responsabilidades dinámicamente</b> a un objeto concreto (no a la clase) sin subclases; otorgables/revocables. <span class="e">Marcos y barras de desplazamiento en GUI.</span></td><td>Componente, ComponenteConcreto, Decorador (ref. al componente), DecoradorConcreto</td></tr>
+<tr><td class="k">Facade<br><span class="small">Fachada</span></td><td><b>interfaz unificada y sencilla</b> a un subsistema complejo; desacopla; entrada a cada nivel.</td><td>Fachada (delega), Módulos</td></tr>
+<tr><td class="k">Flyweight<br><span class="small">Peso ligero</span></td><td>reduce redundancia con <b>muchos objetos con información idéntica</b>; estado compartido; equilibrio flexibilidad/rendimiento.</td><td>PesoLigero, PesoLigeroConcreto (compartible, indep. de contexto), PLConcretoNoCompartido, FactoríaPesoLigero, Cliente</td></tr>
+<tr><td class="k">Proxy</td><td><b>sustituto/representante</b> que controla el acceso a otro objeto: retrasa la instanciación <span class="e">(imágenes de un documento)</span>, representante local de objeto remoto, cerrojo en concurrencia.</td><td>Sujeto (interfaz común), SujetoReal, Proxy</td></tr>
+</table>
+
+<h3>De comportamiento</h3>
+<table class="pt">
+<colgroup><col style="width:19%"><col><col style="width:30%"></colgroup><tr><th>Patrón</th><th>Qué hace</th><th>Participantes</th></tr>
+<tr><td class="k">Chain of Responsibility<br><span class="small">Cadena de resp.</span></td><td>la petición del emisor recorre una <b>cadena de receptores</b>; responde quien cumpla el criterio; manejador no conocido a priori. <span class="e">Ayuda contextual.</span></td><td>Cliente, Manejador, ManejadorConcreto (procesa o pasa)</td></tr>
+<tr><td class="k">Command<br><span class="small">Comando</span></td><td><b>encapsula la petición como objeto</b>; sin conocer contenido ni receptor; colas, registro, <b>deshacer</b>.</td><td>Comando (<code>do</code>/<code>undo</code>), ComandoConcreto, Cliente, Invocador, Receptor</td></tr>
+<tr><td class="k">Interpreter<br><span class="small">Intérprete</span></td><td>representación de la <b>gramática</b> + intérprete; <span class="e">expresiones regulares</span>; gramáticas simples (si no, parsers); eficiencia no prioritaria.</td><td>ExpresiónAbstracta, ExpresiónTerminal, ExpresiónNoTerminal (1 por regla), Cliente (árbol sintáctico), Contexto</td></tr>
+<tr><td class="k">Iterator<br><span class="small">Iterador</span></td><td><b>acceso secuencial</b> a una colección sin exponer su estructura; varios recorridos (simultáneos).</td><td>Agregado, AgregadoConcreto, Iterador, IteradorConcreto (posición actual)</td></tr>
+<tr><td class="k">Mediator<br><span class="small">Mediador</span></td><td>objeto que <b>encapsula cómo interactúan</b> un conjunto de objetos; evita referencias explícitas → bajo acoplamiento.</td><td>Mediador, MediadorConcreto, Colega, ColegaConcreto</td></tr>
+<tr><td class="k">Memento<br><span class="small">Recuerdo</span></td><td><b>guarda el estado interno</b> (todo o parte) para restaurarlo sin romper el encapsulamiento.</td><td>Memento (2 interfaces), Originador, Aplicación (lo custodia sin operar)</td></tr>
+<tr><td class="k">Observer<br><span class="small">Observador</span></td><td>dependencia <b>1-a-N</b>: cambia el sujeto → se notifica a los dependientes; desacopla y evita bucles de actualización.</td><td>Sujeto (alta/baja de observadores), SujetoConcreto, Observador, ObservadorConcreto</td></tr>
+<tr><td class="k">State<br><span class="small">Estado</span></td><td>el comportamiento cambia según el <b>estado interno</b>. <span class="e">TCPConnection: Listening, Closed, Established.</span></td><td>Contexto, Estado, EstadoConcreto</td></tr>
+<tr><td class="k">Strategy<br><span class="small">Estrategia</span></td><td>familia de <b>algoritmos intercambiables</b> (incluso en ejecución); elige cliente o Contexto; sustituye condicionales.</td><td>Contexto, Estrategia, EstrategiaConcreta</td></tr>
+<tr><td class="k">Template Method<br><span class="small">Método plantilla</span></td><td><b>esqueleto del algoritmo en la superclase</b>; los pasos variables, en subclases.</td><td>ClaseAbstracta, ClaseConcreta</td></tr>
+<tr><td class="k">Visitor<br><span class="small">Visitante</span></td><td><b>nuevas operaciones</b> sobre una jerarquía <b>sin modificar sus clases</b> (clases estables, operaciones cambiantes). <span class="e">Compiladores.</span></td><td>Visitor, VisitorConcreto, Elemento (<code>acepta(Visitor)</code>), ElementoConcreto, EstructuraObjeto</td></tr>
+</table>
+<div class="warn"><span class="t">⚠ Parejas confusas</span> <span class="m">agrupación propia sobre las definiciones del tema:</span> Abstract Factory (familias) vs Factory Method (un subtipo; deciden las subclases) vs Builder (paso a paso) · Adapter (cambia la interfaz) vs Facade (simplifica un subsistema) vs Proxy (misma interfaz, controla acceso) vs Decorator (añade responsabilidades) · State (cambia por estado interno) vs Strategy (se elige el algoritmo) · Mediator (centraliza interacciones) vs Observer (notifica 1-a-N).</div>
+<p><span class="k">GRASP</span> (General Responsibility Assignment Software Patterns): <span class="n">9</span> patrones para <b>asignar responsabilidades</b> a clases y objetos (↑ modularidad y flexibilidad): Experto · Creador · Controlador · Bajo acoplamiento · Alta cohesión · Fabricación pura · Polimorfismo · Indirección · No hable con extraños*.</p>
+</section>
+
+<section>
+<h2>6. Lenguaje de Modelado Unificado (UML)</h2>
+<p><span class="d">Modelo</span>: simplificación de la realidad; planos del sistema de lo general a lo detallado; incluye solo lo relevante para el nivel de abstracción. <span class="d">UML</span>: lenguaje de <b>propósito general</b> para especificar, visualizar y documentar modelos de sistemas software (estructura y diseño). Sobre todo desarrollo OO; desde 2.0 también procesos empresariales.</p>
+<p><span class="n">Finales 80–90</span>: muchos métodos OO: <span class="s">Booch</span> (Grady Booch) · <span class="s">OMT</span> Object Modeling Technique (James Rumbaugh) · <span class="s">OOSE</span> Object-Oriented Software Engineering (Ivar Jacobson) → <span class="n">mediados 90</span> se unen en <span class="s">Rational</span> → <span class="n">oct. 1995</span> 1.er borrador → <span class="n">1997</span> <span class="r">UML 1.1</span> aprobado por la <span class="s">OMG</span> (estándar de facto A/D OO) → <span class="n">2005</span> <span class="r">UML 2.0</span> (revisión a fondo: semántica imprecisa y compleja, poca adaptabilidad) → base <span class="r">2.4.1</span>: <span class="r">ISO/IEC 19505-1:2012</span> Infraestructura y <span class="r">19505-2:2012</span> Superestructura → <span class="n">dic. 2017</span> <span class="r">UML 2.5.1</span> = actual.</p>
+<p><span class="s">OMG</span> (Object Management Group): consorcio <b>sin ánimo de lucro</b> de estándares OO: <b>UML, XMI, CORBA</b>; miembros como HP, Oracle, Microsoft.</p>
+<p><span class="k">Características</span>: estándar para los «planos» del software · gráfico: visualizar, especificar, construir y documentar · <b>extensible</b> (dominios) · de requisitos a artefactos ejecutables con técnicas OO · escalable · exhaustivo · basado en la experiencia · varias vistas, todo el ciclo de vida · <span class="t">⚠ NO es una metodología</span> (sirve para cascada, iterativo…).</p>
+<table>
+<tr><th>Estructura · vista estática (6)</th><th>Comportamiento · vista dinámica (7)</th></tr>
+<tr><td>Clases · Componentes · Objetos · Estructura compuesta · Despliegue · Paquetes</td><td>Actividad · Casos de uso · Máquina de estados · <b>Interacción (4)</b>: Secuencia, Comunicación, Global de interacción, Tiempos</td></tr>
+</table>
+
+<h3>6.1 Diagramas de estructura</h3>
+<p><span class="k">Clases</span>: aspectos estáticos (clasificación, generalización, agregación); clases + asociaciones; puede incluir paquetes. <span class="t">⚠ No muestra información temporal</span> (para eso: máquina de estados). Clases ≈ <b>sustantivos</b> de requisitos y CU (no hay procedimiento inmediato). <span class="d">Estereotipo</span> = meta-clasificación de un elemento; estereotipos de clase: objetos <b>entidad</b>, <b>límite o interfaz</b>, <b>control</b>. Clase abstracta: no instanciable directamente, sí en sus descendientes; depósito de métodos/atributos heredables.</p>
+<table class="pt">
+<colgroup><col style="width:15%"><col style="width:45%"><col></colgroup><tr><th>Relación</th><th>Significado</th><th>Notación</th></tr>
+<tr><td class="k">Asociación</td><td>enlaces entre objetos; la más general (dependencia semántica). <span class="e">Persona «trabaja para» Empresa.</span> Rol / nombre; multiplicidad 1:1, 1:N, N:M.</td><td>línea continua; reflexiva (misma clase en ambos extremos); multiplicidad nº, rango o colección, <code>n</code> o <code>*</code> = cualquiera; <code>{ordered}</code>; navegabilidad = flecha <b>sin relleno</b>; estereotipo <code>&lt;&lt;…&gt;&gt;</code></td></tr>
+<tr><td class="k">Herencia</td><td>«es_un». Generalización: <span class="e">profesor + estudiante → persona</span>. Especialización: <span class="e">empleado → secretaria, técnico, ingeniero</span>.</td><td>línea continua + flecha <b>hueca</b> → superclase</td></tr>
+<tr><td class="k">Agregación</td><td>todo-parte, «son-parte-de». <span class="e">Motor, ruedas, carrocería → automóvil.</span></td><td>rombo <b>hueco</b> en el todo</td></tr>
+<tr><td class="k">Composición</td><td>agregación fuerte; <b>coinciden los tiempos de vida</b> del todo y las partes. <span class="e">Máquina de café–producto / depósito de monedas.</span></td><td>rombo <b>lleno</b> en el todo</td></tr>
+<tr><td class="k">Dependencia</td><td>una clase (o clase–interfaz) requiere otra para un servicio</td><td>línea <b>discontinua</b> + flecha <span class="t">⚠ sentido: ver incoherencias</span></td></tr>
+<tr><td class="k">Realización</td><td>clase que implementa una interfaz</td><td>línea continua (interfaz = círculo) · flecha hueca <b>discontinua</b> → interfaz (interfaz = caja)</td></tr>
+</table>
+<p class="small">Caja de clase en <b>3 zonas</b>: nombre centrado (<i>cursiva</i> = abstracta; estereotipo encima) / atributos / operaciones.<br>
+<code>visibilidad nombre : tipo = valor-inicial {propiedades}</code><br>
+<code>visibilidad nombre(lista-parámetros) : tipo-devuelto {propiedad}</code> · parámetro: <code>nombre : tipo = valor-por-defecto</code><br>
+<span class="d">Interfaz</span>: especificación de operaciones visibles desde otras clases/paquetes → caja con <code>&lt;&lt;Interface&gt;&gt;</code> (zona de atributos vacía u omitida) o <b>círculo</b> pequeño (sin operaciones). <span class="d">Paquete</span>: carpeta.</p>
+<table>
+<tr><td class="k">Componentes</td><td>visión <b>física</b> de la construcción: componentes, interfaces y dependencias. <span class="d">Componente</span> = módulo software (fuente, binario, ejecutable o librería) con interfaz definida. Notación: rectángulo con <b>2 rectangulitos</b> en el lado izquierdo. Interfaz = círculo unido por línea continua (<b>realización</b>): <b>requerida / importación</b> (usa servicios de otro) vs <b>proporcionada / exportación</b> (la realiza). Paquetes: subsistemas, orden de compilación, librerías.</td></tr>
+<tr><td class="k">Objetos</td><td>objetos con sus valores: <b>instantánea</b> del sistema en un momento; misma notación que clases.</td></tr>
+<tr><td class="k">Estructura compuesta</td><td>estructura <b>interna</b> de una clase (<b>caja blanca</b>) y sus puntos de interacción; complemento del de clases. <b>Parte</b> (instancia/colección en ejecución; multiplicidad: <span class="e">4 ruedas, 1–2 motores</span>), <b>Conector</b>, <b>Puerto</b> (rectángulo con nombre; agrupa interfaces: proporcionada = círculo, requerida = semicírculo), <b>Colaboración</b> (roles).</td></tr>
+<tr><td class="k">Despliegue</td><td>particiones físicas + asignación de componentes (relación sw–hw). <b>Nodo</b> = <b>cubo</b> (sin detalle de infraestructura: <span class="e">Intel sí, nº de CPU no</span>); <b>conexión</b> = línea continua (etiqueta/estereotipo de protocolo); <span class="d">artefacto</span> dentro del nodo: ejecutables, librerías, fuentes, configuración, BD.</td></tr>
+<tr><td class="k">Paquetes</td><td>organiza en subsistemas; un paquete agrupa CU, clases o componentes (anidables); extensión de los d. de CU, clases y componentes. Dependencias <span class="t">⚠ no transitivas</span>; evitar ciclos, minimizar dependencias. Carpeta, nombre en la pestaña, estereotipo encima, propiedades <code>{}</code> debajo, visibilidad <code>+ − #</code>; dependencia = flecha discontinua <b>desde el paquete dependiente</b>.</td></tr>
+</table>
+
+<h3>6.2 Diagramas de comportamiento</h3>
+<p><span class="k">Actividad</span>: variante del de estados organizada por <b>acciones</b>; flujo de actividades (procesos de negocio, análisis de un CU, workflow entre CU; pasos de un algoritmo). <span class="d">Acción</span>: atómica, duración insignificante · <span class="d">Actividad</span>: no atómica, con duración (nombre, parámetros, pre/postcondiciones). Misma representación gráfica.</p>
+<table>
+<tr><th>Transición</th><th>Función</th><th>Símbolo</th></tr>
+<tr><td>Secuencial</td><td>al acabar, sigue al siguiente estado</td><td>flecha</td></tr>
+<tr><td>Decisión</td><td>sale por un camino según condición</td><td>rombo (1 entra, n salen)</td></tr>
+<tr><td>Fusión (merge)</td><td>une varios flujos</td><td>rombo (n entran)</td></tr>
+<tr><td>Bifurcación (fork)</td><td><b>paralelismo</b>: lo siguiente es concurrente</td><td>rectángulo vertical (salen hilos)</td></tr>
+<tr><td>Unión (join)</td><td><b>sincroniza</b>: espera a todos los flujos</td><td>rectángulo vertical (llegan)</td></tr>
+</table>
+<p><span class="k">Casos de uso</span>: capturar <b>requisitos funcionales</b> desde el punto de vista del usuario y guiar el desarrollo; «caja negra» para el cliente. <span class="d">CU</span>: secuencia de acciones del sistema que produce un resultado <b>observable y valioso</b> para un usuario; puede descomponerse en un 2.º nivel; pre/postcondiciones; <span class="d">escenarios</span> = caminos posibles. <span class="d">Actor</span>: algo o alguien <b>fuera</b> del sistema que interactúa (usuarios y sistemas externos); es un <b>rol</b>: 1 actor ↔ muchos usuarios, 1 usuario ↔ varios actores.</p>
+<table class="pt">
+<colgroup><col style="width:24%"><col><col style="width:34%"></colgroup><tr><th>Relación</th><th>Uso</th><th>Flecha</th></tr>
+<tr><td>Actor–CU (comunicación)</td><td>actor interviene; uni o bidireccional (normalmente bi)</td><td>línea continua</td></tr>
+<tr><td><b>«usa» / «include»</b></td><td>comportamiento <b>COMÚN</b> extraído a un CU C (A→C, B→C)</td><td>discontinua, del CU <b>básico</b> → CU común</td></tr>
+<tr><td><b>«extiende» / «extend»</b></td><td>comportamiento <b>OPCIONAL</b>/adicional según <span class="d">punto de extensión</span></td><td>discontinua, del CU <b>adicional</b> (B) → CU básico (A)</td></tr>
+<tr><td>Generalización</td><td>entre actores o entre CU</td><td>herencia</td></tr>
+</table>
+<p class="small">Relaciones entre CU: <b>unidireccionales</b>. Notación: CU = <b>elipse</b>; actor = <b>«hombre de palo»</b> con nombre debajo; límites del sistema = rectángulo (opcional).</p>
+<p><span class="k">Máquina de estados</span> (<span class="r">UML 1.x</span>: «diagrama de <b>transición de estados</b>»): comportamiento <b>dependiente del tiempo</b>. <span class="d">Estado</span>: comportamiento observable que perdura un tiempo finito (valor de atributos). <span class="d">Transición</span>: cambio por evento + condición → acción de salida de A, de entrada a B y de la transición. Desde un estado, <span class="t">no dos transiciones con el mismo evento salvo con condición</span>.</p>
+<ul class="small">
+<li><b>Inicial</b>: <span class="t">solo uno</span>; círculo relleno; transición sin etiquetar; varias salidas solo con condiciones; <span class="t">ninguna transición hacia él</span>.</li>
+<li><b>Final</b>: círculo relleno rodeado de circunferencia; <span class="t">sin transiciones salientes</span>; puede haber <b>varios</b> (mutuamente excluyentes).</li>
+<li><span class="d">Acción</span>: instantánea, asociada a un <b>evento</b> (dentro, al entrar o al salir) · <span class="d">Actividad</span>: asociada a un <b>estado</b>, dura hasta el cambio.</li>
+<li>Estado = rectángulo de esquinas redondeadas, nombre único (repetido = mismo estado). Etiqueta: <code>nombre-evento (parámetros) [condición] /acción</code>. Subestados con sus propios inicial y final. Pseudoestados: decisión, unión, bifurcación, reunión.</li>
+</ul>
+<table>
+<tr><th></th><th>Secuencia</th><th>Comunicación</th></tr>
+<tr><td class="k">Énfasis</td><td>orden de los mensajes</td><td>vínculos entre objetos (misma información)</td></tr>
+<tr><td class="k">Tiempo</td><td>eje <b>vertical</b> (arriba → abajo); horizontal = objetos (orden irrelevante); escala en tiempo real</td><td><b>sin secuencia temporal</b>; colocación libre</td></tr>
+<tr><td class="k">Nº de secuencia</td><td>no necesario (la posición da el orden)</td><td><span class="t">⚠ siempre</span> delante del nombre</td></tr>
+<tr><td class="k">UML 1.x</td><td>—</td><td>«diagrama de <b>colaboración</b>»</td></tr>
+<tr><td class="k">Elementos</td><td><b>línea de vida</b> (vertical discontinua; nace al crearse, <b>aspa</b> al destruirse), <b>foco de control / activación</b> (rectángulo delgado), mensajes: <b>síncrono</b> (espera), <b>retorno</b> (discontinua), <b>asíncrono</b>; a sí mismo</td><td>objeto (<code>nombre:Clase</code>), <b>vínculo/enlace</b> (línea continua; navegabilidad), mensaje = flecha pequeña junto al vínculo</td></tr>
+</table>
+<p class="small">Ambos: condición <code>[expr]</code>; iteración <code>*[expr]</code>. <b>Fragmentos combinados</b> (secuencia): <code>alt</code> if-then-else · <code>opt</code> condicional · <code>break</code> secuencia alternativa en lugar del resto · <code>par</code> concurrencia · <code>loop</code> bucles.</p>
+<p><span class="k">Global de interacción</span>: vista global de secuencia, comunicación y tiempos; <b>especialización del de actividad</b> con interacciones en lugar de actividades (nodos inicio/fin, decisión, fusión, bifurcación, reunión); <b>Interacción</b> y <b>Uso de interacción</b> (referencia). <span class="k">Tiempos</span>: cambio de estado/valor de elementos en el tiempo (tiempo real); estados en eje <b>Y</b>, tiempo en eje <b>X</b>; subforma del de secuencia.</p>
+</section>
+
+<div class="box">
+<h2>Incoherencias del material</h2>
+<ol class="small">
+<li><b>Herencia múltiple</b>: repaso «p. ej. C»; tema <b>C++</b> → correcto C++ (C no es OO).</li>
+<li><b>MVC como creacional GoF</b> (tema y repaso: 6). El catálogo GoF (Gamma, Helm, Johnson, Vlissides, 1994) tiene <b>5 creacionales</b>, 23 en total; MVC es <b>arquitectónico</b>. Si te dan a elegir, MVC no es creacional GoF.</li>
+<li><b>GRASP «No hable con extraños»</b>: 1.ª ed. de Larman; desde la 2.ª (2001) se integra en <b>Variaciones protegidas</b>, 9.º GRASP actual (fuentes: reseña 2.ª ed. en JavaRanch; listados de Larman 3.ª ed.). Equivale a la Ley de Demeter.</li>
+<li><b>Nº de diagramas</b>: tema 13 (6+7); UML 2.5.1 recoge <b>14</b> (+ <b>diagrama de perfiles</b>, estructural, desde 2.2). Si siguen el temario, 13.</li>
+<li><b>Dependencia</b> (d. de clases): el tema dice «flecha apuntando a la clase cliente»; en UML va <b>del cliente (dependiente) al proveedor</b>, como el propio tema dice para paquetes.</li>
+<li><b>Clase abstracta</b>: pág. 10 «clase que no tenga instancias»; correcto (pág. 14): <b>no puede instanciarse</b>.</li>
+<li>Matices: Factory Method «ProductoConcreto <i>define</i> la interfaz» → la <b>implementa</b>; Iterator «<i>agregar</i> y recorrer» → <b>acceder</b> y recorrer; «actividad = variante del d. de estados» es de UML 1.x.</li>
+<li><b>Verificado</b>: UML 2.5.1 (dic. 2017) sigue siendo la última versión formal OMG (1.1: nov. 1997; 2.0: jul. 2005) — omg.org/spec/UML. ISO/IEC 19505-1/-2:2012 vigentes, confirmadas en 2025 — iso.org/standard/52854.</li>
+</ol>
+</div>
+
+</div>
+</div>
+</body>
+</html>
